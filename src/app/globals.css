@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------
+   Cam Velucci Photography — brand tokens
+   Warm Linen replaces white as the page background everywhere.
+   Forest anchors; Terracotta is the single bold accent, used sparingly.
+   --------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --forest: #2a3527;
+  --forest-hover: #212a1f;
+  --terracotta: #b5674e;
+  --terracotta-hover: #a2593f;
+  --terracotta-tint: #e7cdc2;
+  --warm-linen: #f0eae0;
+  --linen-deep: #e5dccd;
+  --linen-soft: #f6f2ea;
+  --straw-gold: #c9b98a;
+  --moss: #4a6046;
+  --moss-hover: #3d5039;
+  --charcoal: #2c2c2c;
+  --text-muted: #6b6b64;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest: var(--forest);
+  --color-forest-hover: var(--forest-hover);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-hover: var(--terracotta-hover);
+  --color-terracotta-tint: var(--terracotta-tint);
+  --color-linen: var(--warm-linen);
+  --color-linen-deep: var(--linen-deep);
+  --color-linen-soft: var(--linen-soft);
+  --color-straw: var(--straw-gold);
+  --color-moss: var(--moss);
+  --color-moss-hover: var(--moss-hover);
+  --color-charcoal: var(--charcoal);
+  --color-muted: var(--text-muted);
+
+  --font-display: var(--font-lora);
+  --font-sans: var(--font-jakarta);
+
+  /* Section rhythm — generous, unhurried. */
+  --spacing-section: clamp(72px, 9vw, 128px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--warm-linen);
+  color: var(--charcoal);
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings are Lora throughout — regular weight, tightly tracked. */
+h1, h2, h3, h4 {
+  font-family: var(--font-lora), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--forest);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Tracked-caps label, used for eyebrows, nav and CTAs. */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Scroll-reveal. Starts visible so no-JS and search crawlers see content. */
+.reveal {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
