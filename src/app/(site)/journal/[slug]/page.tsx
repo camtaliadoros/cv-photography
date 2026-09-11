@@ -5,7 +5,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { journalPostQuery, journalSlugsQuery } from "@/sanity/lib/queries";
 import type { JournalPost, SanityPhoto } from "@/sanity/lib/types";
 import { IntrinsicPhoto, Photo } from "@/components/Photo";
-import { Cta } from "@/components/Cta";
+import { Cta, TextLink } from "@/components/Cta";
 import { PageHero, Quote } from "@/components/sections";
 import { site } from "@/lib/site";
 
@@ -133,9 +133,7 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
 
       <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
         <div className="mx-auto flex max-w-[680px] flex-wrap items-center gap-5 border-t border-linen-deep pt-[clamp(28px,4vw,44px)]">
-          <Cta href="/journal" size="small" rule="straw">
-            All journal entries
-          </Cta>
+          <TextLink href="/journal">All journal entries</TextLink>
           <Cta href="/enquire">Enquire about a session</Cta>
         </div>
       </section>

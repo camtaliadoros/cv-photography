@@ -14,7 +14,7 @@ import type {
 } from "@/sanity/lib/types";
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
 import { Photo, IntrinsicPhoto } from "@/components/Photo";
-import { Cta } from "@/components/Cta";
+import { Cta, TextLink } from "@/components/Cta";
 import { Eyebrow, QuoteBlock, Statement } from "@/components/sections";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -106,9 +106,7 @@ export default async function HomePageRoute() {
                 </p>
               ))}
             </div>
-            <Cta href="/about" size="small">
-              Meet Cam
-            </Cta>
+            <TextLink href="/about">Meet Cam</TextLink>
           </div>
 
           {/* Two images, the first dropped down — the offset is part of the design. */}
@@ -139,9 +137,9 @@ export default async function HomePageRoute() {
                 {homeContent.sessionsHeading}
               </h2>
             </div>
-            <Cta href="/sessions" size="small" className="flex-none">
+            <TextLink href="/sessions" className="flex-none">
               All session types
-            </Cta>
+            </TextLink>
           </div>
 
           <ul className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] items-start gap-[clamp(16px,2vw,28px)]">
@@ -176,9 +174,9 @@ export default async function HomePageRoute() {
             ))}
           </ul>
 
-          <div className="mt-10 max-w-[62ch] text-charcoal/80">
-            <p>{homeContent.sessionsNote}</p>
-          </div>
+          <p className="mx-auto mt-[clamp(28px,4vw,44px)] max-w-[62ch] text-center text-muted">
+            {homeContent.sessionsNote}
+          </p>
         </div>
       </section>
 
@@ -210,9 +208,9 @@ export default async function HomePageRoute() {
             <Statement className="mt-8">
               {page?.approachPullQuote ?? homeContent.approachPullQuote}
             </Statement>
-            <Cta href="/about" size="small" className="mt-8">
+            <TextLink href="/about" className="mt-8">
               More about my approach
-            </Cta>
+            </TextLink>
           </div>
         </div>
       </section>
@@ -228,7 +226,7 @@ export default async function HomePageRoute() {
                   {homeContent.recentWorkHeading}
                 </h2>
               </div>
-              <Cta href="/portfolio" tone="onDark" size="small" className="flex-none">
+              <Cta href="/portfolio" tone="onDark" size="compact" className="flex-none">
                 See the portfolio
               </Cta>
             </div>

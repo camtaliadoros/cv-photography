@@ -13,7 +13,7 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { sessionsContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
-import { Cta } from "@/components/Cta";
+import { Cta, TextLink } from "@/components/Cta";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { Eyebrow, Label, PageHero, QuoteBlock, Statement } from "@/components/sections";
 import { site } from "@/lib/site";
@@ -124,9 +124,7 @@ export default async function SessionsPageRoute() {
             <Statement className="mt-8 mb-8">
               {page?.approachPullQuote ?? sessionsContent.approachPullQuote}
             </Statement>
-            <Cta href="/about" size="small" rule="straw">
-              More about me
-            </Cta>
+            <TextLink href="/about">More about me</TextLink>
           </div>
         </div>
       </section>

@@ -1,93 +1,81 @@
 import Link from "next/link";
 
 /**
- * The only call-to-action treatment in the design: a Lora text link sitting on
- * a hairline rule, with an arrow alongside. There are no filled buttons
- * anywhere in the approved prototype — not even for "Send enquiry" — so this
- * covers every CTA on the site.
+ * The design has two link treatments, and they are not interchangeable.
  *
- * `onDark` carries linen text over a straw-gold rule; `onLight` carries forest
- * text over a terracotta rule.
+ * `TextLink` — a quiet inline link at a fixed 19px, ruled in straw gold on any
+ * background, with no arrow. Used for secondary moves: "Meet Cam",
+ * "All session types", "All journal entries".
+ *
+ * `Cta` — the primary call to action, larger, with a trailing arrow, ruled in
+ * straw gold on dark grounds and terracotta on light ones.
+ *
+ * Neither is ever a filled button; the prototype has none.
  */
 const base =
-  "font-display inline-flex items-center gap-3 pb-1.5 leading-snug border-b-[1.5px] transition-colors duration-200 cursor-pointer";
+  "font-display inline-flex items-center leading-snug border-b-[1.5px] transition-colors duration-200 cursor-pointer";
+
+const sizes = {
+  default: "text-[clamp(19px,2vw,22px)] gap-3 pb-1.5",
+  /** A shade smaller, as on the home page's "See the portfolio". */
+  compact: "text-[clamp(18px,1.9vw,21px)] gap-3 pb-1.5",
+} as const;
 
 const tones = {
-  onLight: "text-forest hover:text-terracotta",
-  onDark: "text-linen hover:text-straw",
+  onLight: "text-forest border-terracotta hover:text-terracotta",
+  onDark: "text-linen border-straw hover:text-straw",
 } as const;
 
 type Tone = keyof typeof tones;
+type Size = keyof typeof sizes;
 
-/** Most links rule in the accent; a few on light backgrounds rule in straw. */
-const rules = {
-  terracotta: "border-terracotta",
-  straw: "border-straw",
-} as const;
+interface Common {
+  children: React.ReactNode;
+  className?: string;
+}
 
-type Rule = keyof typeof rules;
+interface LinkProps extends Common {
+  href: string;
+  external?: boolean;
+}
 
-/** Primary CTAs sit a touch larger than inline links. */
-const sizes = {
-  default: "text-[clamp(19px,2vw,22px)]",
-  small: "text-[19px]",
-} as const;
-
+/** Primary call to action — trailing arrow. */
 export function Cta({
   href,
   children,
   tone = "onLight",
-  rule,
   size = "default",
   className = "",
   external,
-}: {
-  href: string;
-  children: React.ReactNode;
-  tone?: Tone;
-  rule?: Rule;
-  size?: keyof typeof sizes;
-  className?: string;
-  external?: boolean;
-}) {
-  const ruleClass = rules[rule ?? (tone === "onDark" ? "straw" : "terracotta")];
-  const classes = `${base} ${tones[tone]} ${ruleClass} ${sizes[size]} ${className}`;
-  const arrow = <Arrow />;
+}: LinkProps & { tone?: Tone; size?: Size }) {
+  const classes = `${base} ${tones[tone]} ${sizes[size]} ${className}`;
+  return wrap(href, external, classes, <>{children}<Arrow /></>);
+}
 
-  if (external) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
-        {children}
-        {arrow}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={href} className={classes}>
-      {children}
-      {arrow}
-    </Link>
-  );
+/** Secondary inline link — no arrow, straw rule whatever it sits on. */
+export function TextLink({
+  href,
+  children,
+  tone = "onLight",
+  className = "",
+  external,
+}: LinkProps & { tone?: Tone }) {
+  const colour = tone === "onDark" ? "text-linen" : "text-forest";
+  const classes = `${base} ${colour} border-straw gap-2.5 pb-[5px] text-[19px] hover:text-terracotta ${className}`;
+  return wrap(href, external, classes, children);
 }
 
 export function CtaButton({
   children,
   tone = "onLight",
-  rule,
   size = "default",
   className = "",
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  tone?: Tone;
-  rule?: Rule;
-  size?: keyof typeof sizes;
-}) {
-  const ruleClass = rules[rule ?? (tone === "onDark" ? "straw" : "terracotta")];
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { tone?: Tone; size?: Size }) {
   return (
     <button
       {...props}
-      className={`${base} ${tones[tone]} ${ruleClass} ${sizes[size]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+      className={`${base} ${tones[tone]} ${sizes[size]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
     >
       {children}
       <Arrow />
@@ -95,9 +83,30 @@ export function CtaButton({
   );
 }
 
+function wrap(
+  href: string,
+  external: boolean | undefined,
+  classes: string,
+  content: React.ReactNode,
+) {
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+        {content}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={classes}>
+      {content}
+    </Link>
+  );
+}
+
+/** The arrow is set in the sans face, not the Lora of the label beside it. */
 function Arrow() {
   return (
-    <span aria-hidden className="text-[0.85em] leading-none">
+    <span aria-hidden className="font-sans text-[15px] leading-none font-extrabold">
       &rarr;
     </span>
   );
