@@ -217,9 +217,9 @@ export default async function HomePageRoute() {
 
       {/* ---------- Recent work ---------- */}
       {featured && featured.length > 0 && (
-        <section className="bg-forest px-(--gutter) py-(--section)">
-          <div className="mx-auto max-w-[1200px]">
-            <div className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-6">
+        <section className="bg-forest py-[clamp(72px,10vw,120px)]">
+          <div className="mx-auto max-w-[1200px] px-(--gutter)">
+            <div className="mb-[clamp(28px,4vw,44px)] flex flex-wrap items-end justify-between gap-5">
               <div className="min-w-0">
                 <Eyebrow tone="straw">{homeContent.recentWorkEyebrow}</Eyebrow>
                 <h2 className="mt-4 text-linen text-[clamp(26px,3.2vw,43px)]">
@@ -231,44 +231,70 @@ export default async function HomePageRoute() {
               </Cta>
             </div>
 
-            <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {featured.slice(0, 8).map((item) => (
-                <li key={item._id}>
+            {/*
+              Two rows with weighted widths rather than an even grid — the
+              second frame on the top row runs wide, the bottom row splits
+              evenly. The ratios come straight from the design.
+            */}
+            <div className="mb-4 flex flex-wrap gap-4">
+              {featured.slice(0, 2).map((item, i) => (
+                <div
+                  key={item._id}
+                  className="min-w-[180px]"
+                  style={{ flex: `${i === 1 ? 1.5 : 0.667} 1 0` }}
+                >
                   <a href="/portfolio" className="group block overflow-hidden">
                     <IntrinsicPhoto
                       photo={item.image}
-                      sizes="(max-width: 768px) 50vw, 280px"
+                      sizes="(max-width: 768px) 100vw, 600px"
                       className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
                     />
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              {featured.slice(2, 5).map((item) => (
+                <div key={item._id} className="min-w-[180px] flex-[0.667_1_0]">
+                  <a href="/portfolio" className="group block overflow-hidden">
+                    <IntrinsicPhoto
+                      photo={item.image}
+                      sizes="(max-width: 768px) 100vw, 380px"
+                      className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
+                    />
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
       {/* ---------- Closing ---------- */}
-      <section className="relative overflow-hidden bg-forest">
-        {page?.closingImage?.asset && (
-          <>
-            <Photo photo={page.closingImage} sizes="100vw" alt="" className="object-cover opacity-45" />
-            <div aria-hidden className="absolute inset-0 bg-forest/55" />
-          </>
-        )}
-        <div className="relative mx-auto max-w-[820px] px-(--gutter) py-(--section) text-center">
-          <Eyebrow tone="straw">Let&rsquo;s do this</Eyebrow>
-          <h2 className="mt-6 text-linen text-[clamp(28px,3.6vw,47px)]">
-            {page?.closingHeading ?? homeContent.closingHeading}
-          </h2>
-          <p className="mx-auto mt-6 max-w-[54ch] text-linen/80">
-            {page?.closingBody ?? homeContent.closingBody}
-          </p>
-          <div className="mt-10 flex justify-center">
+      <section className="relative overflow-hidden bg-moss">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-center gap-[clamp(32px,5vw,72px)] px-(--gutter) py-[clamp(72px,10vw,128px)]">
+          <div className="min-w-0">
+            <Eyebrow tone="straw">Let&rsquo;s do this</Eyebrow>
+            <h2 className="mt-5 mb-6 text-linen text-[clamp(28px,3.6vw,47px)] leading-[1.08]">
+              {page?.closingHeading ?? homeContent.closingHeading}
+            </h2>
+            <p className="mb-[34px] max-w-[46ch] text-linen/[.88]">
+              {page?.closingBody ?? homeContent.closingBody}
+            </p>
             <Cta href="/enquire" tone="onDark">
               Enquire about a session
             </Cta>
           </div>
+
+          {page?.closingImage?.asset && (
+            <div className="min-w-0">
+              <IntrinsicPhoto
+                photo={page.closingImage}
+                sizes="(max-width: 768px) 100vw, 560px"
+              />
+            </div>
+          )}
         </div>
       </section>
     </>
