@@ -43,46 +43,57 @@
   --spacing-section: clamp(72px, 9vw, 128px);
 }
 
-html {
-  scroll-behavior: smooth;
+/*
+ * These element defaults must sit in @layer base. Unlayered CSS outranks every
+ * layered rule in the cascade, so leaving them bare would let `h1 { color }`
+ * beat a `text-linen` utility and paint forest headings onto forest heroes.
+ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--warm-linen);
+    color: var(--charcoal);
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings are Lora throughout — regular weight, tightly tracked. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-lora), Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    color: var(--forest);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--terracotta);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 }
 
-body {
-  background: var(--warm-linen);
-  color: var(--charcoal);
-  font-family: var(--font-jakarta), system-ui, sans-serif;
-  font-size: 17px;
-  line-height: 1.7;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Headings are Lora throughout — regular weight, tightly tracked. */
-h1, h2, h3, h4 {
-  font-family: var(--font-lora), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.12;
-  color: var(--forest);
-  text-wrap: balance;
-}
-
-p {
-  text-wrap: pretty;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-:focus-visible {
-  outline: 2px solid var(--terracotta);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
+@layer components {
 /* Tracked-caps label, used for eyebrows, nav and CTAs. */
 .eyebrow {
   font-size: 12px;
@@ -96,14 +107,20 @@ a {
 .reveal {
   opacity: 1;
 }
+}
 
-@media (prefers-reduced-motion: no-preference) {
-  .js .reveal {
+/*
+ * Only hide content in browsers that can reveal it again. `scripting: enabled`
+ * does this in CSS, so there's no class-setting script to desync hydration —
+ * and where the feature is unsupported, content simply stays visible.
+ */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 700ms ease, transform 700ms ease;
   }
-  .js .reveal.is-visible {
+  .reveal.is-visible {
     opacity: 1;
     transform: none;
   }

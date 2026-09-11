@@ -65,17 +65,6 @@ export default function RootLayout({
 
   return (
     <html lang="en-GB" className={`${lora.variable} ${jakarta.variable}`}>
-      <head>
-        {/*
-          Marks the document as JS-capable before first paint, so reveal
-          animations only hide content for browsers that can un-hide it.
-        */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js')`,
-          }}
-        />
-      </head>
       <body>
         <a
           href="#main"
