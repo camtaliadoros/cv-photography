@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Next.js generated route types
 /.next-types
+
+# Local design reference, never deployed
+/public/_design
