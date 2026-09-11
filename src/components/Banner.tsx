@@ -29,7 +29,7 @@ export function Banner({ text, href }: { text: string; href: string }) {
   };
 
   return (
-    <div className="relative z-50 bg-terracotta">
+    <div data-announcement className="relative z-50 bg-terracotta">
       <div className="flex items-center justify-center px-12 py-3">
         <Link href={href} className="text-center text-xs font-extrabold tracking-[0.2em] text-linen uppercase hover:text-forest">
           {text}

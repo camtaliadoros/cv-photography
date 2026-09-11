@@ -19,16 +19,32 @@ export function Header({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [top, setTop] = useState(0);
 
-  // The home hero is full-height, so the nav sits over it until you scroll.
+  // The home hero is full-height, so the nav sits over it rather than above it.
   const overHero = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // The announcement banner scrolls away; while it's still on screen the
+    // fixed header rides below it, then pins to the top once it's gone.
+    const bannerHeight =
+      document.querySelector<HTMLElement>("[data-announcement]")?.offsetHeight ?? 0;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      if (overHero) {
+        setTop((current) => {
+          const next = Math.max(0, bannerHeight - y);
+          return next === current ? current : next;
+        });
+      }
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [overHero]);
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -43,9 +59,12 @@ export function Header({ items }: { items: NavItem[] }) {
 
   return (
     <header
+      style={overHero ? { top } : undefined}
       className={[
-        "top-0 right-0 left-0 z-40 transition-colors duration-300",
-        overHero ? "absolute" : "sticky",
+        "right-0 left-0 z-40 transition-colors duration-300",
+        // Fixed on the home page so the nav stays with you while the
+        // full-height hero scrolls past underneath it.
+        overHero ? "fixed" : "sticky top-0",
         transparent
           ? "bg-[linear-gradient(180deg,rgba(42,53,39,.72)_0%,rgba(42,53,39,.4)_52%,rgba(42,53,39,0)_100%)] pb-14"
           : "border-b border-linen-deep bg-linen/85 backdrop-blur-lg",
