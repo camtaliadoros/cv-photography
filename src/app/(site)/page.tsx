@@ -128,7 +128,7 @@ export default async function HomePageRoute() {
       </section>
 
       {/* ---------- Session types ---------- */}
-      <section className="bg-linen-soft px-(--gutter) py-(--section)">
+      <section className="bg-linen-soft px-(--gutter) py-[clamp(64px,9vw,112px)]">
         <div className="mx-auto max-w-[1200px]">
           <div className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-6">
             <div className="min-w-0">
@@ -183,7 +183,7 @@ export default async function HomePageRoute() {
       <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} variant="home" />
 
       {/* ---------- Approach ---------- */}
-      <section className="px-(--gutter) py-(--section-lg)">
+      <section className="px-(--gutter) py-[clamp(72px,11vw,132px)]">
         <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(32px,5vw,80px)]">
           {page?.approachImage?.asset && (
             <div className="min-w-0 lg:order-1">

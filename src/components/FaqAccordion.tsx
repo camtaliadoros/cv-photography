@@ -21,7 +21,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 aria-controls={`faq-${item._id}`}
                 className="flex w-full items-center justify-between gap-6 py-[22px] text-left"
               >
-                <span className="font-display text-[clamp(18px,2vw,22px)] leading-snug text-forest">
+                <span className="font-display text-[clamp(18px,2vw,22px)] leading-[1.35] text-forest">
                   {item.question}
                 </span>
                 <span

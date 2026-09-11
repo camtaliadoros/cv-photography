@@ -60,14 +60,14 @@ const FAQS = [
       "That's exactly who this is for. I won't direct your every move, but I'll never leave you wondering what to do with your hands. Most of the session is you being with each other, and me noticing it.",
   },
   {
-    question: "Where do sessions take place?",
+    question: "What if my toddler won't cooperate?",
     answer:
-      "At home, in the woods, or wherever your family feels most yourselves. Hertfordshire and London are home ground — I'm always happy to travel further, and a travel fee applies.",
+      "Then we have a session full of real toddler, which is usually the best kind. The mischief and the meltdowns are part of the story — I'm not trying to photograph around them.",
   },
   {
-    question: "How long until I see my photos?",
+    question: "What if it rains, or someone's poorly?",
     answer:
-      "Your private online gallery arrives within two weeks, with your favourite five images hand-edited and ready to download.",
+      "No stress at all. We simply find a new date. Life with a family is unpredictable, and I plan around that, not against it.",
   },
   {
     question: "What should we wear?",
@@ -75,14 +75,49 @@ const FAQS = [
       "Whatever you're comfortable in. Soft, warm tones photograph beautifully, but don't buy anything new — I'd far rather you looked like yourselves.",
   },
   {
-    question: "What if my toddler won't cooperate?",
+    question: "Do I need to tidy the house before an in-home session?",
     answer:
-      "Then we have a session full of real toddler, which is usually the best kind. The mischief and the meltdowns are part of the story — I'm not trying to photograph around them.",
+      "A lived-in home is exactly what makes these photos feel like you. Just clear a little space to move around in, and tuck away anything that adds mess rather than character.",
+  },
+  {
+    question: "Where do sessions take place?",
+    answer:
+      "At home, in the woods, or wherever your family feels most yourselves. Hertfordshire and London are home ground — I'm always happy to travel further, and a travel fee applies.",
+  },
+  {
+    question: "Can I see a full gallery, not just the highlights?",
+    answer:
+      "Of course. Just ask, and I'll share a full set from a real session so you can see exactly what to expect.",
+  },
+  {
+    question: "Do we get the raw, unedited images?",
+    answer:
+      "No. Every image you receive has been through my own hand-editing process, so you get a consistent, polished set.",
+  },
+  {
+    question: "How long until I see my photos?",
+    answer:
+      "Your private online gallery arrives within two weeks, with your favourite five images hand-edited and ready to download.",
   },
   {
     question: "How do I book?",
     answer:
       "Send me an enquiry and I'll reply within two days. A non-refundable £50 booking fee secures your date and comes off your balance, with the rest due a week before your session.",
+  },
+  {
+    question: "Newborn: how soon after birth should we book?",
+    answer:
+      "These are relaxed, lifestyle sessions rather than posed studio ones, so there is a lot more flexibility, but up to 4 weeks old is ideal. Book before your little one arrives and I will save you a space against your due date.",
+  },
+  {
+    question: "Newborn: do you come to us?",
+    answer:
+      "Yes. Newborn sessions usually work best in-home, in your little bubble of love.",
+  },
+  {
+    question: "Newborn: what if the baby won't settle?",
+    answer:
+      "Completely normal, and I plan the whole session around your baby's rhythm, not the other way round.",
   },
 ];
 

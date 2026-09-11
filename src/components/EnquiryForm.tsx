@@ -4,13 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { Cta, CtaButton } from "./Cta";
 import { Label } from "./sections";
+import { fieldClass as field, fieldLabelClass as labelClass } from "./field";
 
 const HEARD_ABOUT = ["Instagram", "A friend", "Google", "Somewhere else"];
 
-const field =
-  "w-full rounded-[10px] border-[1.5px] border-forest/25 bg-transparent px-4 py-3.5 text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none";
-const labelClass =
-  "mb-2 block text-xs font-extrabold tracking-[0.18em] text-forest uppercase";
 
 export function EnquiryForm() {
   const [state, setState] = useState<"idle" | "sending" | "error">("idle");
@@ -104,7 +101,12 @@ export function EnquiryForm() {
           <label className={labelClass} htmlFor="heardAbout">
             How did you hear about me
           </label>
-          <select id="heardAbout" name="heardAbout" defaultValue="" className={field}>
+          <select
+            id="heardAbout"
+            name="heardAbout"
+            defaultValue=""
+            className={`${field} appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%3E%3Cpath%20d%3D%22M1%201.5%206%206.5%2011%201.5%22%20fill%3D%22none%22%20stroke%3D%22%232a3527%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[position:right_16px_center] bg-no-repeat pr-10`}
+          >
             <option value="">Choose one</option>
             {HEARD_ABOUT.map((o) => (
               <option key={o}>{o}</option>
@@ -121,7 +123,7 @@ export function EnquiryForm() {
           id="message"
           name="message"
           required
-          rows={6}
+          rows={5}
           placeholder="Who's who, what you love doing together, and what feels right for you."
           className={field}
         />
@@ -142,13 +144,27 @@ export function EnquiryForm() {
       </p>
 
       <div className="mt-6 border-t border-linen-deep pt-[22px]">
-        <label className="flex cursor-pointer items-start gap-3">
-          <input
-            type="checkbox"
-            name="newsletter"
-            className="mt-1 h-4 w-4 shrink-0 accent-[var(--terracotta)]"
-          />
-          <span className="text-xs font-extrabold tracking-[0.18em] text-forest uppercase">
+        {/* The design draws its own 20px box, so the native control is hidden
+            rather than tinted — `peer` drives the checked and focus states. */}
+        <label className="inline-flex cursor-pointer items-start gap-2.5">
+          <input type="checkbox" name="newsletter" className="peer sr-only" />
+          <span
+            aria-hidden
+            className="mt-px flex h-5 w-5 flex-none items-center justify-center rounded-[3px] border-[1.5px] border-forest bg-linen-raised text-linen transition-colors peer-checked:bg-forest peer-checked:[&>svg]:opacity-100 peer-focus-visible:border-moss peer-focus-visible:ring-2 peer-focus-visible:ring-moss/40"
+          >
+            <svg
+              viewBox="0 0 12 10"
+              className="h-2.5 w-3 opacity-0 transition-opacity"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M1 5.2 4.4 8.6 11 1.8" />
+            </svg>
+          </span>
+          <span className="font-field text-[15px] leading-[1.5] font-light text-charcoal">
             Mailing list (optional)
           </span>
         </label>

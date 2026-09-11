@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CtaButton } from "./Cta";
+import { fieldClass, fieldLabelClass } from "./field";
 
 type State = "idle" | "sending" | "done" | "error";
 
@@ -64,7 +65,7 @@ export function NewsletterForm({
         <div className={stacked ? "min-w-0" : "min-w-0 flex-[1_1_220px]"}>
           <label
             htmlFor={`nl-email-${source}`}
-            className="mb-2 block text-xs font-extrabold tracking-[0.18em] text-forest uppercase"
+            className={fieldLabelClass}
           >
             Email
           </label>
@@ -77,7 +78,7 @@ export function NewsletterForm({
             placeholder="you@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-[10px] border-[1.5px] border-forest/25 bg-transparent px-4 py-3.5 text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none"
+            className={fieldClass}
           />
         </div>
         <CtaButton

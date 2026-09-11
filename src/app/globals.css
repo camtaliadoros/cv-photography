@@ -14,6 +14,7 @@
   --warm-linen: #f0eae0;
   --linen-deep: #e5dccd;
   --linen-soft: #f6f2ea;
+  --linen-raised: #fbf8f3;  /* form fields — the raised surface in the design */
   --straw-gold: #c9b98a;
   --moss: #4a6046;
   --moss-hover: #3d5039;
@@ -36,6 +37,7 @@
   --color-linen: var(--warm-linen);
   --color-linen-deep: var(--linen-deep);
   --color-linen-soft: var(--linen-soft);
+  --color-linen-raised: var(--linen-raised);
   --color-straw: var(--straw-gold);
   --color-moss: var(--moss);
   --color-moss-hover: var(--moss-hover);
@@ -45,6 +47,7 @@
   --font-display: var(--font-lora);
   --font-sans: var(--font-jakarta);
   --font-quote: var(--font-cormorant);
+  --font-field: var(--font-source-serif);
   --font-cormorant-stack: var(--font-cormorant), Georgia, serif;
 }
 

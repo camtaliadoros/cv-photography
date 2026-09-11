@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -17,6 +17,14 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500"],
   style: ["italic"],
   variable: "--font-cormorant",
+  display: "swap",
+});
+
+// Form fields only — the design sets its inputs in the serif, Light 300.
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["300"],
+  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -73,7 +81,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-GB" className={`${lora.variable} ${jakarta.variable} ${cormorant.variable}`}>
+    <html lang="en-GB" className={`${lora.variable} ${jakarta.variable} ${cormorant.variable} ${sourceSerif.variable}`}>
       <body>
         <a
           href="#main"

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The design prototype's own runtime — served locally, never deployed.
+    "public/_design/**",
   ]),
 ]);
 
