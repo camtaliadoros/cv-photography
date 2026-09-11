@@ -44,6 +44,7 @@ export interface HomePage {
   approachBody?: string[];
   approachPullQuote?: string;
   approachImage?: SanityPhoto;
+  testimonialImage?: SanityPhoto;
   closingHeading?: string;
   closingBody?: string;
   closingImage?: SanityPhoto;
@@ -136,6 +137,8 @@ export interface Testimonial {
   _id: string;
   quote?: string;
   name?: string;
+  /** Written by an earlier version of the schema; still read when present. */
+  clientName?: string;
 }
 
 export interface FaqItem {

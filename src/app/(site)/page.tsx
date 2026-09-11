@@ -180,7 +180,7 @@ export default async function HomePageRoute() {
         </div>
       </section>
 
-      <QuoteBlock testimonial={testimonial} />
+      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} variant="home" />
 
       {/* ---------- Approach ---------- */}
       <section className="px-(--gutter) py-(--section-lg)">

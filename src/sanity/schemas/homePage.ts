@@ -37,6 +37,7 @@ export default defineType({
     }),
     defineField({ name: "approachPullQuote", title: "Pull quote", type: "string", group: "approach" }),
     photo("approachImage", "Approach photograph"),
+    photo("testimonialImage", "Testimonial backdrop photograph"),
     defineField({ name: "closingHeading", title: "Heading", type: "string", group: "closing" }),
     defineField({ name: "closingBody", title: "Body", type: "text", rows: 3, group: "closing" }),
     photo("closingImage", "Closing photograph"),

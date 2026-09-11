@@ -13,6 +13,7 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   introEyebrow, introHeading, introBody,
   introImage${PHOTO}, introImageSecondary${PHOTO},
   approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
+  testimonialImage${PHOTO},
   closingHeading, closingBody, closingImage${PHOTO},
   seoTitle, seoDescription
 }`;
@@ -54,7 +55,7 @@ export const featuredImagesQuery = groq`*[_type == "portfolioImage" && featured 
 }`;
 
 export const testimonialsQuery = groq`*[_type == "testimonial"] | order(order asc){
-  _id, quote, name
+  _id, quote, name, clientName
 }`;
 
 export const faqsQuery = groq`*[_type == "faqItem"] | order(order asc){

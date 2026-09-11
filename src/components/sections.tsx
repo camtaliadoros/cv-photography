@@ -111,25 +111,43 @@ export function PageHero({
 export function QuoteBlock({
   testimonial,
   image,
+  variant = "inner",
 }: {
   testimonial: Testimonial;
   image?: SanityPhoto;
+  /** The home page runs this taller and on a slightly tighter measure. */
+  variant?: "home" | "inner";
 }) {
   if (!testimonial?.quote) return null;
+
+  // Earlier versions of the schema stored the name as `clientName`; read both
+  // so a document written against the old shape still credits the person.
+  const name = testimonial.name ?? testimonial.clientName;
+
   return (
-    <section className="relative flex min-h-[clamp(380px,54vh,560px)] items-center overflow-hidden bg-forest">
+    <section
+      className={`relative flex items-center overflow-hidden bg-forest ${
+        variant === "home"
+          ? "min-h-[clamp(420px,62vh,660px)]"
+          : "min-h-[clamp(380px,54vh,560px)]"
+      }`}
+    >
       {image?.asset ? <Photo photo={image} sizes="100vw" alt="" /> : null}
       <div
         aria-hidden
         className="absolute inset-0 bg-[linear-gradient(90deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
       />
       <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) py-(--section)">
-        <blockquote className="max-w-[24ch] font-quote text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic">
+        <blockquote
+          className={`font-quote text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
+            variant === "home" ? "max-w-[22ch]" : "max-w-[24ch]"
+          }`}
+        >
           &ldquo;{testimonial.quote}&rdquo;
         </blockquote>
-        {testimonial.name && (
-          <cite className="mt-5 block text-xs font-extrabold tracking-[0.18em] text-straw uppercase not-italic">
-            {testimonial.name}
+        {name && (
+          <cite className="mt-[26px] block text-xs font-extrabold tracking-[0.2em] text-straw uppercase not-italic">
+            {name}
           </cite>
         )}
       </div>
