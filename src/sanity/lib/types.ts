@@ -57,7 +57,7 @@ export interface AboutPage {
   heroHeading?: string;
   story?: string[];
   storyPullQuote?: string;
-  portrait?: SanityPhoto;
+  gallery?: SanityPhoto[];
   approachHeading?: string;
   approachColumns?: Prose[];
   approachPullQuote?: string;
@@ -74,7 +74,7 @@ export interface SessionsPage {
   approachHeading?: string;
   approachBody?: string[];
   approachPullQuote?: string;
-  approachImage?: SanityPhoto;
+  testimonialImage?: SanityPhoto;
   priceHeading?: string;
   priceStandard?: string;
   priceIntro?: string;
@@ -105,6 +105,11 @@ export interface MiniSessionPage {
   priceNotes?: Prose[];
   seoTitle?: string;
   seoDescription?: string;
+}
+
+export interface EnquirePage {
+  heroImage?: SanityPhoto;
+  asideImage?: SanityPhoto;
 }
 
 export type SessionCategory = "maternity" | "newborn" | "families";

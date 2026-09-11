@@ -5,9 +5,8 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { journalPostsQuery } from "@/sanity/lib/queries";
 import type { JournalPost } from "@/sanity/lib/types";
 import { journalContent } from "@/lib/content";
-import { Photo } from "@/components/Photo";
-import { Cta } from "@/components/Cta";
-import { PageHero } from "@/components/sections";
+import { IntrinsicPhoto } from "@/components/Photo";
+import { Label, PageHero } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: journalContent.seoTitle,
@@ -28,51 +27,36 @@ export default async function JournalPage() {
         eyebrow={journalContent.heroEyebrow}
         heading={journalContent.heroHeading}
         standfirst={journalContent.heroStandfirst}
+        headingMax="16ch"
       />
 
-      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
-        <ul className="grid gap-12 md:grid-cols-3">
-          {posts.map((post, i) => (
+      <section className="px-(--gutter) pt-[clamp(48px,7vw,96px)] pb-[clamp(72px,10vw,120px)]">
+        <ul className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(24px,3vw,44px)]">
+          {posts.map((post) => (
             <li key={post._id}>
               <article>
                 <Link href={`/journal/${post.slug?.current}`} className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <Photo
-                      photo={post.coverImage}
-                      sizes="(max-width: 768px) 100vw, 380px"
-                      className="object-cover transition-transform duration-[600ms] group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <p className="mt-6 text-xs font-extrabold tracking-[0.18em] text-terracotta uppercase">
+                  <IntrinsicPhoto
+                    photo={post.coverImage}
+                    sizes="(max-width: 768px) 100vw, 380px"
+                    className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
+                  />
+                  <Label className="mt-5">
                     {post.category}
-                    {post.publishedAt && (
-                      <> &middot; {formatDate(post.publishedAt)}</>
-                    )}
-                  </p>
-                  <h2 className="mt-3 text-2xl leading-snug">{post.title}</h2>
-                  <p className="mt-3 text-sm text-charcoal/80">{post.standfirst}</p>
+                    {post.publishedAt && <> &middot; {formatDate(post.publishedAt)}</>}
+                  </Label>
+                  <h2 className="mt-2.5 text-2xl leading-[1.25]">{post.title}</h2>
+                  <p className="mt-2.5 text-base text-muted">{post.standfirst}</p>
                 </Link>
               </article>
             </li>
           ))}
         </ul>
       </section>
-
-      <section className="bg-forest px-(--gutter) py-(--section) text-center">
-        <h2 className="mx-auto max-w-[22ch] text-linen text-[clamp(26px,3.2vw,42px)]">
-          Whatever chapter you are in.
-        </h2>
-        <div className="mt-10 flex justify-center">
-          <Cta href="/enquire" tone="onDark">Enquire about a session</Cta>
-        </div>
-      </section>
     </>
   );
 }
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-GB", {
-    month: "long",
-    year: "numeric",
-  });
+  return new Date(iso).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 }

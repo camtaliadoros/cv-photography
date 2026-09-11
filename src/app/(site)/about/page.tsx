@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { aboutPageQuery, testimonialsQuery } from "@/sanity/lib/queries";
-import type { AboutPage, Testimonial } from "@/sanity/lib/types";
-import { aboutContent, defaultTestimonials } from "@/lib/content";
+import { aboutPageQuery } from "@/sanity/lib/queries";
+import type { AboutPage } from "@/sanity/lib/types";
+import { aboutContent } from "@/lib/content";
+import { IntrinsicPhoto } from "@/components/Photo";
+import { Eyebrow, PageHero, Quote, Statement } from "@/components/sections";
 import { toPlainText } from "@/lib/text";
-import { Photo } from "@/components/Photo";
-import { Cta } from "@/components/Cta";
-import { Eyebrow, PageHero, QuoteBlock, PullQuote } from "@/components/sections";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<AboutPage>(aboutPageQuery, {}, ["aboutPage"]);
@@ -18,13 +17,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPageRoute() {
-  const [page, testimonials] = await Promise.all([
-    sanityFetch<AboutPage>(aboutPageQuery, {}, ["aboutPage"]),
-    sanityFetch<Testimonial[]>(testimonialsQuery, {}, ["testimonial"]),
-  ]);
+  const page = await sanityFetch<AboutPage>(aboutPageQuery, {}, ["aboutPage"]);
 
-  const testimonial = testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
+  const story = page?.story ?? aboutContent.story;
   const columns = page?.approachColumns ?? aboutContent.approachColumns;
+  // The first paragraph doubles as the hero standfirst; the rest form the story.
+  const [standfirst, ...body] = story;
+  const gallery = page?.gallery ?? [];
 
   return (
     <>
@@ -32,67 +31,58 @@ export default async function AboutPageRoute() {
         image={page?.heroImage}
         eyebrow={page?.heroEyebrow ?? aboutContent.heroEyebrow}
         heading={page?.heroHeading ?? aboutContent.heroHeading}
+        standfirst={standfirst}
+        headingMax="14ch"
       />
 
       {/* ---------- Story ---------- */}
-      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
-        <div className="grid gap-14 lg:grid-cols-[1fr_0.85fr] lg:items-start lg:gap-24">
-          <div>
-            <div className="space-y-6 text-lg text-charcoal/85">
-              {(page?.story ?? aboutContent.story).map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-            <div className="mt-8 border-l-2 border-straw pl-6">
-              <PullQuote>
-                {page?.storyPullQuote ?? aboutContent.storyPullQuote}
-              </PullQuote>
-            </div>
-          </div>
-
-          {page?.portrait?.asset && (
-            <div className="relative aspect-[4/5] overflow-hidden lg:sticky lg:top-28">
-              <Photo photo={page.portrait} sizes="(max-width: 1024px) 100vw, 460px" />
-            </div>
-          )}
+      <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(40px,5vw,64px)]">
+        <div className="mx-auto max-w-[720px]">
+          {body.map((para, i) => (
+            <p key={i} className="mb-[22px] text-charcoal/85">
+              {para}
+            </p>
+          ))}
+          <Quote>{page?.storyPullQuote ?? aboutContent.storyPullQuote}</Quote>
         </div>
       </section>
 
-      {/* ---------- Approach ---------- */}
-      <section className="bg-linen-soft px-(--gutter) py-(--section)">
-        <div className="mx-auto max-w-[1200px]">
-          <div>
-            <Eyebrow>My approach</Eyebrow>
-            <h2 className="mt-5 text-[clamp(26px,3.2vw,42px)]">
-              {page?.approachHeading ?? aboutContent.approachHeading}
-            </h2>
-          </div>
-
-          <ul className="mt-14 grid gap-10 md:grid-cols-3">
-            {columns.map((col, i) => (
+      {/* ---------- Three photographs ---------- */}
+      {gallery.length > 0 && (
+        <section className="px-(--gutter) pb-[clamp(56px,7vw,96px)]">
+          <ul className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-[clamp(12px,1.6vw,20px)]">
+            {gallery.slice(0, 3).map((photo, i) => (
               <li key={i}>
-                <h3 className="text-xl">{col.heading}</h3>
-                <p className="mt-4 text-charcoal/85">{toPlainText(col.body)}</p>
+                <IntrinsicPhoto
+                  photo={photo}
+                  sizes="(max-width: 768px) 100vw, 380px"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* ---------- Approach ---------- */}
+      <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
+        <div className="mx-auto max-w-[1200px] rounded-[14px] border border-linen-deep bg-linen-soft p-[clamp(28px,4vw,60px)]">
+          <Eyebrow>My approach</Eyebrow>
+          <h2 className="mt-[18px] mb-[30px] text-[clamp(26px,3.2vw,42px)]">
+            {page?.approachHeading ?? aboutContent.approachHeading}
+          </h2>
+
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[clamp(24px,3vw,48px)]">
+            {columns.map((col, i) => (
+              <li key={i} className="min-w-0">
+                <h3 className="mb-3 text-[21px]">{col.heading}</h3>
+                <p className="text-base text-charcoal/85">{toPlainText(col.body)}</p>
               </li>
             ))}
           </ul>
 
-          <div className="mt-14 border-l-2 border-straw pl-6">
-            <PullQuote>
-              {page?.approachPullQuote ?? aboutContent.approachPullQuote}
-            </PullQuote>
-          </div>
-        </div>
-      </section>
-
-      <QuoteBlock testimonial={testimonial} />
-
-      <section className="px-(--gutter) py-(--section) text-center">
-        <h2 className="mx-auto max-w-[22ch] text-[clamp(26px,3.2vw,42px)]">
-          Let&rsquo;s make something real.
-        </h2>
-        <div className="mt-10 flex justify-center">
-          <Cta href="/enquire">Enquire about a session</Cta>
+          <Statement className="mt-[34px]">
+            {page?.approachPullQuote ?? aboutContent.approachPullQuote}
+          </Statement>
         </div>
       </section>
     </>

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { journalPostQuery, journalSlugsQuery } from "@/sanity/lib/queries";
 import type { JournalPost, SanityPhoto } from "@/sanity/lib/types";
-import { Photo } from "@/components/Photo";
+import { IntrinsicPhoto, Photo } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, PullQuote } from "@/components/sections";
+import { PageHero, Quote } from "@/components/sections";
 import { site } from "@/lib/site";
 
 export async function generateStaticParams() {
@@ -49,7 +48,7 @@ const components: PortableTextComponents = {
     ),
   },
   block: {
-    normal: ({ children }) => <p className="mb-6 text-charcoal/85">{children}</p>,
+    normal: ({ children }) => <p className="mb-6 text-[18px] text-charcoal/85">{children}</p>,
   },
   marks: {
     link: ({ children, value }) => (
@@ -88,16 +87,10 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
       />
 
       <article>
-        <header className="relative flex min-h-[62vh] items-end overflow-hidden bg-forest">
-          {post.coverImage?.asset && (
-            <Photo photo={post.coverImage} sizes="100vw" priority alt="" />
-          )}
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-forest/85 via-forest/55 to-forest/20"
-          />
-          <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) pt-40 pb-20">
-            <Eyebrow tone="straw">
+        <PageHero
+          image={post.coverImage}
+          eyebrow={
+            <>
               {post.category}
               {post.publishedAt && (
                 <>
@@ -109,35 +102,28 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
                   })}
                 </>
               )}
-            </Eyebrow>
-            <h1 className="mt-6 max-w-[22ch] text-linen text-[clamp(30px,4.2vw,54px)]">
-              {post.title}
-            </h1>
-          </div>
-        </header>
+            </>
+          }
+          heading={post.title ?? ""}
+          standfirst={post.standfirst}
+          headingMax="22ch"
+          narrow
+        />
 
-        <div className="mx-auto max-w-[720px] px-(--gutter) py-(--section)">
-          {post.standfirst && (
-            <p className="mb-10 text-xl text-charcoal/85">{post.standfirst}</p>
-          )}
 
+        <div className="mx-auto max-w-[680px] px-(--gutter) pt-(--section) pb-[clamp(40px,5vw,64px)]">
           {post.body && <PortableText value={post.body} components={components} />}
-
           {post.pullQuote && (
-            <div className="my-14 border-l-2 border-straw pl-6">
-              <PullQuote>{post.pullQuote}</PullQuote>
-            </div>
+            <Quote className="mt-8 text-[clamp(22px,2.6vw,32px)]">{post.pullQuote}</Quote>
           )}
         </div>
 
         {post.gallery && post.gallery.length > 0 && (
-          <section className="mx-auto max-w-[1200px] px-(--gutter) pb-(--section)">
-            <ul className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <section className="px-(--gutter) pb-[clamp(56px,7vw,88px)]">
+            <ul className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-4">
               {post.gallery.map((photo, i) => (
                 <li key={i}>
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    <Photo photo={photo} sizes="(max-width: 768px) 50vw, 380px" />
-                  </div>
+                  <IntrinsicPhoto photo={photo} sizes="(max-width: 768px) 100vw, 380px" />
                 </li>
               ))}
             </ul>
@@ -145,15 +131,12 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
         )}
       </article>
 
-      <section className="bg-forest px-(--gutter) py-(--section) text-center">
-        <Link href="/journal" className="text-xs font-extrabold tracking-[0.18em] text-straw uppercase hover:text-linen">
-          All journal entries
-        </Link>
-        <h2 className="mx-auto mt-8 max-w-[22ch] text-linen text-[clamp(26px,3.2vw,42px)]">
-          Whatever chapter you are in.
-        </h2>
-        <div className="mt-10 flex justify-center">
-          <Cta href="/enquire" tone="onDark">Enquire about a session</Cta>
+      <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
+        <div className="mx-auto flex max-w-[680px] flex-wrap items-center gap-5 border-t border-linen-deep pt-[clamp(28px,4vw,44px)]">
+          <Cta href="/journal" size="small" rule="straw">
+            All journal entries
+          </Cta>
+          <Cta href="/enquire">Enquire about a session</Cta>
         </div>
       </section>
     </>

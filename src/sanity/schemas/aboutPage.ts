@@ -23,7 +23,14 @@ export default defineType({
       group: "story",
     }),
     defineField({ name: "storyPullQuote", title: "Pull quote", type: "string", group: "story" }),
-    photo("portrait", "Portrait of Cam"),
+    defineField({
+      name: "gallery",
+      title: "Photographs (three, shown in a row)",
+      type: "array",
+      group: "story",
+      of: [photo("image", "Photograph")],
+      validation: (rule) => rule.max(3),
+    }),
     defineField({ name: "approachHeading", title: "Heading", type: "string", group: "approach" }),
     defineField({
       name: "approachColumns",

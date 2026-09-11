@@ -17,6 +17,7 @@ const SINGLETONS = [
   { id: "aboutPage", title: "About page" },
   { id: "sessionsPage", title: "Sessions page" },
   { id: "miniSessionPage", title: "Mini sessions page" },
+  { id: "enquirePage", title: "Enquire page" },
 ] as const;
 
 const singletonIds = SINGLETONS.map((s) => s.id) as readonly string[];

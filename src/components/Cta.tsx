@@ -13,11 +13,19 @@ const base =
   "font-display inline-flex items-center gap-3 pb-1.5 leading-snug border-b-[1.5px] transition-colors duration-200 cursor-pointer";
 
 const tones = {
-  onLight: "text-forest border-terracotta hover:text-terracotta",
-  onDark: "text-linen border-straw hover:text-straw",
+  onLight: "text-forest hover:text-terracotta",
+  onDark: "text-linen hover:text-straw",
 } as const;
 
 type Tone = keyof typeof tones;
+
+/** Most links rule in the accent; a few on light backgrounds rule in straw. */
+const rules = {
+  terracotta: "border-terracotta",
+  straw: "border-straw",
+} as const;
+
+type Rule = keyof typeof rules;
 
 /** Primary CTAs sit a touch larger than inline links. */
 const sizes = {
@@ -29,6 +37,7 @@ export function Cta({
   href,
   children,
   tone = "onLight",
+  rule,
   size = "default",
   className = "",
   external,
@@ -36,11 +45,13 @@ export function Cta({
   href: string;
   children: React.ReactNode;
   tone?: Tone;
+  rule?: Rule;
   size?: keyof typeof sizes;
   className?: string;
   external?: boolean;
 }) {
-  const classes = `${base} ${tones[tone]} ${sizes[size]} ${className}`;
+  const ruleClass = rules[rule ?? (tone === "onDark" ? "straw" : "terracotta")];
+  const classes = `${base} ${tones[tone]} ${ruleClass} ${sizes[size]} ${className}`;
   const arrow = <Arrow />;
 
   if (external) {
@@ -63,17 +74,20 @@ export function Cta({
 export function CtaButton({
   children,
   tone = "onLight",
+  rule,
   size = "default",
   className = "",
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   tone?: Tone;
+  rule?: Rule;
   size?: keyof typeof sizes;
 }) {
+  const ruleClass = rules[rule ?? (tone === "onDark" ? "straw" : "terracotta")];
   return (
     <button
       {...props}
-      className={`${base} ${tones[tone]} ${sizes[size]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+      className={`${base} ${tones[tone]} ${ruleClass} ${sizes[size]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
     >
       {children}
       <Arrow />

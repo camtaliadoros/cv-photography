@@ -26,7 +26,7 @@ export default defineType({
       group: "approach",
     }),
     defineField({ name: "approachPullQuote", title: "Pull quote", type: "string", group: "approach" }),
-    photo("approachImage", "Approach photograph"),
+    photo("testimonialImage", "Testimonial backdrop photograph"),
 
     defineField({ name: "priceHeading", title: "Heading", type: "string", group: "pricing" }),
     defineField({

@@ -1,31 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { readStorage, useIsClient, writeStorage } from "@/lib/use-is-client";
 
 const STORAGE_KEY = "cv-banner-dismissed";
 
 /** Announcement bar. Dismissal is remembered per browser, keyed to the text. */
 export function Banner({ text, href }: { text: string; href: string }) {
-  const [visible, setVisible] = useState(false);
+  const isClient = useIsClient();
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    try {
-      setVisible(window.localStorage.getItem(STORAGE_KEY) !== text);
-    } catch {
-      setVisible(true);
-    }
-  }, [text]);
-
-  if (!visible) return null;
+  // Keyed to the text, so changing the announcement shows it again.
+  const previouslyDismissed = isClient && readStorage(STORAGE_KEY) === text;
+  if (!isClient || dismissed || previouslyDismissed) return null;
 
   const dismiss = () => {
-    setVisible(false);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, text);
-    } catch {
-      /* Private browsing — the banner simply reappears next visit. */
-    }
+    setDismissed(true);
+    writeStorage(STORAGE_KEY, text);
   };
 
   return (

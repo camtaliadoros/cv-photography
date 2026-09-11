@@ -17,12 +17,16 @@ const linkClass =
 
 export function Header({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  // Held against a path, so following a link closes the menu with no effect.
+  const [openFor, setOpenFor] = useState<string | null>(null);
+  const open = openFor === pathname;
   const [scrolled, setScrolled] = useState(false);
   const [top, setTop] = useState(0);
 
-  // The home hero is full-height, so the nav sits over it rather than above it.
-  const overHero = pathname === "/";
+  // Every page but the privacy policy opens on a dark hero, so the nav can ride
+  // over the photograph and only go solid once you've scrolled past it.
+  const overHero = pathname !== "/privacy";
+  const isHome = pathname === "/";
 
   useEffect(() => {
     // The announcement banner scrolls away; while it's still on screen the
@@ -46,8 +50,6 @@ export function Header({ items }: { items: NavItem[] }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [overHero]);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -62,11 +64,12 @@ export function Header({ items }: { items: NavItem[] }) {
       style={overHero ? { top } : undefined}
       className={[
         "right-0 left-0 z-40 transition-colors duration-300",
-        // Fixed on the home page so the nav stays with you while the
-        // full-height hero scrolls past underneath it.
+        // Fixed so the nav stays with you while the hero scrolls past beneath.
         overHero ? "fixed" : "sticky top-0",
         transparent
-          ? "bg-[linear-gradient(180deg,rgba(42,53,39,.72)_0%,rgba(42,53,39,.4)_52%,rgba(42,53,39,0)_100%)] pb-14"
+          ? isHome
+            ? "bg-[linear-gradient(180deg,rgba(42,53,39,.72)_0%,rgba(42,53,39,.4)_52%,rgba(42,53,39,0)_100%)] pb-14"
+            : "bg-[linear-gradient(180deg,rgba(42,53,39,.82)_0%,rgba(42,53,39,.62)_46%,rgba(42,53,39,.22)_80%,rgba(42,53,39,0)_100%)] pb-16"
           : "border-b border-linen-deep bg-linen/85 backdrop-blur-lg",
       ].join(" ")}
     >
@@ -79,13 +82,13 @@ export function Header({ items }: { items: NavItem[] }) {
             height={620}
             priority
             sizes="233px"
-            className="h-[52px] w-auto"
+            className={isHome ? "h-[52px] w-auto" : "h-[42px] w-auto"}
           />
         </Link>
 
         <nav
           aria-label="Main"
-          className="hidden items-center gap-[clamp(12px,2vw,28px)] lg:flex"
+          className="hidden items-center gap-[clamp(12px,2vw,26px)] lg:flex"
         >
           {items.map((item) => (
             <NavLink
@@ -110,7 +113,7 @@ export function Header({ items }: { items: NavItem[] }) {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpenFor(open ? null : pathname)}
           aria-expanded={open}
           aria-controls="mobile-nav"
           className={`${linkClass} lg:hidden ${transparent ? "text-linen" : "text-forest"}`}
@@ -122,7 +125,7 @@ export function Header({ items }: { items: NavItem[] }) {
       {open && (
         <div
           id="mobile-nav"
-          className="fixed inset-0 top-[92px] bg-linen px-(--gutter) py-10 lg:hidden"
+          className={`fixed inset-0 ${isHome ? "top-[92px]" : "top-[82px]"} bg-linen px-(--gutter) py-10 lg:hidden`}
         >
           <nav aria-label="Main" className="flex flex-col gap-6">
             {items.map((item) =>

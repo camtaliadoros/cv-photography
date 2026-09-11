@@ -4,9 +4,9 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { miniSessionPageQuery } from "@/sanity/lib/queries";
 import type { MiniSessionPage } from "@/sanity/lib/types";
 import { miniSessionContent } from "@/lib/content";
-import { Photo } from "@/components/Photo";
+import { IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow } from "@/components/sections";
+import { Eyebrow, Label, PageHero } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toPlainText } from "@/lib/text";
 
@@ -36,77 +36,55 @@ export default async function MiniSessionsPage() {
   const notes = page?.priceNotes ?? miniSessionContent.priceNotes;
   const includes = page?.priceIncludes ?? miniSessionContent.priceIncludes;
   const addOns = page?.priceAddOns ?? miniSessionContent.priceAddOns;
+  const [headline, ...rest] = includes;
 
   return (
     <>
-      {/* ---------- Hero ---------- */}
-      <section className="relative flex min-h-[78svh] items-end overflow-hidden bg-forest">
-        {page?.heroImage?.asset ? (
-          <Photo photo={page.heroImage} sizes="100vw" priority alt="" />
-        ) : null}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-forest/85 via-forest/50 to-forest/15"
-        />
-        <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) pt-40 pb-20">
-          <Eyebrow tone="straw">
-            {page?.heroEyebrow ?? miniSessionContent.heroEyebrow}
-          </Eyebrow>
-          <h1 className="mt-6 max-w-[16ch] text-linen text-[clamp(32px,4.4vw,58px)]">
-            {page?.heroHeading ?? miniSessionContent.heroHeading}
-          </h1>
-          <p className="mt-5 text-linen/80">
-            {page?.heroStandfirst ?? miniSessionContent.heroStandfirst}
-          </p>
-          <div className="mt-10">
-            <Cta href={bookingUrl} external tone="onDark">Book now</Cta>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image={page?.heroImage}
+        eyebrow={page?.heroEyebrow ?? miniSessionContent.heroEyebrow}
+        heading={page?.heroHeading ?? miniSessionContent.heroHeading}
+        headingMax="16ch"
+      >
+        <p className="max-w-[50ch] text-[clamp(16px,1.6vw,19px)] text-linen">
+          {page?.heroStandfirst ?? miniSessionContent.heroStandfirst}
+        </p>
+      </PageHero>
 
       {/* ---------- Intro ---------- */}
-      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-24">
-          <div>
-            <h2 className="text-[clamp(28px,3.4vw,45px)]">
-              {page?.introHeading ?? miniSessionContent.introHeading}
-            </h2>
-          </div>
-          <div className="space-y-5 text-charcoal/85 lg:pt-3">
-            {(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
+      <section className="px-(--gutter) py-(--section)">
+        <div className="mx-auto max-w-[720px]">
+          <h2 className="mb-[22px] text-[clamp(28px,3.4vw,45px)]">
+            {page?.introHeading ?? miniSessionContent.introHeading}
+          </h2>
+          {(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
+            <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
+              {para}
+            </p>
+          ))}
+          <Cta href={bookingUrl} external className="mt-3">
+            Book now
+          </Cta>
         </div>
-
-        {page?.gallery && page.gallery.length > 0 && (
-          <ul className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
-            {page.gallery.map((photo, i) => (
-              <li key={i}>
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  <Photo photo={photo} sizes="(max-width: 768px) 50vw, 380px" />
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
       </section>
 
       {/* ---------- Details ---------- */}
-      <section className="bg-forest px-(--gutter) py-(--section)">
+      <section className="bg-forest px-(--gutter) py-[clamp(48px,7vw,88px)]">
         <div className="mx-auto max-w-[1200px]">
-          <div>
-            <Eyebrow tone="straw">The details</Eyebrow>
-            <h2 className="mt-5 text-linen text-[clamp(26px,3.2vw,43px)]">
-              {page?.detailsHeading ?? miniSessionContent.detailsHeading}
-            </h2>
-          </div>
+          <Eyebrow tone="straw">The details</Eyebrow>
+          <h2 className="mt-4 mb-[clamp(32px,4vw,52px)] text-linen text-[clamp(26px,3.2vw,43px)]">
+            {page?.detailsHeading ?? miniSessionContent.detailsHeading}
+          </h2>
 
-          <dl className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <dl className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-[clamp(24px,3vw,44px)]">
             {details.map((d, i) => (
-              <div key={i}>
-                <dt className="text-xs font-extrabold tracking-[0.18em] text-straw uppercase">{d.label}</dt>
-                <dd className="mt-4 text-linen/85">{d.value}</dd>
+              <div key={i} className="border-t-[1.5px] border-straw pt-[18px]">
+                <dt className="text-xs font-extrabold tracking-[0.18em] text-straw uppercase">
+                  {d.label}
+                </dt>
+                <dd className="font-display mt-2.5 text-[21px] leading-snug text-linen">
+                  {d.value}
+                </dd>
               </div>
             ))}
           </dl>
@@ -114,51 +92,64 @@ export default async function MiniSessionsPage() {
       </section>
 
       {/* ---------- Price ---------- */}
-      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
-        <div className="grid gap-10 rounded-[14px] border border-linen-deep bg-linen-soft p-8 md:grid-cols-[auto_1fr] md:gap-16 md:p-12">
-          <div>
-            <p className="text-xs font-extrabold tracking-[0.18em] text-muted uppercase">
+      <section className="px-(--gutter) py-(--section)">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-start gap-[clamp(20px,2.6vw,32px)]">
+          {/* Moss, rather than the forest used for full sessions. */}
+          <div className="rounded-[14px] bg-moss p-[clamp(28px,4vw,52px)]">
+            <Label tone="straw">
               {page?.priceLabel ?? miniSessionContent.priceLabel}
-            </p>
-            <p className="mt-4 font-display text-6xl text-forest">
+            </Label>
+            <p className="mt-4 text-[clamp(48px,6vw,72px)] leading-none font-extrabold text-linen">
               {page?.price ?? miniSessionContent.price}
             </p>
-          </div>
-          <div>
-            <ul className="space-y-5">
-              {includes.map((line, i) => (
-                <li key={i} className="flex gap-4 text-charcoal/85">
-                  <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta" />
-                  <span>{line}</span>
+            {headline && (
+              <p className="mt-5 max-w-[40ch] text-base text-linen/90">{headline}</p>
+            )}
+
+            <ul className="mt-6 flex flex-col gap-3.5 border-t border-straw/35 pt-6">
+              {[...rest, ...addOns].map((line, i) => (
+                <li key={i} className="text-base text-linen/90">
+                  {line}
                 </li>
               ))}
             </ul>
-            {addOns.length > 0 && (
-              <ul className="mt-8 flex flex-wrap gap-3">
-                {addOns.map((a, i) => (
-                  <li key={i} className="rounded-full bg-linen-deep px-4 py-2 text-sm text-charcoal/85">
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className="mt-10">
-              <Cta href={bookingUrl} external>Book your slot</Cta>
+
+            <div className="mt-8">
+              <Cta href={bookingUrl} external tone="onDark">
+                Book your slot
+              </Cta>
             </div>
           </div>
-        </div>
 
-        <ul className="mt-8 grid gap-6 md:grid-cols-3">
-          {notes.map((note, i) => (
-            <li key={i}>
-              <div className="h-full rounded-[14px] border border-linen-deep p-7">
-                <h3 className="text-lg">{note.heading}</h3>
-                <p className="mt-3 text-sm text-charcoal/80">{toPlainText(note.body)}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+          <ul className="flex flex-col gap-[clamp(16px,2vw,24px)]">
+            {notes.map((note, i) => (
+              <li
+                key={i}
+                className="rounded-[14px] border border-linen-deep bg-linen-soft p-[clamp(24px,3vw,40px)]"
+              >
+                <Label className="mb-3">{note.heading}</Label>
+                <p className="text-base text-charcoal/85">{toPlainText(note.body)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
+
+      {/* ---------- Gallery ---------- */}
+      {page?.gallery && page.gallery.length > 0 && (
+        <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
+          <ul className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-4">
+            {page.gallery.map((photo, i) => (
+              <li key={i}>
+                <IntrinsicPhoto
+                  photo={photo}
+                  sizes="(max-width: 768px) 100vw, 380px"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   );
 }

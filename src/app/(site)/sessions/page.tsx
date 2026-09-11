@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   sessionsPageQuery,
@@ -14,10 +13,9 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { sessionsContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
-import { Photo } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { Eyebrow, PageHero, QuoteBlock, PullQuote } from "@/components/sections";
+import { Eyebrow, Label, PageHero, QuoteBlock, Statement } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toPlainText } from "@/lib/text";
 
@@ -45,8 +43,6 @@ export default async function SessionsPageRoute() {
   const includes = page?.priceIncludes ?? sessionsContent.priceIncludes;
   const notes = page?.priceNotes ?? sessionsContent.priceNotes;
 
-  // Rich results for a local service: Google shows the price range and area
-  // served straight in the SERP for queries like "family photographer st albans".
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -80,165 +76,155 @@ export default async function SessionsPageRoute() {
         eyebrow={page?.heroEyebrow ?? sessionsContent.heroEyebrow}
         heading={page?.heroHeading ?? sessionsContent.heroHeading}
         standfirst={page?.heroStandfirst ?? sessionsContent.heroStandfirst}
+        headingMax="15ch"
       />
 
-      <section className="mx-auto max-w-[860px] px-(--gutter) py-(--section)">
-        <div>
-          <p className="text-lg text-charcoal/85">
-            {page?.introBody ?? sessionsContent.introBody}
-          </p>
-        </div>
+      {/* ---------- Intro: set large, in Lora ---------- */}
+      <section className="px-(--gutter) py-[clamp(64px,9vw,120px)]">
+        <p className="font-display mx-auto max-w-[860px] text-[clamp(24px,3vw,40px)] leading-[1.2] text-forest">
+          {page?.introBody ?? sessionsContent.introBody}
+        </p>
       </section>
 
-      {/* ---------- Session types ---------- */}
-      <section className="mx-auto max-w-[1200px] px-(--gutter) pb-(--section)">
-        <div>
+      {/* ---------- Session types: words only, no photographs ---------- */}
+      <section className="px-(--gutter) pb-[clamp(64px,9vw,112px)]">
+        <div className="mx-auto max-w-[1200px]">
           <Eyebrow>{sessionsContent.typesEyebrow}</Eyebrow>
-          <h2 className="mt-5 text-[clamp(26px,3.2vw,42px)]">
+          <h2 className="mt-4 mb-[clamp(28px,4vw,48px)] text-[clamp(26px,3.2vw,42px)]">
             {sessionsContent.typesHeading}
           </h2>
-        </div>
 
-        <ul className="mt-14 grid gap-8 md:grid-cols-3">
-          {sessionTypes.map((type, i) => (
-            <li key={type._id}>
-              <article className="h-full overflow-hidden border border-linen-deep bg-linen-soft">
-                <div className="relative aspect-[4/5]">
-                  {type.image?.asset ? (
-                    <Photo photo={type.image} sizes="(max-width: 768px) 100vw, 380px" />
-                  ) : (
-                    <div className="absolute inset-0 bg-linen-deep" />
-                  )}
-                </div>
-                <div className="p-7">
-                  <h3 className="text-2xl">{type.title}</h3>
-                  <p className="mt-2 text-sm text-terracotta">{type.tagline}</p>
-                  <p className="mt-4 text-sm text-charcoal/85">{type.description}</p>
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* ---------- Approach ---------- */}
-      <section className="mx-auto max-w-[1200px] px-(--gutter) pb-(--section)">
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-24">
-          <div>
-            <Eyebrow>My approach</Eyebrow>
-            <h2 className="mt-5 text-[clamp(28px,3.4vw,45px)]">
-              {page?.approachHeading ?? sessionsContent.approachHeading}
-            </h2>
-            <div className="mt-7 space-y-5 text-charcoal/85">
-              {(page?.approachBody ?? sessionsContent.approachBody).map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
-            </div>
-            <div className="mt-8 border-l-2 border-straw pl-6">
-              <PullQuote>
-                {page?.approachPullQuote ?? sessionsContent.approachPullQuote}
-              </PullQuote>
-            </div>
-            <Cta href="/about" size="small" className="mt-8">
-              More about me
-            </Cta>
-          </div>
-          {page?.approachImage?.asset && (
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <Photo photo={page.approachImage} sizes="(max-width: 1024px) 100vw, 560px" />
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ---------- Pricing ---------- */}
-      <section className="bg-linen-soft px-(--gutter) py-(--section)">
-        <div className="mx-auto max-w-[1200px]">
-          <div>
-            <Eyebrow>{sessionsContent.priceEyebrow}</Eyebrow>
-            <h2 className="mt-5 text-[clamp(26px,3.2vw,42px)]">
-              {page?.priceHeading ?? sessionsContent.priceHeading}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-10 rounded-[14px] border border-linen-deep bg-linen p-8 md:grid-cols-[auto_1fr] md:gap-16 md:p-12">
-            <div>
-              <p className="text-xs font-extrabold tracking-[0.18em] text-muted uppercase">Every session</p>
-              <div className="mt-4 flex items-baseline gap-4">
-                <span className="font-display text-6xl text-forest">{priceIntro}</span>
-                {priceIntro && priceStandard && (
-                  <span className="font-display text-2xl text-muted line-through">
-                    {priceStandard}
-                  </span>
-                )}
-              </div>
-              {(page?.priceIntroLabel ?? sessionsContent.priceIntroLabel) && (
-                <p className="mt-4 inline-block rounded-full bg-terracotta-tint px-4 py-2 text-xs font-extrabold tracking-[0.18em] text-terracotta uppercase">
-                  {page?.priceIntroLabel ?? sessionsContent.priceIntroLabel}
-                </p>
-              )}
-              <p className="mt-5 max-w-[36ch] text-sm text-muted">
-                {page?.priceIntroNote ?? sessionsContent.priceIntroNote}
-              </p>
-            </div>
-
-            <div>
-              <ul className="space-y-5">
-                {includes.map((line, i) => (
-                  <li key={i} className="flex gap-4 text-charcoal/85">
-                    <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10">
-                <Cta href="/enquire">Enquire about a session</Cta>
-              </div>
-            </div>
-          </div>
-
-          <ul className="mt-8 grid gap-6 md:grid-cols-3">
-            {notes.map((note, i) => (
-              <li key={i}>
-                <div className="h-full rounded-[14px] border border-linen-deep bg-linen p-7">
-                  <h3 className="text-lg">{note.heading}</h3>
-                  <p className="mt-3 text-sm text-charcoal/80">{toPlainText(note.body)}</p>
-                </div>
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,2.6vw,36px)]">
+            {sessionTypes.map((type) => (
+              <li key={type._id} className="min-w-0">
+                <h3 className="mb-2 text-2xl">{type.title}</h3>
+                <Label className="mb-3">{type.tagline}</Label>
+                <p className="text-base text-charcoal/85">{type.description}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <QuoteBlock testimonial={testimonial} />
+      {/* ---------- Approach ---------- */}
+      <section className="bg-linen-soft px-(--gutter) py-(--section-lg)">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,72px)]">
+          <div className="min-w-0">
+            <Eyebrow>My approach</Eyebrow>
+            <h2 className="mt-4 text-[clamp(28px,3.4vw,45px)]">
+              {page?.approachHeading ?? sessionsContent.approachHeading}
+            </h2>
+          </div>
+          <div className="min-w-0">
+            {(page?.approachBody ?? sessionsContent.approachBody).map((para, i) => (
+              <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
+                {para}
+              </p>
+            ))}
+            <Statement className="mt-8 mb-8">
+              {page?.approachPullQuote ?? sessionsContent.approachPullQuote}
+            </Statement>
+            <Cta href="/about" size="small" rule="straw">
+              More about me
+            </Cta>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- Investment ---------- */}
+      <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(56px,7vw,88px)]">
+        <div className="mx-auto max-w-[1200px]">
+          <Eyebrow>{sessionsContent.priceEyebrow}</Eyebrow>
+          <h2 className="mt-4 mb-[clamp(28px,4vw,48px)] text-[clamp(26px,3.2vw,42px)]">
+            {page?.priceHeading ?? sessionsContent.priceHeading}
+          </h2>
+
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[clamp(20px,2.6vw,32px)] items-start">
+            {/* The price itself sits on forest. */}
+            <div className="rounded-[14px] bg-forest p-[clamp(28px,4vw,52px)]">
+              <Label tone="straw">Every session</Label>
+              <div className="mt-4 flex items-baseline gap-4">
+                <span className="text-[clamp(48px,6vw,72px)] leading-none font-extrabold text-linen">
+                  {priceIntro}
+                </span>
+                {priceIntro && priceStandard && (
+                  <span className="text-[22px] font-medium text-straw">
+                    {priceStandard}
+                  </span>
+                )}
+              </div>
+              {(page?.priceIntroLabel ?? sessionsContent.priceIntroLabel) && (
+                <p className="mt-4 inline-block rounded-full bg-linen px-4 py-[7px] text-xs font-extrabold tracking-[0.18em] text-terracotta uppercase">
+                  {page?.priceIntroLabel ?? sessionsContent.priceIntroLabel}
+                </p>
+              )}
+              <p className="mt-5 max-w-[44ch] text-base text-linen/85">
+                {page?.priceIntroNote ?? sessionsContent.priceIntroNote}
+              </p>
+
+              <ul className="mt-6 flex flex-col gap-3.5 border-t border-straw/35 pt-6">
+                {includes.map((line, i) => (
+                  <li key={i} className="text-base text-linen/90">
+                    {line}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8">
+                <Cta href="/enquire" tone="onDark">
+                  Enquire about a session
+                </Cta>
+              </div>
+            </div>
+
+            {/* Notes stack alongside it. */}
+            <ul className="flex flex-col gap-[clamp(16px,2vw,24px)]">
+              {notes.map((note, i) => (
+                <li
+                  key={i}
+                  className="rounded-[14px] border border-linen-deep bg-linen-soft p-[clamp(24px,3vw,40px)]"
+                >
+                  <Label className="mb-3">{note.heading}</Label>
+                  <p className="text-base text-charcoal/85">{toPlainText(note.body)}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} />
 
       {/* ---------- FAQ ---------- */}
       {faqs && faqs.length > 0 && (
-        <section className="mx-auto max-w-[880px] px-(--gutter) py-(--section)">
-          <div>
+        <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(72px,10vw,120px)]">
+          <div className="mx-auto max-w-[820px]">
             <Eyebrow>{sessionsContent.faqEyebrow}</Eyebrow>
-            <h2 className="mt-5 mb-10 text-[clamp(26px,3.2vw,42px)]">
+            <h2 className="mt-4 mb-[clamp(20px,3vw,36px)] text-[clamp(26px,3.2vw,42px)]">
               {sessionsContent.faqHeading}
             </h2>
-          </div>
-          <FaqAccordion items={faqs} />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: faqs.map((f) => ({
-                  "@type": "Question",
-                  name: f.question,
-                  acceptedAnswer: { "@type": "Answer", text: toPlainText(f.answer) },
-                })),
-              }),
-            }}
-          />
-          <div className="mt-12 flex flex-wrap items-center gap-6">
-            <p className="text-charcoal/80">Something I haven&rsquo;t covered?</p>
-            <Cta href="/enquire">Ask me</Cta>
+
+            <FaqAccordion items={faqs} />
+
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: faqs.map((f) => ({
+                    "@type": "Question",
+                    name: f.question,
+                    acceptedAnswer: { "@type": "Answer", text: toPlainText(f.answer) },
+                  })),
+                }),
+              }}
+            />
+
+            <div className="mt-10 flex flex-wrap items-center gap-5">
+              <p className="text-muted">Something I haven&rsquo;t covered?</p>
+              <Cta href="/enquire">Ask me</Cta>
+            </div>
           </div>
         </section>
       )}

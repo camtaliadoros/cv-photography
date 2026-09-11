@@ -44,6 +44,8 @@
 
   --font-display: var(--font-lora);
   --font-sans: var(--font-jakarta);
+  --font-quote: var(--font-cormorant);
+  --font-cormorant-stack: var(--font-cormorant), Georgia, serif;
 }
 
 /*

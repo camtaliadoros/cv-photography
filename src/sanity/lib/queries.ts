@@ -19,14 +19,14 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
   heroImage${PHOTO}, heroEyebrow, heroHeading,
-  story, storyPullQuote, portrait${PHOTO},
+  story, storyPullQuote, gallery[]${PHOTO},
   approachHeading, approachColumns, approachPullQuote,
   seoTitle, seoDescription
 }`;
 
 export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
   heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, introBody,
-  approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
+  approachHeading, approachBody, approachPullQuote, testimonialImage${PHOTO},
   priceHeading, priceStandard, priceIntro, priceIntroLabel, priceIntroNote,
   priceIncludes, priceNotes,
   seoTitle, seoDescription
@@ -71,3 +71,7 @@ export const journalPostQuery = groq`*[_type == "journalPost" && slug.current ==
 }`;
 
 export const journalSlugsQuery = groq`*[_type == "journalPost" && defined(slug.current)].slug.current`;
+
+export const enquirePageQuery = groq`*[_type == "enquirePage"][0]{
+  heroImage${PHOTO}, asideImage${PHOTO}
+}`;

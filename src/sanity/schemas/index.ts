@@ -3,6 +3,7 @@ import homePage from "./homePage";
 import aboutPage from "./aboutPage";
 import sessionsPage from "./sessionsPage";
 import miniSessionPage from "./miniSessionPage";
+import enquirePage from "./enquirePage";
 import sessionType from "./sessionType";
 import portfolioImage from "./portfolioImage";
 import testimonial from "./testimonial";
@@ -16,6 +17,7 @@ export const schemaTypes = [
   aboutPage,
   sessionsPage,
   miniSessionPage,
+  enquirePage,
   // Collections
   sessionType,
   portfolioImage,

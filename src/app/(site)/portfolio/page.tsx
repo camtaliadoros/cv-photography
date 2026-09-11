@@ -4,7 +4,7 @@ import { portfolioImagesQuery } from "@/sanity/lib/queries";
 import type { PortfolioImage } from "@/sanity/lib/types";
 import { portfolioContent } from "@/lib/content";
 import { PortfolioGrid } from "@/components/PortfolioGrid";
-import { PageHero } from "@/components/sections";
+import { Eyebrow } from "@/components/sections";
 import { Cta } from "@/components/Cta";
 
 export const metadata: Metadata = {
@@ -20,34 +20,40 @@ export default async function PortfolioPage() {
     ["portfolioImage"],
   );
 
+  // The whole page sits on forest — there is no hero photograph here, the
+  // photographs in the grid are the point.
   return (
-    <>
-      <PageHero
-        image={images?.[0]?.image}
-        eyebrow={portfolioContent.heroEyebrow}
-        heading={portfolioContent.heroHeading}
-        standfirst={portfolioContent.heroStandfirst}
-      />
-
-      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
-        {images && images.length > 0 ? (
-          <PortfolioGrid images={images} />
-        ) : (
-          <p className="text-muted">
-            Photographs are on their way — add them in the Studio under
-            Portfolio images.
+    <div className="bg-forest">
+      <section className="px-(--gutter) pt-[200px] pb-[clamp(24px,3vw,40px)]">
+        <div className="mx-auto max-w-[1200px]">
+          <Eyebrow tone="straw">{portfolioContent.heroEyebrow}</Eyebrow>
+          <h1 className="mt-[18px] mb-4 max-w-[18ch] text-linen text-[clamp(30px,4.2vw,54px)] leading-[1.08]">
+            {portfolioContent.heroHeading}
+          </h1>
+          <p className="max-w-[52ch] text-linen/80">
+            {portfolioContent.heroStandfirst}
           </p>
-        )}
-      </section>
-
-      <section className="bg-forest px-(--gutter) py-(--section) text-center">
-        <h2 className="mx-auto max-w-[20ch] text-linen text-[clamp(26px,3.2vw,42px)]">
-          Whatever chapter you are in.
-        </h2>
-        <div className="mt-10 flex justify-center">
-          <Cta href="/enquire" tone="onDark">Enquire about a session</Cta>
         </div>
       </section>
-    </>
+
+      <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
+        <div className="mx-auto max-w-[1200px]">
+          {images && images.length > 0 ? (
+            <PortfolioGrid images={images} />
+          ) : (
+            <p className="text-linen/70">
+              Photographs are on their way — add them in the Studio under
+              Portfolio images.
+            </p>
+          )}
+        </div>
+
+        <div className="mx-auto mt-[clamp(24px,4vw,48px)] flex max-w-[1200px] justify-center">
+          <Cta href="/enquire" tone="onDark">
+            Enquire about a session
+          </Cta>
+        </div>
+      </section>
+    </div>
   );
 }

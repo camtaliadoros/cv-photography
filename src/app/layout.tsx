@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Lora, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -8,6 +8,15 @@ const lora = Lora({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-lora",
+  display: "swap",
+});
+
+// Pull quotes and testimonials only — the design's third face.
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -64,7 +73,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-GB" className={`${lora.variable} ${jakarta.variable}`}>
+    <html lang="en-GB" className={`${lora.variable} ${jakarta.variable} ${cormorant.variable}`}>
       <body>
         <a
           href="#main"

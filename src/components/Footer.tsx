@@ -21,7 +21,7 @@ export function Footer({
   return (
     <>
       {/* Newsletter sits on linen above the footer, not inside it. */}
-      <section className="border-t border-linen-deep px-(--gutter) py-[clamp(56px,7vw,88px)]">
+      <section className="border-t border-linen-deep bg-linen-soft px-(--gutter) py-[clamp(56px,7vw,88px)]">
         <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(280px,1fr))] items-center gap-[clamp(28px,4vw,64px)]">
           <div className="min-w-0">
             <Eyebrow>Keep in touch</Eyebrow>

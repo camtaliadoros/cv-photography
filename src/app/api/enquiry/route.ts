@@ -4,28 +4,25 @@ import { subscribe } from "../newsletter/route";
 
 interface EnquiryPayload {
   firstName: string;
-  lastName: string;
   email: string;
-  phone: string;
-  location?: string;
-  sessionType: string;
-  sessionLocationType: string;
-  heardAbout?: string;
   message: string;
+  /*
+   * The approved design's form asks for first name, email, phone, how they
+   * heard, and a message — nothing else. These stay in the type so the route
+   * keeps working if the extra fields are ever added back to the form.
+   */
+  lastName?: string;
+  phone?: string;
+  location?: string;
+  sessionType?: string;
+  sessionLocationType?: string;
+  heardAbout?: string;
   newsletter?: string;
   /** Honeypot — always empty for a real person. */
   company?: string;
 }
 
-const REQUIRED_FIELDS: (keyof EnquiryPayload)[] = [
-  "firstName",
-  "lastName",
-  "email",
-  "phone",
-  "sessionType",
-  "sessionLocationType",
-  "message",
-];
+const REQUIRED_FIELDS: (keyof EnquiryPayload)[] = ["firstName", "email", "message"];
 
 function isValidPayload(body: unknown): body is EnquiryPayload {
   if (typeof body !== "object" || body === null) return false;
@@ -83,12 +80,12 @@ async function writeToAirtable(data: EnquiryPayload): Promise<{ ok: boolean }> {
 
   const fields: Record<string, string | boolean> = {
     "First Name": data.firstName,
-    "Last Name": data.lastName,
+    "Last Name": data.lastName || "",
     Email: data.email,
-    Phone: data.phone,
+    Phone: data.phone || "",
     Location: data.location || "",
-    "Session Type": data.sessionType,
-    "Session Location": data.sessionLocationType,
+    "Session Type": data.sessionType || "",
+    "Session Location": data.sessionLocationType || "",
     "How Heard": data.heardAbout || "",
     Message: data.message,
     "Newsletter Opt-In": data.newsletter === "yes",
@@ -118,7 +115,8 @@ async function writeToAirtable(data: EnquiryPayload): Promise<{ ok: boolean }> {
 
       if (unknownField) {
         console.warn("Airtable rejected an unknown field — retrying without Newsletter Opt-In");
-        const { "Newsletter Opt-In": _omitted, ...rest } = fields;
+        const rest = { ...fields };
+        delete rest["Newsletter Opt-In"];
         res = await post(rest);
         if (!res.ok) {
           console.error("Airtable error:", JSON.stringify(await res.json()));
@@ -153,14 +151,14 @@ async function sendNotificationEmail(data: EnquiryPayload): Promise<{ ok: boolea
       from: "Cam Velucci Photography <enquiries@camvelucci.com>",
       to: notifyTo,
       replyTo: data.email,
-      subject: `New enquiry — ${data.firstName} ${data.lastName} (${data.sessionType})`,
+      subject: `New enquiry — ${data.firstName}${data.lastName ? ` ${data.lastName}` : ""}`,
       text: [
-        `Name: ${data.firstName} ${data.lastName}`,
+        `Name: ${data.firstName}${data.lastName ? ` ${data.lastName}` : ""}`,
         `Email: ${data.email}`,
-        `Phone: ${data.phone}`,
+        `Phone: ${data.phone || "—"}`,
         `Location: ${data.location || "—"}`,
-        `Session type: ${data.sessionType}`,
-        `At home or outdoors: ${data.sessionLocationType}`,
+        `Session type: ${data.sessionType || "—"}`,
+        `At home or outdoors: ${data.sessionLocationType || "—"}`,
         `How heard: ${data.heardAbout || "—"}`,
         `Newsletter opt-in: ${data.newsletter === "yes" ? "Yes" : "No"}`,
         "",

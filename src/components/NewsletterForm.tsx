@@ -70,6 +70,7 @@ export function NewsletterForm({
           </label>
           <input
             id={`nl-email-${source}`}
+            name="email"
             type="email"
             required
             autoComplete="email"
@@ -93,6 +94,7 @@ export function NewsletterForm({
         <label htmlFor={`nl-company-${source}`}>Company</label>
         <input
           id={`nl-company-${source}`}
+          name="company"
           type="text"
           tabIndex={-1}
           autoComplete="off"

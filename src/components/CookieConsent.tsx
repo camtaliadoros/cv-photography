@@ -1,31 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { readStorage, useIsClient, writeStorage } from "@/lib/use-is-client";
 
 const STORAGE_KEY = "cv-cookie-choice";
 
 /** A small card in the bottom corner, as in the design — not a full-width bar. */
 export function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+  const isClient = useIsClient();
+  const [chosen, setChosen] = useState(false);
 
-  useEffect(() => {
-    try {
-      if (!window.localStorage.getItem(STORAGE_KEY)) setVisible(true);
-    } catch {
-      /* Storage blocked — don't nag on every page view. */
-    }
-  }, []);
-
-  if (!visible) return null;
+  // Storage that throws (blocked site data) reads as null, which would nag on
+  // every page view — so treat an unreadable store as already answered.
+  const stored = isClient ? readStorage(STORAGE_KEY) : null;
+  if (!isClient || chosen || stored) return null;
 
   const choose = (choice: "all" | "essential") => {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, choice);
-    } catch {
-      /* Nothing to remember it with; the banner will show again. */
-    }
-    setVisible(false);
+    writeStorage(STORAGE_KEY, choice);
+    setChosen(true);
     window.dispatchEvent(new CustomEvent("cv-cookie-choice", { detail: choice }));
   };
 

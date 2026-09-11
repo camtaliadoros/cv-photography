@@ -15,7 +15,7 @@ import type {
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
 import { Photo, IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, HeroEyebrow, QuoteBlock, PullQuote } from "@/components/sections";
+import { Eyebrow, QuoteBlock, Statement } from "@/components/sections";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]);
@@ -61,7 +61,12 @@ export default async function HomePageRoute() {
         />
 
         <div className="absolute bottom-(--hero-bottom) left-(--gutter) max-w-[min(34ch,calc(100%-120px))]">
-          <HeroEyebrow>Hertfordshire &amp; London</HeroEyebrow>
+          <span className="inline-flex items-center gap-2.5 text-straw">
+            <span aria-hidden className="h-[1.5px] w-6 bg-current" />
+            <span className="text-[10px] font-extrabold tracking-[0.24em] uppercase">
+              Hertfordshire &amp; London
+            </span>
+          </span>
           {/*
             The design sets this line as a paragraph, which would leave the home
             page with no h1. Rendered as an h1 at the design's exact size —
@@ -140,7 +145,7 @@ export default async function HomePageRoute() {
           </div>
 
           <ul className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] items-start gap-[clamp(16px,2vw,28px)]">
-            {sessionTypes.map((type, i) => (
+            {sessionTypes.map((type) => (
               <li key={type._id}>
                 <a href="/sessions" className="group relative block overflow-hidden">
                   {type.image?.asset ? (
@@ -202,11 +207,9 @@ export default async function HomePageRoute() {
                 </p>
               ))}
             </div>
-            <div className="mt-8 border-l-2 border-straw pl-6">
-              <PullQuote>
-                {page?.approachPullQuote ?? homeContent.approachPullQuote}
-              </PullQuote>
-            </div>
+            <Statement className="mt-8">
+              {page?.approachPullQuote ?? homeContent.approachPullQuote}
+            </Statement>
             <Cta href="/about" size="small" className="mt-8">
               More about my approach
             </Cta>
@@ -231,7 +234,7 @@ export default async function HomePageRoute() {
             </div>
 
             <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {featured.slice(0, 8).map((item, i) => (
+              {featured.slice(0, 8).map((item) => (
                 <li key={item._id}>
                   <a href="/portfolio" className="group block overflow-hidden">
                     <IntrinsicPhoto
