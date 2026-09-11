@@ -1,37 +1,47 @@
 import Link from "next/link";
 
+/**
+ * The only call-to-action treatment in the design: a Lora text link sitting on
+ * a hairline rule, with an arrow alongside. There are no filled buttons
+ * anywhere in the approved prototype — not even for "Send enquiry" — so this
+ * covers every CTA on the site.
+ *
+ * `onDark` carries linen text over a straw-gold rule; `onLight` carries forest
+ * text over a terracotta rule.
+ */
 const base =
-  "eyebrow inline-flex items-center gap-3 rounded-full px-8 py-4 transition-all duration-200 hover:-translate-y-px";
+  "font-display inline-flex items-center gap-3 pb-1.5 leading-snug border-b-[1.5px] transition-colors duration-200 cursor-pointer";
 
-const variants = {
-  primary: "bg-terracotta text-linen hover:bg-terracotta-hover",
-  secondary: "bg-moss text-linen hover:bg-moss-hover",
-  outline: "border border-forest text-forest hover:bg-forest hover:text-linen",
-  ghost:
-    "border border-linen/50 text-linen hover:bg-linen hover:text-forest",
+const tones = {
+  onLight: "text-forest border-terracotta hover:text-terracotta",
+  onDark: "text-linen border-straw hover:text-straw",
 } as const;
 
-type Variant = keyof typeof variants;
+type Tone = keyof typeof tones;
+
+/** Primary CTAs sit a touch larger than inline links. */
+const sizes = {
+  default: "text-[clamp(19px,2vw,22px)]",
+  small: "text-[19px]",
+} as const;
 
 export function Cta({
   href,
   children,
-  variant = "primary",
+  tone = "onLight",
+  size = "default",
   className = "",
   external,
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: Variant;
+  tone?: Tone;
+  size?: keyof typeof sizes;
   className?: string;
   external?: boolean;
 }) {
-  const classes = `${base} ${variants[variant]} ${className}`;
-  const arrow = (
-    <span aria-hidden className="text-base leading-none">
-      &rarr;
-    </span>
-  );
+  const classes = `${base} ${tones[tone]} ${sizes[size]} ${className}`;
+  const arrow = <Arrow />;
 
   if (external) {
     return (
@@ -52,16 +62,29 @@ export function Cta({
 
 export function CtaButton({
   children,
-  variant = "primary",
+  tone = "onLight",
+  size = "default",
   className = "",
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  tone?: Tone;
+  size?: keyof typeof sizes;
+}) {
   return (
     <button
       {...props}
-      className={`${base} ${variants[variant]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
+      className={`${base} ${tones[tone]} ${sizes[size]} disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
     >
       {children}
+      <Arrow />
     </button>
+  );
+}
+
+function Arrow() {
+  return (
+    <span aria-hidden className="text-[0.85em] leading-none">
+      &rarr;
+    </span>
   );
 }

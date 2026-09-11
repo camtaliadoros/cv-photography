@@ -5,7 +5,10 @@ import { NewsletterForm } from "./NewsletterForm";
 
 const STORAGE_KEY = "cv-newsletter-popup";
 
-/** Shows once per visitor, and only after they've engaged enough to scroll. */
+/**
+ * A quiet card in the bottom corner, as in the design — deliberately not a
+ * full-screen modal. Shows once per visitor, after they've scrolled.
+ */
 export function NewsletterPopup() {
   const [open, setOpen] = useState(false);
 
@@ -45,31 +48,30 @@ export function NewsletterPopup() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-forest/60 p-4 backdrop-blur-sm">
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="newsletter-popup-title"
-        className="relative w-full max-w-[520px] rounded-2xl bg-linen p-8 shadow-lg sm:p-10"
+    <div
+      role="dialog"
+      aria-labelledby="newsletter-popup-title"
+      className="fixed right-[clamp(16px,3vw,32px)] bottom-[clamp(16px,3vw,32px)] z-[65] w-[min(340px,calc(100vw-32px))] animate-[cvRise_420ms_ease] rounded-[14px] border border-linen-deep bg-linen px-[26px] pt-6 pb-[26px] shadow-[0_18px_40px_rgba(42,53,39,.22)]"
+    >
+      <button
+        type="button"
+        onClick={close}
+        aria-label="Close"
+        className="absolute top-2.5 right-3.5 flex h-6 w-6 items-center justify-center text-base leading-none text-muted transition-colors hover:text-forest"
       >
-        <button
-          type="button"
-          onClick={close}
-          aria-label="Close"
-          className="absolute top-4 right-5 text-xl leading-none text-muted transition-colors hover:text-forest"
-        >
-          &times;
-        </button>
-        <p className="eyebrow text-terracotta">Keep in touch</p>
-        <h2 id="newsletter-popup-title" className="mt-3 text-3xl">
-          Hear about new dates first.
-        </h2>
-        <p className="mt-3 text-sm text-muted">
-          Occasional notes — mini session dates and offers. Unsubscribe anytime.
-        </p>
-        <div className="mt-6">
-          <NewsletterForm source="Popup" onDone={() => setTimeout(close, 2200)} />
-        </div>
+        &times;
+      </button>
+      <p className="mb-2.5 text-[11px] font-extrabold tracking-[0.2em] text-terracotta uppercase">
+        Keep in touch
+      </p>
+      <h2 id="newsletter-popup-title" className="text-[26px] leading-tight">
+        Hear about new dates first.
+      </h2>
+      <p className="mt-2.5 text-sm text-muted">
+        Occasional notes — mini session dates and offers. Unsubscribe anytime.
+      </p>
+      <div className="mt-5">
+        <NewsletterForm source="Popup" stacked onDone={() => setTimeout(close, 2200)} />
       </div>
     </div>
   );

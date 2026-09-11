@@ -66,7 +66,7 @@ export function PortfolioGrid({
               type="button"
               onClick={() => setFilter(f.value)}
               aria-pressed={filter === f.value}
-              className={`eyebrow rounded-full px-5 py-2.5 transition-colors ${
+              className={`rounded-full px-5 py-2.5 text-xs font-extrabold tracking-[0.18em] uppercase transition-colors ${
                 filter === f.value
                   ? "bg-forest text-linen"
                   : "border border-linen-deep text-forest hover:border-forest"
@@ -86,7 +86,7 @@ export function PortfolioGrid({
             type="button"
             onClick={() => setLightbox(index)}
             aria-label={`View ${item.image?.alt ?? "photograph"} larger`}
-            className="group block w-full overflow-hidden rounded-lg break-inside-avoid"
+            className="group block w-full overflow-hidden break-inside-avoid"
           >
             <IntrinsicPhoto
               photo={item.image}

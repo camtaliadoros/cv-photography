@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -11,12 +12,15 @@ interface NavItem {
   external?: boolean;
 }
 
+const linkClass =
+  "text-xs font-extrabold tracking-[0.18em] uppercase transition-colors";
+
 export function Header({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // The home hero is full-bleed, so the nav sits over it until you scroll.
+  // The home hero is full-height, so the nav sits over it until you scroll.
   const overHero = pathname === "/";
 
   useEffect(() => {
@@ -28,7 +32,6 @@ export function Header({ items }: { items: NavItem[] }) {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  // Stop the page scrolling behind the open mobile menu.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -42,23 +45,29 @@ export function Header({ items }: { items: NavItem[] }) {
     <header
       className={[
         "top-0 right-0 left-0 z-40 transition-colors duration-300",
-        overHero ? "fixed" : "sticky",
+        overHero ? "absolute" : "sticky",
         transparent
-          ? "bg-gradient-to-b from-forest/70 via-forest/40 to-transparent"
+          ? "bg-[linear-gradient(180deg,rgba(42,53,39,.72)_0%,rgba(42,53,39,.4)_52%,rgba(42,53,39,0)_100%)] pb-14"
           : "border-b border-linen-deep bg-linen/85 backdrop-blur-lg",
       ].join(" ")}
     >
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-5 lg:px-10">
-        <Link
-          href="/"
-          className={`font-display text-lg tracking-tight transition-colors ${
-            transparent ? "text-linen" : "text-forest"
-          }`}
-        >
-          Cam Velucci
+      <div className="flex flex-wrap items-center justify-between gap-6 px-(--gutter) py-5">
+        <Link href="/" aria-label="Cam Velucci Photography — home">
+          <Image
+            src={transparent ? "/logo/logo-full-linen.png" : "/logo/logo-full-forest.png"}
+            alt="Cam Velucci Photography"
+            width={2775}
+            height={620}
+            priority
+            sizes="233px"
+            className="h-[52px] w-auto"
+          />
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
+        <nav
+          aria-label="Main"
+          className="hidden items-center gap-[clamp(12px,2vw,28px)] lg:flex"
+        >
           {items.map((item) => (
             <NavLink
               key={item.href}
@@ -67,9 +76,14 @@ export function Header({ items }: { items: NavItem[] }) {
               active={pathname === item.href}
             />
           ))}
+          {/* Enquire is the same text treatment as the rest, picked out in straw gold. */}
           <Link
             href="/enquire"
-            className="eyebrow rounded-full bg-terracotta px-6 py-3 text-linen transition-colors hover:bg-terracotta-hover"
+            className={`${linkClass} ${
+              transparent
+                ? "text-straw hover:text-linen"
+                : "text-terracotta hover:text-forest"
+            }`}
           >
             Enquire
           </Link>
@@ -80,7 +94,7 @@ export function Header({ items }: { items: NavItem[] }) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className={`eyebrow lg:hidden ${transparent ? "text-linen" : "text-forest"}`}
+          className={`${linkClass} lg:hidden ${transparent ? "text-linen" : "text-forest"}`}
         >
           {open ? "Close" : "Menu"}
         </button>
@@ -89,7 +103,7 @@ export function Header({ items }: { items: NavItem[] }) {
       {open && (
         <div
           id="mobile-nav"
-          className="fixed inset-0 top-[68px] bg-linen px-6 py-10 lg:hidden"
+          className="fixed inset-0 top-[92px] bg-linen px-(--gutter) py-10 lg:hidden"
         >
           <nav aria-label="Main" className="flex flex-col gap-6">
             {items.map((item) =>
@@ -115,14 +129,11 @@ export function Header({ items }: { items: NavItem[] }) {
             )}
             <Link
               href="/enquire"
-              className="eyebrow mt-4 inline-flex w-fit rounded-full bg-terracotta px-8 py-4 text-linen"
+              className="font-display w-fit border-b-[1.5px] border-terracotta pb-1.5 text-3xl text-terracotta"
             >
               Enquire
             </Link>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-6 text-sm text-muted"
-            >
+            <a href={`mailto:${site.email}`} className="mt-6 text-sm text-muted">
               {site.email}
             </a>
           </nav>
@@ -142,7 +153,7 @@ function NavLink({
   active: boolean;
 }) {
   const className = [
-    "eyebrow transition-colors",
+    linkClass,
     transparent ? "text-linen hover:text-straw" : "text-forest hover:text-terracotta",
     active && !transparent ? "text-terracotta" : "",
   ].join(" ");

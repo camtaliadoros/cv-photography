@@ -17,7 +17,7 @@ export const metadata: Metadata = {
  */
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-[760px] px-6 pt-36 pb-(--spacing-section)">
+    <div className="mx-auto max-w-[760px] px-(--gutter) pt-36 pb-(--section)">
       <h1 className="text-[clamp(30px,4vw,48px)]">Privacy Policy</h1>
       <p className="mt-4 text-sm text-muted">Last updated: 10 September 2026</p>
 
@@ -196,7 +196,7 @@ export default function PrivacyPage() {
       </div>
 
       <p className="mt-14">
-        <Link href="/" className="eyebrow text-terracotta hover:text-terracotta-hover">
+        <Link href="/" className="font-display border-b-[1.5px] border-terracotta pb-1.5 text-[19px] text-forest transition-colors hover:text-terracotta">
           &lsaquo; Back to home
         </Link>
       </p>

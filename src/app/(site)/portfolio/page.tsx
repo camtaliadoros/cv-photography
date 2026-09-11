@@ -29,7 +29,7 @@ export default async function PortfolioPage() {
         standfirst={portfolioContent.heroStandfirst}
       />
 
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
+      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
         {images && images.length > 0 ? (
           <PortfolioGrid images={images} />
         ) : (
@@ -40,12 +40,12 @@ export default async function PortfolioPage() {
         )}
       </section>
 
-      <section className="bg-forest px-6 py-(--spacing-section) text-center lg:px-10">
+      <section className="bg-forest px-(--gutter) py-(--section) text-center">
         <h2 className="mx-auto max-w-[20ch] text-linen text-[clamp(26px,3.2vw,42px)]">
           Whatever chapter you are in.
         </h2>
         <div className="mt-10 flex justify-center">
-          <Cta href="/enquire">Enquire about a session</Cta>
+          <Cta href="/enquire" tone="onDark">Enquire about a session</Cta>
         </div>
       </section>
     </>

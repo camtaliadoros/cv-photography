@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { CtaButton } from "./Cta";
+import { Cta, CtaButton } from "./Cta";
 
 const SESSION_TYPES = ["Maternity", "Newborn & baby", "Family", "Not sure yet"];
 const LOCATION_TYPES = ["At home", "Outdoors", "Not sure yet"];
 const HEARD_ABOUT = ["Instagram", "A friend", "Google", "Somewhere else"];
 
 const field =
-  "w-full rounded-lg border border-linen-deep bg-linen-soft px-5 py-3.5 text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none";
-const labelClass = "eyebrow mb-2.5 block text-forest";
+  "w-full rounded-[14px] border border-linen-deep bg-linen-soft px-5 py-3.5 text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none";
+const labelClass =
+  "mb-2.5 block text-xs font-extrabold tracking-[0.18em] text-forest uppercase";
 
 export function EnquiryForm() {
   const [state, setState] = useState<"idle" | "sending" | "error">("idle");
@@ -42,18 +43,15 @@ export function EnquiryForm() {
 
   if (sent) {
     return (
-      <div className="rounded-2xl border border-linen-deep bg-linen-soft p-10 text-center">
+      <div className="rounded-[14px] border border-linen-deep bg-linen-soft p-10 text-center">
         <h2 className="text-3xl">That&rsquo;s with me.</h2>
         <p className="mx-auto mt-4 max-w-[46ch] text-charcoal/85">
           I&rsquo;ll be in touch within two days — usually sooner. In the meantime,
           have a wander through the portfolio.
         </p>
-        <Link
-          href="/portfolio"
-          className="eyebrow mt-8 inline-block rounded-full bg-terracotta px-8 py-4 text-linen transition-colors hover:bg-terracotta-hover"
-        >
-          See the portfolio &rarr;
-        </Link>
+        <div className="mt-8 flex justify-center">
+          <Cta href="/portfolio">See the portfolio</Cta>
+        </div>
       </div>
     );
   }
@@ -157,7 +155,6 @@ export function EnquiryForm() {
 
       <CtaButton type="submit" disabled={state === "sending"}>
         {state === "sending" ? "Sending" : "Send enquiry"}
-        <span aria-hidden>&rarr;</span>
       </CtaButton>
     </form>
   );

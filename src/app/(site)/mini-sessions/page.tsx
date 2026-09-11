@@ -5,9 +5,8 @@ import { miniSessionPageQuery } from "@/sanity/lib/queries";
 import type { MiniSessionPage } from "@/sanity/lib/types";
 import { miniSessionContent } from "@/lib/content";
 import { Photo } from "@/components/Photo";
-import { Reveal } from "@/components/Reveal";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, Flourish } from "@/components/sections";
+import { Eyebrow } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toPlainText } from "@/lib/text";
 
@@ -49,7 +48,7 @@ export default async function MiniSessionsPage() {
           aria-hidden
           className="absolute inset-0 bg-gradient-to-r from-forest/85 via-forest/50 to-forest/15"
         />
-        <div className="relative mx-auto w-full max-w-[1200px] px-6 pt-40 pb-20 lg:px-10">
+        <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) pt-40 pb-20">
           <Eyebrow tone="straw">
             {page?.heroEyebrow ?? miniSessionContent.heroEyebrow}
           </Eyebrow>
@@ -60,66 +59,65 @@ export default async function MiniSessionsPage() {
             {page?.heroStandfirst ?? miniSessionContent.heroStandfirst}
           </p>
           <div className="mt-10">
-            <Cta href={bookingUrl} external>Book now</Cta>
+            <Cta href={bookingUrl} external tone="onDark">Book now</Cta>
           </div>
         </div>
       </section>
 
       {/* ---------- Intro ---------- */}
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
+      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-24">
-          <Reveal>
+          <div>
             <h2 className="text-[clamp(28px,3.4vw,45px)]">
               {page?.introHeading ?? miniSessionContent.introHeading}
             </h2>
-            <Flourish className="mt-7 text-straw" />
-          </Reveal>
-          <Reveal delay={100} className="space-y-5 text-charcoal/85 lg:pt-3">
+          </div>
+          <div className="space-y-5 text-charcoal/85 lg:pt-3">
             {(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
               <p key={i}>{para}</p>
             ))}
-          </Reveal>
+          </div>
         </div>
 
         {page?.gallery && page.gallery.length > 0 && (
           <ul className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3">
             {page.gallery.map((photo, i) => (
-              <Reveal as="li" key={i} delay={i * 80}>
-                <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+              <li key={i}>
+                <div className="relative aspect-[4/5] overflow-hidden">
                   <Photo photo={photo} sizes="(max-width: 768px) 50vw, 380px" />
                 </div>
-              </Reveal>
+              </li>
             ))}
           </ul>
         )}
       </section>
 
       {/* ---------- Details ---------- */}
-      <section className="bg-forest px-6 py-(--spacing-section) lg:px-10">
+      <section className="bg-forest px-(--gutter) py-(--section)">
         <div className="mx-auto max-w-[1200px]">
-          <Reveal>
+          <div>
             <Eyebrow tone="straw">The details</Eyebrow>
             <h2 className="mt-5 text-linen text-[clamp(26px,3.2vw,43px)]">
               {page?.detailsHeading ?? miniSessionContent.detailsHeading}
             </h2>
-          </Reveal>
+          </div>
 
           <dl className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {details.map((d, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <dt className="eyebrow text-straw">{d.label}</dt>
+              <div key={i}>
+                <dt className="text-xs font-extrabold tracking-[0.18em] text-straw uppercase">{d.label}</dt>
                 <dd className="mt-4 text-linen/85">{d.value}</dd>
-              </Reveal>
+              </div>
             ))}
           </dl>
         </div>
       </section>
 
       {/* ---------- Price ---------- */}
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
-        <Reveal className="grid gap-10 rounded-2xl border border-linen-deep bg-linen-soft p-8 md:grid-cols-[auto_1fr] md:gap-16 md:p-12">
+      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
+        <div className="grid gap-10 rounded-[14px] border border-linen-deep bg-linen-soft p-8 md:grid-cols-[auto_1fr] md:gap-16 md:p-12">
           <div>
-            <p className="eyebrow text-muted">
+            <p className="text-xs font-extrabold tracking-[0.18em] text-muted uppercase">
               {page?.priceLabel ?? miniSessionContent.priceLabel}
             </p>
             <p className="mt-4 font-display text-6xl text-forest">
@@ -148,16 +146,16 @@ export default async function MiniSessionsPage() {
               <Cta href={bookingUrl} external>Book your slot</Cta>
             </div>
           </div>
-        </Reveal>
+        </div>
 
         <ul className="mt-8 grid gap-6 md:grid-cols-3">
           {notes.map((note, i) => (
-            <Reveal as="li" key={i} delay={i * 80}>
-              <div className="h-full rounded-xl border border-linen-deep p-7">
+            <li key={i}>
+              <div className="h-full rounded-[14px] border border-linen-deep p-7">
                 <h3 className="text-lg">{note.heading}</h3>
                 <p className="mt-3 text-sm text-charcoal/80">{toPlainText(note.body)}</p>
               </div>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </section>

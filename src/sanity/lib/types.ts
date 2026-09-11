@@ -39,6 +39,7 @@ export interface HomePage {
   introHeading?: string;
   introBody?: string[];
   introImage?: SanityPhoto;
+  introImageSecondary?: SanityPhoto;
   approachHeading?: string;
   approachBody?: string[];
   approachPullQuote?: string;

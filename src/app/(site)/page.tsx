@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   homePageQuery,
@@ -14,10 +13,9 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
-import { Photo } from "@/components/Photo";
-import { Reveal } from "@/components/Reveal";
+import { Photo, IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, QuoteBlock, PullQuote, Flourish } from "@/components/sections";
+import { Eyebrow, HeroEyebrow, QuoteBlock, PullQuote } from "@/components/sections";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]);
@@ -42,142 +40,166 @@ export default async function HomePageRoute() {
   ]);
 
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
-  const testimonial =
-    testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
+  const testimonial = testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
 
   return (
     <>
       {/* ---------- Hero ---------- */}
-      <section className="relative flex min-h-[92svh] items-end overflow-hidden bg-forest">
+      <section className="relative h-svh min-h-[600px] w-full overflow-hidden bg-forest">
         {page?.heroImage?.asset ? (
-          <Photo photo={page.heroImage} sizes="100vw" priority alt="" />
+          <Photo
+            photo={page.heroImage}
+            sizes="100vw"
+            priority
+            alt=""
+            className="object-cover object-[center_35%]"
+          />
         ) : null}
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-forest/80 via-forest/45 to-forest/10"
+          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,.6)_0%,rgba(42,53,39,.1)_22%,rgba(42,53,39,0)_42%,rgba(42,53,39,.55)_100%)]"
         />
-        <div className="relative mx-auto w-full max-w-[1200px] px-6 pb-24 lg:px-10 lg:pb-32">
-          <Eyebrow tone="straw">Hertfordshire &amp; London</Eyebrow>
-          <h1 className="mt-6 max-w-[20ch] text-linen text-[clamp(34px,5vw,68px)]">
+
+        <div className="absolute bottom-(--hero-bottom) left-(--gutter) max-w-[min(34ch,calc(100%-120px))]">
+          <HeroEyebrow>Hertfordshire &amp; London</HeroEyebrow>
+          {/*
+            The design sets this line as a paragraph, which would leave the home
+            page with no h1. Rendered as an h1 at the design's exact size —
+            visually identical, and the page keeps a heading.
+          */}
+          <h1 className="mt-3.5 font-display text-[clamp(19px,1.9vw,26px)] leading-[1.3] tracking-[-0.01em] text-linen">
             {page?.heroHeading ?? homeContent.heroHeading}
           </h1>
-          <p className="mt-6 max-w-[46ch] text-lg text-linen/80">
+          <p className="mt-2.5 text-sm tracking-[0.01em] text-linen/80">
             {page?.heroSubline ?? homeContent.heroSubline}
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Cta href="/enquire">Book a session</Cta>
-            <Cta href="/portfolio" variant="ghost">
-              See the portfolio
-            </Cta>
-          </div>
+        </div>
+
+        <div className="absolute right-(--gutter) bottom-7 flex animate-[cvFloat_2.8s_ease-in-out_infinite] flex-col items-center gap-2.5 text-linen">
+          <span className="text-[10px] font-extrabold tracking-[0.24em] uppercase">
+            Scroll
+          </span>
+          <span
+            aria-hidden
+            className="h-11 w-px bg-[linear-gradient(var(--warm-linen),transparent)]"
+          />
         </div>
       </section>
 
       {/* ---------- Intro ---------- */}
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-24">
-          <Reveal>
+      <section className="px-(--gutter) py-(--section-lg)">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(32px,5vw,80px)]">
+          <div className="min-w-0">
             <Eyebrow>{page?.introEyebrow ?? homeContent.introEyebrow}</Eyebrow>
-            <h2 className="mt-5 text-[clamp(28px,3.4vw,45px)]">
+            <h2 className="mt-5 mb-6 text-[clamp(28px,3.4vw,45px)]">
               {page?.introHeading ?? homeContent.introHeading}
             </h2>
-            <Flourish className="mt-7 text-straw" />
-            <div className="mt-7 space-y-5 text-charcoal/85">
+            <div className="mb-8 space-y-5 text-charcoal/85">
               {(page?.introBody ?? homeContent.introBody).map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i} className="max-w-[52ch]">
+                  {para}
+                </p>
               ))}
             </div>
-            <Link
-              href="/about"
-              className="eyebrow mt-9 inline-block text-terracotta hover:text-terracotta-hover"
-            >
-              Meet Cam &rarr;
-            </Link>
-          </Reveal>
+            <Cta href="/about" size="small">
+              Meet Cam
+            </Cta>
+          </div>
 
-          {page?.introImage?.asset && (
-            <Reveal delay={120} className="relative aspect-[4/5] overflow-hidden rounded-xl">
-              <Photo
-                photo={page.introImage}
-                sizes="(max-width: 1024px) 100vw, 560px"
+          {/* Two images, the first dropped down — the offset is part of the design. */}
+          {(page?.introImage?.asset || page?.introImageSecondary?.asset) && (
+            <div className="grid min-w-0 grid-cols-2 gap-4">
+              <div className="mt-[clamp(20px,4vw,56px)]">
+                <IntrinsicPhoto
+                  photo={page?.introImage}
+                  sizes="(max-width: 768px) 50vw, 280px"
+                />
+              </div>
+              <IntrinsicPhoto
+                photo={page?.introImageSecondary}
+                sizes="(max-width: 768px) 50vw, 280px"
               />
-            </Reveal>
+            </div>
           )}
         </div>
       </section>
 
       {/* ---------- Session types ---------- */}
-      <section className="bg-forest px-6 py-(--spacing-section) lg:px-10">
+      <section className="bg-linen-soft px-(--gutter) py-(--section)">
         <div className="mx-auto max-w-[1200px]">
-          <Reveal className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Eyebrow tone="straw">Sessions</Eyebrow>
-              <h2 className="mt-5 text-linen text-[clamp(26px,3.2vw,43px)]">
+          <div className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-6">
+            <div className="min-w-0">
+              <Eyebrow>Sessions</Eyebrow>
+              <h2 className="mt-4 text-[clamp(26px,3.2vw,43px)]">
                 {homeContent.sessionsHeading}
               </h2>
             </div>
-            <Link
-              href="/sessions"
-              className="eyebrow text-straw hover:text-linen"
-            >
-              All session types &rarr;
-            </Link>
-          </Reveal>
+            <Cta href="/sessions" size="small" className="flex-none">
+              All session types
+            </Cta>
+          </div>
 
-          <ul className="mt-14 grid gap-6 md:grid-cols-3">
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] items-start gap-[clamp(16px,2vw,28px)]">
             {sessionTypes.map((type, i) => (
-              <Reveal as="li" key={type._id} delay={i * 100}>
-                <Link
-                  href="/sessions"
-                  className="group block overflow-hidden rounded-xl bg-forest-hover transition-transform duration-300 hover:-translate-y-[3px]"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden">
-                    {type.image?.asset ? (
-                      <Photo
-                        photo={type.image}
-                        sizes="(max-width: 768px) 100vw, 380px"
-                        className="object-cover transition-transform duration-[600ms] group-hover:scale-[1.04]"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-linen/5" />
-                    )}
+              <li key={type._id}>
+                <a href="/sessions" className="group relative block overflow-hidden">
+                  {type.image?.asset ? (
+                    <IntrinsicPhoto
+                      photo={type.image}
+                      sizes="(max-width: 768px) 100vw, 380px"
+                      alt=""
+                      className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
+                    />
+                  ) : (
+                    <div className="aspect-[4/5] w-full bg-linen-deep" />
+                  )}
+                  {/* Title and tagline sit inside the frame, over a gradient. */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,0)_42%,rgba(42,53,39,.78)_100%)]"
+                  />
+                  <div className="absolute right-5 bottom-[18px] left-5">
+                    <h3 className="text-[22px] leading-[1.25] text-linen">
+                      {type.title}
+                    </h3>
+                    <p className="mt-1 text-xs font-extrabold tracking-[0.18em] text-straw uppercase">
+                      {type.tagline}
+                    </p>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl text-linen">{type.title}</h3>
-                    <p className="mt-1 text-sm text-straw">{type.tagline}</p>
-                  </div>
-                </Link>
-              </Reveal>
+                </a>
+              </li>
             ))}
           </ul>
 
-          <Reveal className="mt-12 max-w-[62ch] text-linen/70">
+          <div className="mt-10 max-w-[62ch] text-charcoal/80">
             <p>{homeContent.sessionsNote}</p>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       <QuoteBlock testimonial={testimonial} />
 
       {/* ---------- Approach ---------- */}
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-24">
+      <section className="px-(--gutter) py-(--section-lg)">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(32px,5vw,80px)]">
           {page?.approachImage?.asset && (
-            <Reveal className="relative aspect-[4/5] overflow-hidden rounded-xl lg:order-1">
-              <Photo
+            <div className="min-w-0 lg:order-1">
+              <IntrinsicPhoto
                 photo={page.approachImage}
                 sizes="(max-width: 1024px) 100vw, 560px"
               />
-            </Reveal>
+            </div>
           )}
-          <Reveal className="lg:order-2">
+          <div className="min-w-0 lg:order-2">
             <Eyebrow>My approach</Eyebrow>
-            <h2 className="mt-5 text-[clamp(28px,3.4vw,45px)]">
+            <h2 className="mt-5 mb-6 text-[clamp(28px,3.4vw,45px)]">
               {page?.approachHeading ?? homeContent.approachHeading}
             </h2>
-            <div className="mt-7 space-y-5 text-charcoal/85">
+            <div className="space-y-5 text-charcoal/85">
               {(page?.approachBody ?? homeContent.approachBody).map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i} className="max-w-[52ch]">
+                  {para}
+                </p>
               ))}
             </div>
             <div className="mt-8 border-l-2 border-straw pl-6">
@@ -185,46 +207,40 @@ export default async function HomePageRoute() {
                 {page?.approachPullQuote ?? homeContent.approachPullQuote}
               </PullQuote>
             </div>
-            <Link
-              href="/about"
-              className="eyebrow mt-9 inline-block text-terracotta hover:text-terracotta-hover"
-            >
-              More about my approach &rarr;
-            </Link>
-          </Reveal>
+            <Cta href="/about" size="small" className="mt-8">
+              More about my approach
+            </Cta>
+          </div>
         </div>
       </section>
 
       {/* ---------- Recent work ---------- */}
       {featured && featured.length > 0 && (
-        <section className="px-6 pb-(--spacing-section) lg:px-10">
+        <section className="bg-forest px-(--gutter) py-(--section)">
           <div className="mx-auto max-w-[1200px]">
-            <Reveal className="flex flex-wrap items-end justify-between gap-6">
-              <div>
-                <Eyebrow>{homeContent.recentWorkEyebrow}</Eyebrow>
-                <h2 className="mt-5 text-[clamp(26px,3.2vw,43px)]">
+            <div className="mb-[clamp(32px,4vw,56px)] flex flex-wrap items-end justify-between gap-6">
+              <div className="min-w-0">
+                <Eyebrow tone="straw">{homeContent.recentWorkEyebrow}</Eyebrow>
+                <h2 className="mt-4 text-linen text-[clamp(26px,3.2vw,43px)]">
                   {homeContent.recentWorkHeading}
                 </h2>
               </div>
-              <Link href="/portfolio" className="eyebrow text-terracotta hover:text-terracotta-hover">
-                See the portfolio &rarr;
-              </Link>
-            </Reveal>
+              <Cta href="/portfolio" tone="onDark" size="small" className="flex-none">
+                See the portfolio
+              </Cta>
+            </div>
 
-            <ul className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {featured.slice(0, 8).map((item, i) => (
-                <Reveal as="li" key={item._id} delay={i * 60}>
-                  <Link
-                    href="/portfolio"
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-lg"
-                  >
-                    <Photo
+                <li key={item._id}>
+                  <a href="/portfolio" className="group block overflow-hidden">
+                    <IntrinsicPhoto
                       photo={item.image}
                       sizes="(max-width: 768px) 50vw, 280px"
-                      className="object-cover transition-transform duration-[600ms] group-hover:scale-[1.04]"
+                      className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
                     />
-                  </Link>
-                </Reveal>
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
@@ -239,7 +255,7 @@ export default async function HomePageRoute() {
             <div aria-hidden className="absolute inset-0 bg-forest/55" />
           </>
         )}
-        <Reveal className="relative mx-auto max-w-[820px] px-6 py-(--spacing-section) text-center lg:px-10">
+        <div className="relative mx-auto max-w-[820px] px-(--gutter) py-(--section) text-center">
           <Eyebrow tone="straw">Let&rsquo;s do this</Eyebrow>
           <h2 className="mt-6 text-linen text-[clamp(28px,3.6vw,47px)]">
             {page?.closingHeading ?? homeContent.closingHeading}
@@ -248,9 +264,11 @@ export default async function HomePageRoute() {
             {page?.closingBody ?? homeContent.closingBody}
           </p>
           <div className="mt-10 flex justify-center">
-            <Cta href="/enquire">Enquire about a session</Cta>
+            <Cta href="/enquire" tone="onDark">
+              Enquire about a session
+            </Cta>
           </div>
-        </Reveal>
+        </div>
       </section>
     </>
   );

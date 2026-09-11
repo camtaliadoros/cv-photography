@@ -10,7 +10,8 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
 
 export const homePageQuery = groq`*[_type == "homePage"][0]{
   heroImage${PHOTO}, heroHeading, heroSubline,
-  introEyebrow, introHeading, introBody, introImage${PHOTO},
+  introEyebrow, introHeading, introBody,
+  introImage${PHOTO}, introImageSecondary${PHOTO},
   approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
   closingHeading, closingBody, closingImage${PHOTO},
   seoTitle, seoDescription

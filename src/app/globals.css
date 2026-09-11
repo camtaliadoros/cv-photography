@@ -19,6 +19,12 @@
   --moss-hover: #3d5039;
   --charcoal: #2c2c2c;
   --text-muted: #6b6b64;
+
+  /* Spacing taken from the approved prototype, not invented. */
+  --gutter: clamp(20px, 4vw, 56px);      /* horizontal page gutter */
+  --section: clamp(56px, 8vw, 96px);     /* standard section padding */
+  --section-lg: clamp(56px, 8vw, 104px); /* the roomier sections */
+  --hero-bottom: clamp(40px, 7vh, 72px);
 }
 
 @theme inline {
@@ -38,9 +44,6 @@
 
   --font-display: var(--font-lora);
   --font-sans: var(--font-jakarta);
-
-  /* Section rhythm — generous, unhurried. */
-  --spacing-section: clamp(72px, 9vw, 128px);
 }
 
 /*
@@ -93,39 +96,6 @@
   }
 }
 
-@layer components {
-/* Tracked-caps label, used for eyebrows, nav and CTAs. */
-.eyebrow {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
-/* Scroll-reveal. Starts visible so no-JS and search crawlers see content. */
-.reveal {
-  opacity: 1;
-}
-}
-
-/*
- * Only hide content in browsers that can reveal it again. `scripting: enabled`
- * does this in CSS, so there's no class-setting script to desync hydration —
- * and where the feature is unsupported, content simply stays visible.
- */
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 700ms ease, transform 700ms ease;
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -134,5 +104,37 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@keyframes cvFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 0.45;
+  }
+}
+
+@keyframes cvRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cvFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -19,7 +19,7 @@ export default function EnquirePage() {
         standfirst={enquireContent.heroStandfirst}
       />
 
-      <section className="mx-auto max-w-[1200px] px-6 py-(--spacing-section) lg:px-10">
+      <section className="mx-auto max-w-[1200px] px-(--gutter) py-(--section)">
         <div className="grid gap-14 lg:grid-cols-[1.3fr_0.7fr] lg:gap-24">
           <EnquiryForm />
 

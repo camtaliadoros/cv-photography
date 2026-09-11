@@ -46,8 +46,6 @@ export default async function SiteLayout({
         newsletterBody={settings?.newsletterBody ?? settingsContent.newsletterBody}
         blurb={settings?.footerBlurb ?? settingsContent.footerBlurb}
         seoLine={settings?.footerSeoLine ?? settingsContent.footerSeoLine}
-        showJournal={showJournal}
-        showMini={showMini}
       />
       <CookieConsent />
       {settings?.popupEnabled && <NewsletterPopup />}

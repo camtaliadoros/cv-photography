@@ -25,7 +25,8 @@ export default defineType({
       of: [{ type: "text", rows: 3 }],
       group: "intro",
     }),
-    photo("introImage", "Intro photograph"),
+    photo("introImage", "Intro photograph (left, sits lower)"),
+    photo("introImageSecondary", "Intro photograph (right)"),
     defineField({ name: "approachHeading", title: "Heading", type: "string", group: "approach" }),
     defineField({
       name: "approachBody",
