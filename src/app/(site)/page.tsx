@@ -63,7 +63,7 @@ export default async function HomePageRoute() {
         <div className="absolute bottom-(--hero-bottom) left-(--gutter) max-w-[min(34ch,calc(100%-120px))]">
           <span className="inline-flex items-center gap-2.5 text-straw">
             <span aria-hidden className="h-[1.5px] w-6 bg-current" />
-            <span className="text-[10px] font-extrabold tracking-[0.24em] uppercase">
+            <span className="text-[10px] font-black tracking-[0.24em] uppercase">
               Hertfordshire &amp; London
             </span>
           </span>
@@ -72,7 +72,7 @@ export default async function HomePageRoute() {
             page with no h1. Rendered as an h1 at the design's exact size —
             visually identical, and the page keeps a heading.
           */}
-          <h1 className="mt-3.5 font-display text-[clamp(19px,1.9vw,26px)] leading-[1.3] tracking-[-0.01em] text-linen">
+          <h1 className="mt-3.5 font-display text-[clamp(19px,1.9vw,26px)] leading-[1.3] text-linen">
             {page?.heroHeading ?? homeContent.heroHeading}
           </h1>
           <p className="mt-2.5 text-sm tracking-[0.01em] text-linen/80">
@@ -81,7 +81,7 @@ export default async function HomePageRoute() {
         </div>
 
         <div className="absolute right-(--gutter) bottom-7 flex animate-[cvFloat_2.8s_ease-in-out_infinite] flex-col items-center gap-2.5 text-linen">
-          <span className="text-[10px] font-extrabold tracking-[0.24em] uppercase">
+          <span className="text-[10px] font-black tracking-[0.24em] uppercase">
             Scroll
           </span>
           <span
@@ -95,8 +95,7 @@ export default async function HomePageRoute() {
       <section className="px-(--gutter) py-(--section-lg)">
         <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(32px,5vw,80px)]">
           <div className="min-w-0">
-            <Eyebrow>{page?.introEyebrow ?? homeContent.introEyebrow}</Eyebrow>
-            <h2 className="mt-5 mb-6 text-[clamp(28px,3.4vw,45px)]">
+            <h2 className="mb-6 text-[clamp(28px,3.4vw,45px)]">
               {page?.introHeading ?? homeContent.introHeading}
             </h2>
             <div className="mb-8 space-y-5 text-charcoal/85">
@@ -134,7 +133,7 @@ export default async function HomePageRoute() {
             <div className="min-w-0">
               <Eyebrow>Sessions</Eyebrow>
               <h2 className="mt-4 text-[clamp(26px,3.2vw,43px)]">
-                {homeContent.sessionsHeading}
+                {page?.sessionsHeading ?? homeContent.sessionsHeading}
               </h2>
             </div>
             <TextLink href="/sessions" className="flex-none">
@@ -165,7 +164,7 @@ export default async function HomePageRoute() {
                     <h3 className="text-[22px] leading-[1.25] text-linen">
                       {type.title}
                     </h3>
-                    <p className="mt-1 text-xs font-extrabold tracking-[0.18em] text-straw uppercase">
+                    <p className="mt-1 text-xs font-black tracking-[0.18em] text-straw uppercase">
                       {type.tagline}
                     </p>
                   </div>
@@ -173,10 +172,6 @@ export default async function HomePageRoute() {
               </li>
             ))}
           </ul>
-
-          <p className="mx-auto mt-[clamp(28px,4vw,44px)] max-w-[62ch] text-center text-muted">
-            {homeContent.sessionsNote}
-          </p>
         </div>
       </section>
 
@@ -208,15 +203,12 @@ export default async function HomePageRoute() {
             <Statement className="mt-8">
               {page?.approachPullQuote ?? homeContent.approachPullQuote}
             </Statement>
-            <TextLink href="/about" className="mt-8">
-              More about my approach
-            </TextLink>
           </div>
         </div>
       </section>
 
-      {/* ---------- Recent work ---------- */}
-      {featured && featured.length > 0 && (
+      {/* ---------- Recent work — hidden until switched on in Sanity ---------- */}
+      {page?.showRecentWork === true && featured && featured.length > 0 && (
         <section className="bg-forest py-[clamp(72px,10vw,120px)]">
           <div className="mx-auto max-w-[1200px] px-(--gutter)">
             <div className="mb-[clamp(28px,4vw,44px)] flex flex-wrap items-end justify-between gap-5">
@@ -232,39 +224,45 @@ export default async function HomePageRoute() {
             </div>
 
             {/*
-              Two rows with weighted widths rather than an even grid — the
-              second frame on the top row runs wide, the bottom row splits
-              evenly. The ratios come straight from the design.
+              Two rows of fixed frames, cropped to the design's ratios: a 2:3
+              portrait beside a 3:2 landscape, then three portraits. Each frame
+              grows by its own aspect ratio, so every frame in a row lands at
+              the same height whatever shape the photograph was. Below sm the
+              frames stack.
             */}
-            <div className="mb-4 flex flex-wrap gap-4">
-              {featured.slice(0, 2).map((item, i) => (
-                <div
-                  key={item._id}
-                  className="min-w-[180px]"
-                  style={{ flex: `${i === 1 ? 1.5 : 0.667} 1 0` }}
-                >
-                  <a href="/portfolio" className="group block overflow-hidden">
-                    <IntrinsicPhoto
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row">
+              {featured.slice(0, 2).map((item, i) => {
+                const ratio = i === 1 ? 3 / 2 : 2 / 3;
+                return (
+                  <a
+                    key={item._id}
+                    href="/portfolio"
+                    className="group relative block min-w-0 overflow-hidden sm:[flex:var(--grow)_1_0]"
+                    style={{ "--grow": ratio, aspectRatio: ratio } as React.CSSProperties}
+                  >
+                    <Photo
                       photo={item.image}
-                      sizes="(max-width: 768px) 100vw, 600px"
-                      className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
+                      sizes={i === 1 ? "(max-width: 640px) 100vw, 800px" : "(max-width: 640px) 100vw, 360px"}
+                      className="object-cover transition-opacity duration-[240ms] group-hover:opacity-[.92]"
                     />
                   </a>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row">
               {featured.slice(2, 5).map((item) => (
-                <div key={item._id} className="min-w-[180px] flex-[0.667_1_0]">
-                  <a href="/portfolio" className="group block overflow-hidden">
-                    <IntrinsicPhoto
-                      photo={item.image}
-                      sizes="(max-width: 768px) 100vw, 380px"
-                      className="h-auto w-full transition-opacity duration-[240ms] group-hover:opacity-[.92]"
-                    />
-                  </a>
-                </div>
+                <a
+                  key={item._id}
+                  href="/portfolio"
+                  className="group relative block aspect-[2/3] min-w-0 overflow-hidden sm:flex-1"
+                >
+                  <Photo
+                    photo={item.image}
+                    sizes="(max-width: 640px) 100vw, 380px"
+                    className="object-cover transition-opacity duration-[240ms] group-hover:opacity-[.92]"
+                  />
+                </a>
               ))}
             </div>
           </div>

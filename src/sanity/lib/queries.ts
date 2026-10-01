@@ -3,15 +3,18 @@ import { groq } from "next-sanity";
 const PHOTO = `{ asset, alt, hotspot, "lqip": asset->metadata.lqip, "dimensions": asset->metadata.dimensions }`;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
+  brandName, locationText,
   bannerEnabled, bannerText, bannerHref,
-  newsletterHeading, newsletterBody, popupEnabled,
+  newsletterHeading, newsletterBody, newsletterPrivacyNote, popupEnabled,
+  contactEmail, instagramHandle, instagramUrl,
   footerBlurb, footerSeoLine
 }`;
 
 export const homePageQuery = groq`*[_type == "homePage"][0]{
   heroImage${PHOTO}, heroHeading, heroSubline,
-  introEyebrow, introHeading, introBody,
+  introHeading, introBody,
   introImage${PHOTO}, introImageSecondary${PHOTO},
+  sessionsHeading, showRecentWork,
   approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
   testimonialImage${PHOTO},
   closingHeading, closingBody, closingImage${PHOTO},
@@ -21,7 +24,6 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
   heroImage${PHOTO}, heroEyebrow, heroHeading,
   story, storyPullQuote, gallery[]${PHOTO},
-  approachHeading, approachColumns, approachPullQuote,
   seoTitle, seoDescription
 }`;
 

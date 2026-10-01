@@ -5,11 +5,26 @@ export default defineType({
   title: "Site settings",
   type: "document",
   groups: [
+    { name: "brand", title: "Brand" },
     { name: "banner", title: "Announcement banner" },
     { name: "newsletter", title: "Newsletter" },
     { name: "contact", title: "Contact & footer" },
   ],
   fields: [
+    defineField({
+      name: "brandName",
+      title: "Brand name",
+      type: "string",
+      group: "brand",
+      description: "Shown in the logo alt text, footer copyright line and page metadata.",
+    }),
+    defineField({
+      name: "locationText",
+      title: "Location",
+      type: "string",
+      group: "brand",
+      description: "e.g. Hertfordshire — used in structured data and contact copy.",
+    }),
     defineField({
       name: "bannerEnabled",
       title: "Show announcement banner",
@@ -47,12 +62,39 @@ export default defineType({
       group: "newsletter",
     }),
     defineField({
+      name: "newsletterPrivacyNote",
+      title: "Newsletter privacy note",
+      type: "text",
+      rows: 2,
+      group: "newsletter",
+      description: "The small print under the sign-up field. A link to the Privacy Policy is added after it.",
+    }),
+    defineField({
       name: "popupEnabled",
       title: "Show newsletter popup",
       type: "boolean",
       group: "newsletter",
       initialValue: false,
       description: "Appears once per visitor after they've scrolled a little.",
+    }),
+    defineField({
+      name: "contactEmail",
+      title: "Contact email",
+      type: "string",
+      group: "contact",
+    }),
+    defineField({
+      name: "instagramHandle",
+      title: "Instagram handle",
+      type: "string",
+      group: "contact",
+      description: "Without the @ — e.g. camvelucciphotography",
+    }),
+    defineField({
+      name: "instagramUrl",
+      title: "Instagram URL",
+      type: "url",
+      group: "contact",
     }),
     defineField({
       name: "footerBlurb",

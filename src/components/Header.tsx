@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { site } from "@/lib/site";
+import { BANNER_CHANGE_EVENT } from "./Banner";
 
 interface NavItem {
   href: string;
@@ -13,9 +13,17 @@ interface NavItem {
 }
 
 const linkClass =
-  "text-xs font-extrabold tracking-[0.18em] uppercase transition-colors";
+  "text-xs font-black tracking-[0.18em] uppercase transition-colors";
 
-export function Header({ items }: { items: NavItem[] }) {
+export function Header({
+  items,
+  brandName,
+  email,
+}: {
+  items: NavItem[];
+  brandName: string;
+  email: string;
+}) {
   const pathname = usePathname();
   // Held against a path, so following a link closes the menu with no effect.
   const [openFor, setOpenFor] = useState<string | null>(null);
@@ -30,12 +38,13 @@ export function Header({ items }: { items: NavItem[] }) {
 
   useEffect(() => {
     // The announcement banner scrolls away; while it's still on screen the
-    // fixed header rides below it, then pins to the top once it's gone.
-    const bannerHeight =
-      document.querySelector<HTMLElement>("[data-announcement]")?.offsetHeight ?? 0;
-
+    // fixed header rides below it, then pins to the top once it's gone. It's
+    // measured on every pass, because the banner only mounts after hydration,
+    // can be dismissed, and rewraps as the viewport changes.
     const onScroll = () => {
       const y = window.scrollY;
+      const bannerHeight =
+        document.querySelector<HTMLElement>("[data-announcement]")?.offsetHeight ?? 0;
       setScrolled(y > 40);
       if (overHero) {
         setTop((current) => {
@@ -47,7 +56,13 @@ export function Header({ items }: { items: NavItem[] }) {
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    window.addEventListener(BANNER_CHANGE_EVENT, onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener(BANNER_CHANGE_EVENT, onScroll);
+    };
   }, [overHero]);
 
   useEffect(() => {
@@ -74,10 +89,10 @@ export function Header({ items }: { items: NavItem[] }) {
       ].join(" ")}
     >
       <div className="flex flex-wrap items-center justify-between gap-6 px-(--gutter) py-5">
-        <Link href="/" aria-label="Cam Velucci Photography — home">
+        <Link href="/" aria-label={`${brandName} — home`}>
           <Image
             src={transparent ? "/logo/logo-full-linen.png" : "/logo/logo-full-forest.png"}
-            alt="Cam Velucci Photography"
+            alt={brandName}
             width={2775}
             height={620}
             priority
@@ -135,7 +150,7 @@ export function Header({ items }: { items: NavItem[] }) {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display text-3xl text-forest"
+                  className="text-base font-black tracking-[0.18em] text-forest uppercase"
                 >
                   {item.label}
                 </a>
@@ -143,7 +158,7 @@ export function Header({ items }: { items: NavItem[] }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="font-display text-3xl text-forest"
+                  className="text-base font-black tracking-[0.18em] text-forest uppercase"
                 >
                   {item.label}
                 </Link>
@@ -151,12 +166,15 @@ export function Header({ items }: { items: NavItem[] }) {
             )}
             <Link
               href="/enquire"
-              className="font-display w-fit border-b-[1.5px] border-terracotta pb-1.5 text-3xl text-terracotta"
+              className="font-display mt-2 inline-flex w-fit items-center gap-3 border-b-[1.5px] border-terracotta pb-1.5 text-[22px] text-forest"
             >
               Enquire
+              <span aria-hidden className="font-sans text-[15px] leading-none font-black">
+                &rarr;
+              </span>
             </Link>
-            <a href={`mailto:${site.email}`} className="mt-6 text-sm text-muted">
-              {site.email}
+            <a href={`mailto:${email}`} className="mt-6 text-sm text-muted">
+              {email}
             </a>
           </nav>
         </div>

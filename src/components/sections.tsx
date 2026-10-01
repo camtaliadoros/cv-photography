@@ -18,7 +18,7 @@ export function Eyebrow({
   return (
     <span className={`inline-flex items-center gap-2.5 ${colour} ${className}`}>
       <span aria-hidden className="h-0.5 w-6 bg-current" />
-      <span className="text-xs font-extrabold tracking-[0.2em] uppercase">
+      <span className="text-xs font-black tracking-[0.2em] uppercase">
         {children}
       </span>
     </span>
@@ -42,7 +42,7 @@ export function Label({
   };
   return (
     <p
-      className={`text-xs font-extrabold tracking-[0.18em] uppercase ${colours[tone]} ${className}`}
+      className={`text-xs font-black tracking-[0.18em] uppercase ${colours[tone]} ${className}`}
     >
       {children}
     </p>
@@ -139,14 +139,14 @@ export function QuoteBlock({
       />
       <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) py-(--section)">
         <blockquote
-          className={`font-quote text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
+          className={`font-display text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
             variant === "home" ? "max-w-[22ch]" : "max-w-[24ch]"
           }`}
         >
           &ldquo;{testimonial.quote}&rdquo;
         </blockquote>
         {name && (
-          <cite className="mt-[26px] block text-xs font-extrabold tracking-[0.2em] text-straw uppercase not-italic">
+          <cite className="mt-[26px] block text-xs font-black tracking-[0.2em] text-straw uppercase not-italic">
             {name}
           </cite>
         )}
@@ -155,7 +155,7 @@ export function QuoteBlock({
   );
 }
 
-/** Cormorant italic — the lyrical pull quote. */
+/** Lora italic — the lyrical pull quote. */
 export function Quote({
   children,
   className = "",
@@ -165,7 +165,7 @@ export function Quote({
 }) {
   return (
     <p
-      className={`font-quote text-[clamp(24px,2.8vw,34px)] leading-[1.3] text-forest italic ${className}`}
+      className={`font-display text-[clamp(24px,2.8vw,34px)] leading-[1.3] text-forest italic ${className}`}
     >
       {children}
     </p>
@@ -173,7 +173,7 @@ export function Quote({
 }
 
 /**
- * The flat, emphatic statement — heavy sans rather than a quote face. Used for
+ * The flat, emphatic statement — Lato Black rather than a quote face. Used for
  * "I won't direct your every move…" wherever it appears.
  */
 export function Statement({
@@ -185,7 +185,7 @@ export function Statement({
 }) {
   return (
     <p
-      className={`max-w-[44ch] text-[clamp(17px,1.9vw,21px)] leading-[1.4] font-extrabold tracking-[0.01em] text-forest ${className}`}
+      className={`max-w-[44ch] text-[clamp(17px,1.9vw,21px)] leading-[1.4] font-black tracking-[0.01em] text-forest ${className}`}
     >
       {children}
     </p>

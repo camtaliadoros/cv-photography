@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { journalPostQuery, journalSlugsQuery } from "@/sanity/lib/queries";
-import type { JournalPost, SanityPhoto } from "@/sanity/lib/types";
+import { journalPostQuery, journalSlugsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import type { JournalPost, SanityPhoto, SiteSettings } from "@/sanity/lib/types";
 import { IntrinsicPhoto, Photo } from "@/components/Photo";
 import { Cta, TextLink } from "@/components/Cta";
 import { PageHero, Quote } from "@/components/sections";
@@ -65,8 +65,13 @@ const components: PortableTextComponents = {
 
 export default async function JournalPostPage(props: PageProps<"/journal/[slug]">) {
   const { slug } = await props.params;
-  const post = await sanityFetch<JournalPost>(journalPostQuery, { slug }, ["journalPost"]);
+  const [post, settings] = await Promise.all([
+    sanityFetch<JournalPost>(journalPostQuery, { slug }, ["journalPost"]),
+    sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
+  ]);
   if (!post) notFound();
+
+  const brandName = settings?.brandName ?? site.name;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -75,7 +80,7 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
     description: post.seoDescription ?? post.standfirst,
     datePublished: post.publishedAt,
     author: { "@type": "Person", name: "Cam Velucci" },
-    publisher: { "@type": "Organization", name: site.name },
+    publisher: { "@type": "Organization", name: brandName },
     mainEntityOfPage: `${site.url}/journal/${slug}`,
   };
 

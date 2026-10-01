@@ -25,13 +25,19 @@ export default async function SiteLayout({
   const showMini = mini?.enabled === true;
   const showJournal = (posts?.length ?? 0) > 0;
 
+  const brandName = settings?.brandName ?? site.name;
+  const contactEmail = settings?.contactEmail ?? site.email;
+  const instagramUrl = settings?.instagramUrl ?? site.instagramUrl;
+  const newsletterPrivacyNote =
+    settings?.newsletterPrivacyNote ?? settingsContent.newsletterPrivacyNote;
+
   const items = [
     { href: "/portfolio", label: "Portfolio" },
     { href: "/about", label: "About" },
     { href: "/sessions", label: "Sessions" },
     ...(showMini ? [{ href: "/mini-sessions", label: "Mini sessions" }] : []),
     ...(showJournal ? [{ href: "/journal", label: "Journal" }] : []),
-    { href: site.instagramUrl, label: "Instagram", external: true },
+    { href: instagramUrl, label: "Instagram", external: true },
   ];
 
   return (
@@ -39,16 +45,20 @@ export default async function SiteLayout({
       {settings?.bannerEnabled && settings.bannerText && (
         <Banner text={settings.bannerText} href={settings.bannerHref ?? "/mini-sessions"} />
       )}
-      <Header items={items} />
+      <Header items={items} brandName={brandName} email={contactEmail} />
       <main id="main">{children}</main>
       <Footer
+        brandName={brandName}
+        email={contactEmail}
+        instagramUrl={instagramUrl}
         newsletterHeading={settings?.newsletterHeading ?? settingsContent.newsletterHeading}
         newsletterBody={settings?.newsletterBody ?? settingsContent.newsletterBody}
+        newsletterPrivacyNote={newsletterPrivacyNote}
         blurb={settings?.footerBlurb ?? settingsContent.footerBlurb}
         seoLine={settings?.footerSeoLine ?? settingsContent.footerSeoLine}
       />
       <CookieConsent />
-      {settings?.popupEnabled && <NewsletterPopup />}
+      {settings?.popupEnabled && <NewsletterPopup privacyNote={newsletterPrivacyNote} />}
     </>
   );
 }

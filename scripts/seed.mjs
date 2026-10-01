@@ -125,13 +125,20 @@ const SINGLETONS = [
   {
     _id: "siteSettings",
     _type: "siteSettings",
+    brandName: "Cam Velucci Photography",
+    locationText: "Hertfordshire",
     bannerEnabled: false,
     bannerText: "Pumpkin patch mini sessions — Saturday 10th October, now booking",
     bannerHref: "/mini-sessions",
     newsletterHeading: "Mini session dates, before anyone else.",
     newsletterBody:
       "Occasional notes from me — new dates, offers, and the odd thing I've learned photographing my own two. Unsubscribe anytime.",
+    newsletterPrivacyNote:
+      "Your details are safe with me — I'll only use them to send you these notes.",
     popupEnabled: false,
+    contactEmail: "hello@camvelucci.com",
+    instagramHandle: "camvelucciphotography",
+    instagramUrl: "https://instagram.com/camvelucciphotography",
     footerBlurb:
       "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included.",
     footerSeoLine:

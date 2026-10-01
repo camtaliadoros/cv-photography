@@ -1,78 +1,80 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Cormorant_Garamond, Lora, Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
+import { Lato, Lora } from "next/font/google";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { siteSettingsQuery } from "@/sanity/lib/queries";
+import type { SiteSettings } from "@/sanity/lib/types";
 import { site } from "@/lib/site";
 import "./globals.css";
 
+// Two faces only. Lora (roman and italic, 400) for headlines, buttons, links
+// and quotes; Lato for everything else — 400 for body, 900 for the loud voice.
 const lora = Lora({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400"],
+  style: ["normal", "italic"],
   variable: "--font-lora",
   display: "swap",
 });
 
-// Pull quotes and testimonials only — the design's third face.
-const cormorant = Cormorant_Garamond({
+// 700 is only for <strong> inside body copy.
+const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["italic"],
-  variable: "--font-cormorant",
+  weight: ["400", "700", "900"],
+  variable: "--font-lato",
   display: "swap",
 });
 
-// Form fields only — the design sets its inputs in the serif, Light 300.
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["300"],
-  variable: "--font-source-serif",
-  display: "swap",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
+  const brandName = settings?.brandName ?? site.name;
+  const locationText = settings?.locationText ?? site.region;
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
-  variable: "--font-jakarta",
-  display: "swap",
-});
+  return {
+    metadataBase: new URL(site.url),
+    title: {
+      default: `${brandName} — Family & Motherhood Photographer in ${locationText}`,
+      template: `%s — ${brandName}`,
+    },
+    description:
+      "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included. Story-led sessions across St Albans, Harpenden and London.",
+    alternates: { canonical: "/" },
+    openGraph: {
+      type: "website",
+      locale: "en_GB",
+      siteName: brandName,
+      url: site.url,
+    },
+    twitter: { card: "summary_large_image" },
+    robots: { index: true, follow: true },
+  };
+}
 
-export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: `${site.name} — Family & Motherhood Photographer in Hertfordshire`,
-    template: `%s — ${site.name}`,
-  },
-  description:
-    "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included. Story-led sessions across St Albans, Harpenden and London.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    siteName: site.name,
-    url: site.url,
-  },
-  twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
+  const brandName = settings?.brandName ?? site.name;
+  const contactEmail = settings?.contactEmail ?? site.email;
+  const locationText = settings?.locationText ?? site.region;
+  const instagramUrl = settings?.instagramUrl ?? site.instagramUrl;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${site.url}/#business`,
-    name: site.name,
+    name: brandName,
     image: `${site.url}/opengraph-image`,
     url: site.url,
-    email: site.email,
+    email: contactEmail,
     priceRange: "££",
     address: {
       "@type": "PostalAddress",
-      addressRegion: site.region,
+      addressRegion: locationText,
       addressCountry: "GB",
     },
     areaServed: site.areasServed.map((name) => ({ "@type": "Place", name })),
-    sameAs: [site.instagramUrl],
+    sameAs: [instagramUrl],
     knowsAbout: [
       "Family photography",
       "Newborn photography",
@@ -81,7 +83,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-GB" className={`${lora.variable} ${jakarta.variable} ${cormorant.variable} ${sourceSerif.variable}`}>
+    <html lang="en-GB" className={`${lora.variable} ${lato.variable}`}>
       <body>
         <a
           href="#main"

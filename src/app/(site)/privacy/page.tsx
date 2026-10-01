@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { siteSettingsQuery } from "@/sanity/lib/queries";
+import type { SiteSettings } from "@/sanity/lib/types";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -15,13 +18,16 @@ export const metadata: Metadata = {
  * corrected for this build: Netlify hosting rather than Vercel, Plausible
  * rather than Google Analytics, and the separate newsletter list.
  */
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
+  const contactEmail = settings?.contactEmail ?? site.email;
+
   return (
     <div className="mx-auto max-w-[760px] px-(--gutter) pt-36 pb-(--section)">
       <h1 className="text-[clamp(30px,4vw,48px)]">Privacy Policy</h1>
       <p className="mt-4 text-sm text-muted">Last updated: 10 September 2026</p>
 
-      <div className="mt-12 space-y-6 text-charcoal/85 [&_a]:text-terracotta [&_a]:underline [&_h2]:pt-8 [&_h2]:text-2xl [&_strong]:font-semibold [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
+      <div className="mt-12 space-y-6 text-charcoal/85 [&_a]:text-terracotta [&_a]:underline [&_h2]:pt-8 [&_h2]:text-2xl [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
         <p>
           This privacy policy explains how <strong>Cam Velucci Photography</strong>{" "}
           (&ldquo;I&rdquo;, &ldquo;me&rdquo;, &ldquo;my&rdquo;) collects, uses and
@@ -34,7 +40,7 @@ export default function PrivacyPage() {
           Cam Velucci Photography is a photography business based in
           Hertfordshire, England. If you have any questions about this policy or
           your data, you can reach me at{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a>.
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>.
         </p>
 
         <h2>What information I collect</h2>
@@ -93,7 +99,7 @@ export default function PrivacyPage() {
           The lawful basis for these messages is your <strong>consent</strong>.
           You can withdraw it at any time — every email includes an unsubscribe
           link, or you can email me at{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a> and I&rsquo;ll remove
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a> and I&rsquo;ll remove
           you straight away. Withdrawing your consent doesn&rsquo;t affect
           anything I sent before you withdrew it.
         </p>
@@ -179,7 +185,7 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To exercise any of these rights, email me at{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a>. If you&rsquo;re
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>. If you&rsquo;re
           unhappy with how I&rsquo;ve handled your data, you can also complain to
           the Information Commissioner&rsquo;s Office (ICO) at{" "}
           <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">

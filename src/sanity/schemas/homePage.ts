@@ -8,7 +8,9 @@ export default defineType({
   groups: [
     { name: "hero", title: "Hero" },
     { name: "intro", title: "Intro" },
+    { name: "sessions", title: "Sessions" },
     { name: "approach", title: "Approach" },
+    { name: "recentWork", title: "Recent work" },
     { name: "closing", title: "Closing" },
     { name: "seo", title: "SEO" },
   ],
@@ -16,7 +18,6 @@ export default defineType({
     photo("heroImage", "Hero photograph"),
     defineField({ name: "heroHeading", title: "Hero heading", type: "string", group: "hero" }),
     defineField({ name: "heroSubline", title: "Hero subline", type: "string", group: "hero" }),
-    defineField({ name: "introEyebrow", title: "Eyebrow", type: "string", group: "intro" }),
     defineField({ name: "introHeading", title: "Heading", type: "string", group: "intro" }),
     defineField({
       name: "introBody",
@@ -27,6 +28,22 @@ export default defineType({
     }),
     photo("introImage", "Intro photograph (left, sits lower)"),
     photo("introImageSecondary", "Intro photograph (right)"),
+    defineField({
+      name: "sessionsHeading",
+      title: "Heading",
+      type: "string",
+      group: "sessions",
+      description: "The session cards themselves are edited under Session types.",
+    }),
+    defineField({
+      name: "showRecentWork",
+      title: "Show the recent work section",
+      type: "boolean",
+      group: "recentWork",
+      initialValue: false,
+      description:
+        "The row of portfolio photographs. Pick which photos appear by switching on 'Show on the home page' under Portfolio images.",
+    }),
     defineField({ name: "approachHeading", title: "Heading", type: "string", group: "approach" }),
     defineField({
       name: "approachBody",

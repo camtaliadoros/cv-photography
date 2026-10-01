@@ -10,7 +10,8 @@ import Link from "next/link";
  * `Cta` — the primary call to action, larger, with a trailing arrow, ruled in
  * straw gold on dark grounds and terracotta on light ones.
  *
- * Neither is ever a filled button; the prototype has none.
+ * Both are Lora Regular and underlined. Neither is ever a filled button; the
+ * prototype has none.
  */
 const base =
   "font-display inline-flex items-center leading-snug border-b-[1.5px] transition-colors duration-200 cursor-pointer";
@@ -103,10 +104,10 @@ function wrap(
   );
 }
 
-/** The arrow is set in the sans face, not the Lora of the label beside it. */
+/** The arrow is set in Lato Black, not the Lora of the label beside it. */
 function Arrow() {
   return (
-    <span aria-hidden className="font-sans text-[15px] leading-none font-extrabold">
+    <span aria-hidden className="font-sans text-[15px] leading-none font-black">
       &rarr;
     </span>
   );

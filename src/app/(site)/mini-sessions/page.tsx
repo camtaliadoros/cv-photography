@@ -79,7 +79,7 @@ export default async function MiniSessionsPage() {
           <dl className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-[clamp(24px,3vw,44px)]">
             {details.map((d, i) => (
               <div key={i} className="border-t-[1.5px] border-straw pt-[18px]">
-                <dt className="text-xs font-extrabold tracking-[0.18em] text-straw uppercase">
+                <dt className="text-xs font-black tracking-[0.18em] text-straw uppercase">
                   {d.label}
                 </dt>
                 <dd className="font-display mt-2.5 text-[21px] leading-snug text-linen">
@@ -99,7 +99,7 @@ export default async function MiniSessionsPage() {
             <Label tone="straw">
               {page?.priceLabel ?? miniSessionContent.priceLabel}
             </Label>
-            <p className="mt-4 text-[clamp(48px,6vw,72px)] leading-none font-extrabold text-linen">
+            <p className="mt-4 text-[clamp(48px,6vw,72px)] leading-none font-black text-linen">
               {page?.price ?? miniSessionContent.price}
             </p>
             {headline && (

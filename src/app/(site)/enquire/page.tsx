@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { enquirePageQuery } from "@/sanity/lib/queries";
-import type { EnquirePage } from "@/sanity/lib/types";
+import { enquirePageQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import type { EnquirePage, SiteSettings } from "@/sanity/lib/types";
 import { enquireContent } from "@/lib/content";
 import { EnquiryForm } from "@/components/EnquiryForm";
 import { IntrinsicPhoto } from "@/components/Photo";
@@ -15,7 +15,15 @@ export const metadata: Metadata = {
 };
 
 export default async function EnquirePage() {
-  const page = await sanityFetch<EnquirePage>(enquirePageQuery, {}, ["enquirePage"]);
+  const [page, settings] = await Promise.all([
+    sanityFetch<EnquirePage>(enquirePageQuery, {}, ["enquirePage"]),
+    sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
+  ]);
+
+  const contactEmail = settings?.contactEmail ?? site.email;
+  const instagramHandle = settings?.instagramHandle ?? site.instagram;
+  const instagramUrl = settings?.instagramUrl ?? site.instagramUrl;
+  const locationText = settings?.locationText ?? site.region;
 
   return (
     <>
@@ -41,22 +49,22 @@ export default async function EnquirePage() {
             )}
             <Label>Or reach me directly</Label>
             <p className="mt-4">
-              <a href={`mailto:${site.email}`} className="hover:text-terracotta">
-                {site.email}
+              <a href={`mailto:${contactEmail}`} className="hover:text-terracotta">
+                {contactEmail}
               </a>
             </p>
             <p className="mt-2">
               <a
-                href={site.instagramUrl}
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-terracotta"
               >
-                @{site.instagram}
+                @{instagramHandle}
               </a>
             </p>
             <p className="mt-6 max-w-[34ch] text-[15px] text-muted">
-              Based in Hertfordshire, photographing across London and further
+              Based in {locationText}, photographing across London and further
               afield.
             </p>
           </aside>

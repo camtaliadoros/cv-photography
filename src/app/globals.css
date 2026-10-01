@@ -44,11 +44,8 @@
   --color-charcoal: var(--charcoal);
   --color-muted: var(--text-muted);
 
-  --font-display: var(--font-lora);
-  --font-sans: var(--font-jakarta);
-  --font-quote: var(--font-cormorant);
-  --font-field: var(--font-source-serif);
-  --font-cormorant-stack: var(--font-cormorant), Georgia, serif;
+  --font-display: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-lato), system-ui, sans-serif;
 }
 
 /*
@@ -64,7 +61,7 @@
   body {
     background: var(--warm-linen);
     color: var(--charcoal);
-    font-family: var(--font-jakarta), system-ui, sans-serif;
+    font-family: var(--font-lato), system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.7;
     overflow-x: hidden;
@@ -72,7 +69,7 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Headings are Lora throughout — regular weight, tightly tracked. */
+  /* Headings are Lora throughout — Regular 400, sentence case, tracked −0.02em. */
   h1,
   h2,
   h3,

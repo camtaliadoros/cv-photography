@@ -1,20 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site } from "@/lib/site";
 import { NewsletterForm } from "./NewsletterForm";
 import { Eyebrow } from "./sections";
 
 const linkClass =
-  "text-xs font-extrabold tracking-[0.18em] text-straw uppercase transition-colors hover:text-linen";
+  "text-xs font-black tracking-[0.18em] text-straw uppercase transition-colors hover:text-linen";
 
 export function Footer({
+  brandName,
+  email,
+  instagramUrl,
   newsletterHeading,
   newsletterBody,
+  newsletterPrivacyNote,
   blurb,
   seoLine,
 }: {
+  brandName: string;
+  email: string;
+  instagramUrl: string;
   newsletterHeading: string;
   newsletterBody: string;
+  newsletterPrivacyNote: string;
   blurb: string;
   seoLine: string;
 }) {
@@ -31,7 +38,7 @@ export function Footer({
             <p className="max-w-[44ch] text-muted">{newsletterBody}</p>
           </div>
           <div className="min-w-0">
-            <NewsletterForm source="Footer" />
+            <NewsletterForm source="Footer" privacyNote={newsletterPrivacyNote} />
           </div>
         </div>
       </section>
@@ -42,10 +49,10 @@ export function Footer({
       */}
       <footer className="bg-[oklch(from_var(--forest)_calc(l*0.62)_c_h)] px-(--gutter) py-[clamp(56px,7vw,88px)]">
         <div className="mx-auto flex max-w-[680px] flex-col items-center gap-[clamp(24px,3vw,36px)] text-center">
-          <Link href="/" aria-label="Cam Velucci Photography — home">
+          <Link href="/" aria-label={`${brandName} — home`}>
             <Image
               src="/logo/logo-stamp-linen.png"
-              alt="Cam Velucci Photography"
+              alt={brandName}
               width={2830}
               height={2830}
               sizes="92px"
@@ -61,11 +68,11 @@ export function Footer({
           </p>
 
           <div className="flex flex-wrap justify-center gap-[clamp(16px,2.4vw,32px)]">
-            <a href={`mailto:${site.email}`} className={linkClass}>
-              {site.email}
+            <a href={`mailto:${email}`} className={linkClass}>
+              {email}
             </a>
             <a
-              href={site.instagramUrl}
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={linkClass}
@@ -78,7 +85,7 @@ export function Footer({
           </div>
 
           <p className="text-[13px] text-linen/60">
-            &copy; {new Date().getFullYear()} Cam Velucci Photography
+            &copy; {new Date().getFullYear()} {brandName}
           </p>
         </div>
       </footer>

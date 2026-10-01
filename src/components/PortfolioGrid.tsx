@@ -57,7 +57,7 @@ export function PortfolioGrid({
               type="button"
               onClick={() => setFilter(f.value)}
               aria-pressed={filter === f.value}
-              className={`rounded-full border-[1.5px] border-straw px-[22px] py-2.5 text-xs font-extrabold tracking-[0.16em] uppercase transition-colors duration-[240ms] ${
+              className={`rounded-full border-[1.5px] border-straw px-[22px] py-2.5 text-xs font-black tracking-[0.16em] uppercase transition-colors duration-[240ms] ${
                 filter === f.value
                   ? "bg-straw text-forest"
                   : "bg-transparent text-straw"
@@ -105,7 +105,7 @@ export function PortfolioGrid({
               className="object-contain"
             />
           </div>
-          <span className="absolute top-6 right-7 text-xs font-extrabold tracking-[0.18em] text-linen uppercase">
+          <span className="absolute top-6 right-7 text-xs font-black tracking-[0.18em] text-linen uppercase">
             Close
           </span>
         </div>

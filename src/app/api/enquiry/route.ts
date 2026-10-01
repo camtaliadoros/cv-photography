@@ -196,6 +196,7 @@ function clientConfirmationHtml(firstName: string): string {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thank you for getting in touch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body style="margin:0; padding:0; background-color:#f0eae0;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0eae0;">
@@ -209,13 +210,13 @@ function clientConfirmationHtml(firstName: string): string {
           </tr>
           <tr>
             <td style="padding:40px 36px 32px;">
-              <p style="margin:0 0 20px; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Hi ${name},</p>
+              <p style="margin:0 0 20px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Hi ${name},</p>
 
-              <p style="margin:0 0 20px; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Thank you so much for getting in touch! Your message has landed safely with me.</p>
+              <p style="margin:0 0 20px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Thank you so much for getting in touch! Your message has landed safely with me.</p>
 
-              <p style="margin:0 0 28px; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">I&rsquo;m likely behind a camera or knee-deep in family life right now (both, probably), so this is just a quick note to say: I&rsquo;ve got you. I&rsquo;ll come back to you personally as soon as I can.</p>
+              <p style="margin:0 0 28px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">I&rsquo;m likely behind a camera or knee-deep in family life right now (both, probably), so this is just a quick note to say: I&rsquo;ve got you. I&rsquo;ll come back to you personally as soon as I can.</p>
 
-              <p style="margin:0 0 20px; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">In the meantime, here&rsquo;s my brochure if you&rsquo;d like to see how sessions work and what&rsquo;s included:</p>
+              <p style="margin:0 0 20px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">In the meantime, here&rsquo;s my brochure if you&rsquo;d like to see how sessions work and what&rsquo;s included:</p>
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 28px;">
                 <tr>
@@ -223,7 +224,7 @@ function clientConfirmationHtml(firstName: string): string {
                     <table role="presentation" cellpadding="0" cellspacing="0">
                       <tr>
                         <td style="border-radius:6px; background-color:#9c5841;">
-                          <a href="https://camvelucci.com/brochure" target="_blank" style="display:inline-block; padding:14px 30px; font-family:'Plus Jakarta Sans',Helvetica,Arial,sans-serif; font-size:13px; font-weight:700; letter-spacing:0.04em; color:#f0eae0; text-decoration:none;">View the brochure</a>
+                          <a href="https://camvelucci.com/brochure" target="_blank" style="display:inline-block; padding:14px 30px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:12px; font-weight:900; letter-spacing:0.18em; text-transform:uppercase; color:#f0eae0; text-decoration:none;">View the brochure</a>
                         </td>
                       </tr>
                     </table>
@@ -231,14 +232,14 @@ function clientConfirmationHtml(firstName: string): string {
                 </tr>
               </table>
 
-              <p style="margin:0 0 28px; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">And if you&rsquo;d like to get a feel for how I work, you can also have a wander through my <a href="https://instagram.com/camvelucciphotography" target="_blank" style="color:#b5674e;">recent work</a>.</p>
+              <p style="margin:0 0 28px; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">And if you&rsquo;d like to get a feel for how I work, you can also have a wander through my <a href="https://instagram.com/camvelucciphotography" target="_blank" style="color:#b5674e;">recent work</a>.</p>
 
-              <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Talk very soon,<br><span style="font-weight:400;">Cam</span></p>
+              <p style="margin:0; font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);">Talk very soon,<br><span style="font-weight:400;">Cam</span></p>
             </td>
           </tr>
           <tr>
             <td style="padding:20px 36px; border-top:1px solid rgba(42,53,39,0.08); text-align:center;">
-              <div style="font-family:'Plus Jakarta Sans',Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:0.06em; color:rgba(42,53,39,0.4);">Hertfordshire, England &nbsp;&middot;&nbsp; <a href="mailto:hello@camvelucci.com" style="color:#b5674e; text-decoration:none;">hello@camvelucci.com</a></div>
+              <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:0.06em; color:rgba(42,53,39,0.4);">Hertfordshire, England &nbsp;&middot;&nbsp; <a href="mailto:hello@camvelucci.com" style="color:#b5674e; text-decoration:none;">hello@camvelucci.com</a></div>
             </td>
           </tr>
         </table>

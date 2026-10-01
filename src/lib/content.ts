@@ -10,7 +10,6 @@
 export const homeContent = {
   heroHeading: "Expressive photography for families who feel it all.",
   heroSubline: "Story-led family and motherhood sessions",
-  introEyebrow: "A warm hello",
   introHeading: "Let's make something real.",
   introBody: [
     "I'm here to honour this season in your family's story — the whole range of feelings: the tantrums as much as the triumphs.",
@@ -27,8 +26,6 @@ export const homeContent = {
   closingBody:
     "The love, the giggles, the chaos, their little personalities just bubbling up. I'd love to be the one to hold onto it for you.",
   sessionsHeading: "Whatever chapter you are in.",
-  sessionsNote:
-    "Sessions happen at home, in the woods, or wherever your family feels most yourselves — across Hertfordshire, London, and further afield.",
   recentWorkEyebrow: "Recent work",
   recentWorkHeading: "Real, fleeting moments.",
   seoTitle: "Family & Motherhood Photographer in Hertfordshire",
@@ -45,23 +42,6 @@ export const aboutContent = {
     "Coming home and starting our family changed everything. Motherhood propelled me into a new understanding of life. Somewhere in there, I started photographing my own kids, desperately trying to hold onto every stage before it disappeared. That is exactly why I do this now — I know these moments don't last, because I'm living them too.",
   ],
   storyPullQuote: "The moments you will want back are already happening.",
-  approachHeading: "All the feeling, none of the fuss.",
-  approachColumns: [
-    {
-      heading: "What matters to me",
-      body: "Your personalities, the expressions, the closeness, the deep, unbreakable bond. I want you to look at these photographs one day and feel exactly what it felt like to be here.",
-    },
-    {
-      heading: "During our time together",
-      body: "I capture things as they happen, so the session flows. I'll gently guide you as we go, nudging you into the best light. With maternity and newborn I lead a little more, working gently around your baby.",
-    },
-    {
-      heading: "What to bring",
-      body: "Nothing fancy. But if something matters to you, bring it — a toy your little one won't put down, a blanket someone knitted, the book you read every night.",
-    },
-  ],
-  approachPullQuote:
-    "I won't direct your every move, but I'll never leave you wondering what to do with your hands.",
   seoTitle: "About Cam",
   seoDescription:
     "Hello, I'm Cam — a Brazilian turned British mum of two, photographing maternity, newborn and family sessions across Hertfordshire and London.",
@@ -197,6 +177,8 @@ export const settingsContent = {
   newsletterHeading: "Mini session dates, before anyone else.",
   newsletterBody:
     "Occasional notes from me — new dates, offers, and the odd thing I've learned photographing my own two. Unsubscribe anytime.",
+  newsletterPrivacyNote:
+    "Your details are safe with me — I'll only use them to send you these notes.",
   footerBlurb:
     "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included.",
   footerSeoLine:

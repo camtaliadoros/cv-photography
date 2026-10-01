@@ -21,12 +21,18 @@ export interface LabelledValue {
 }
 
 export interface SiteSettings {
+  brandName?: string;
+  locationText?: string;
   bannerEnabled?: boolean;
   bannerText?: string;
   bannerHref?: string;
   newsletterHeading?: string;
   newsletterBody?: string;
+  newsletterPrivacyNote?: string;
   popupEnabled?: boolean;
+  contactEmail?: string;
+  instagramHandle?: string;
+  instagramUrl?: string;
   footerBlurb?: string;
   footerSeoLine?: string;
 }
@@ -35,11 +41,12 @@ export interface HomePage {
   heroImage?: SanityPhoto;
   heroHeading?: string;
   heroSubline?: string;
-  introEyebrow?: string;
   introHeading?: string;
   introBody?: string[];
   introImage?: SanityPhoto;
   introImageSecondary?: SanityPhoto;
+  sessionsHeading?: string;
+  showRecentWork?: boolean;
   approachHeading?: string;
   approachBody?: string[];
   approachPullQuote?: string;
@@ -59,9 +66,6 @@ export interface AboutPage {
   story?: string[];
   storyPullQuote?: string;
   gallery?: SanityPhoto[];
-  approachHeading?: string;
-  approachColumns?: Prose[];
-  approachPullQuote?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

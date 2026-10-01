@@ -5,12 +5,14 @@ import {
   sessionTypesQuery,
   faqsQuery,
   testimonialsQuery,
+  siteSettingsQuery,
 } from "@/sanity/lib/queries";
 import type {
   SessionsPage,
   SessionType,
   FaqItem,
   Testimonial,
+  SiteSettings,
 } from "@/sanity/lib/types";
 import { sessionsContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
 import { Cta, TextLink } from "@/components/Cta";
@@ -29,12 +31,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SessionsPageRoute() {
-  const [page, types, faqs, testimonials] = await Promise.all([
+  const [page, types, faqs, testimonials, settings] = await Promise.all([
     sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage"]),
     sanityFetch<SessionType[]>(sessionTypesQuery, {}, ["sessionType"]),
     sanityFetch<FaqItem[]>(faqsQuery, {}, ["faqItem"]),
     sanityFetch<Testimonial[]>(testimonialsQuery, {}, ["testimonial"]),
+    sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
   ]);
+
+  const brandName = settings?.brandName ?? site.name;
+  const contactEmail = settings?.contactEmail ?? site.email;
+  const locationText = settings?.locationText ?? site.region;
 
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
   const testimonial = testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
@@ -50,10 +57,10 @@ export default async function SessionsPageRoute() {
     serviceType: "Photography",
     provider: {
       "@type": "LocalBusiness",
-      name: site.name,
-      email: site.email,
+      name: brandName,
+      email: contactEmail,
       url: site.url,
-      address: { "@type": "PostalAddress", addressRegion: "Hertfordshire", addressCountry: "GB" },
+      address: { "@type": "PostalAddress", addressRegion: locationText, addressCountry: "GB" },
     },
     areaServed: site.areasServed.map((name) => ({ "@type": "Place", name })),
     offers: {
@@ -142,17 +149,17 @@ export default async function SessionsPageRoute() {
             <div className="rounded-[14px] bg-forest p-[clamp(28px,4vw,52px)]">
               <Label tone="straw">Every session</Label>
               <div className="mt-4 flex items-baseline gap-4">
-                <span className="text-[clamp(48px,6vw,72px)] leading-none font-extrabold text-linen">
+                <span className="text-[clamp(48px,6vw,72px)] leading-none font-black text-linen">
                   {priceIntro}
                 </span>
                 {priceIntro && priceStandard && (
-                  <span className="text-[22px] font-medium text-straw">
+                  <span className="text-[22px] text-straw">
                     {priceStandard}
                   </span>
                 )}
               </div>
               {(page?.priceIntroLabel ?? sessionsContent.priceIntroLabel) && (
-                <p className="mt-4 inline-block rounded-full bg-linen px-4 py-[7px] text-xs font-extrabold tracking-[0.18em] text-terracotta uppercase">
+                <p className="mt-4 inline-block rounded-full bg-linen px-4 py-[7px] text-xs font-black tracking-[0.18em] text-terracotta uppercase">
                   {page?.priceIntroLabel ?? sessionsContent.priceIntroLabel}
                 </p>
               )}

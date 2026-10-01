@@ -164,7 +164,7 @@ export function EnquiryForm() {
               <path d="M1 5.2 4.4 8.6 11 1.8" />
             </svg>
           </span>
-          <span className="font-field text-[15px] leading-[1.5] font-light text-charcoal">
+          <span className="font-display text-[15px] leading-[1.5] text-charcoal">
             Mailing list (optional)
           </span>
         </label>

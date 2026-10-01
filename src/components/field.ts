@@ -7,7 +7,7 @@
  * on the site.
  */
 export const fieldClass =
-  "w-full rounded-[6px] border-[1.5px] border-linen-deep bg-linen-raised px-3.5 py-3 font-field text-[16px] font-light text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none";
+  "w-full rounded-[6px] border-[1.5px] border-linen-deep bg-linen-raised px-3.5 py-3 font-display text-[16px] text-charcoal transition-colors placeholder:text-muted focus:border-moss focus:outline-none";
 
 export const fieldLabelClass =
-  "mb-[7px] block text-xs font-medium tracking-[0.12em] text-forest uppercase";
+  "mb-[7px] block text-xs tracking-[0.12em] text-forest uppercase";

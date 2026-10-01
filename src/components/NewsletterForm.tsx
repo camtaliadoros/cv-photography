@@ -14,10 +14,12 @@ type State = "idle" | "sending" | "done" | "error";
  */
 export function NewsletterForm({
   source,
+  privacyNote,
   onDone,
   stacked = false,
 }: {
   source: "Footer" | "Popup" | "Mini sessions page";
+  privacyNote: string;
   onDone?: () => void;
   stacked?: boolean;
 }) {
@@ -110,9 +112,8 @@ export function NewsletterForm({
         </p>
       )}
 
-      <p className="mt-4 text-xs text-muted">
-        Your details are safe with me — I&rsquo;ll only use them to send you these
-        notes.{" "}
+      <p className="mt-4 max-w-[48ch] text-sm leading-[1.6] text-muted">
+        {privacyNote}{" "}
         <Link href="/privacy" className="underline">
           Privacy Policy
         </Link>

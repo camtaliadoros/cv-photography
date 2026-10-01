@@ -46,7 +46,7 @@ export function CookieConsent() {
         <button
           type="button"
           onClick={() => choose("essential")}
-          className="text-[11px] font-extrabold tracking-[0.18em] text-straw uppercase transition-colors hover:text-linen"
+          className="text-[11px] font-black tracking-[0.18em] text-straw uppercase transition-colors hover:text-linen"
         >
           Essential only
         </button>
