@@ -90,6 +90,63 @@ export async function subscribe({
   }
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+const P_STYLE =
+  "font-family:'Lato',Helvetica,Arial,sans-serif; font-size:16px; line-height:1.7; color:rgba(42,53,39,0.85);";
+
+/** Same shell as the enquiry confirmation in ../enquiry/route.ts. */
+function welcomeHtml(firstName: string): string {
+  const greeting = firstName ? `Hi ${escapeHtml(firstName)},` : "Hello,";
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>You&rsquo;re on the list</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body style="margin:0; padding:0; background-color:#f0eae0;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f0eae0;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px; background-color:#ffffff; border-radius:10px; overflow:hidden; border:1px solid rgba(42,53,39,0.08);">
+          <tr>
+            <td style="background-color:#2a3527; padding:32px 36px; text-align:center;">
+              <img src="${site.url}/brochure/images/logo-full-linen.png" alt="${site.name}" width="220" style="display:block; width:220px; height:auto; margin:0 auto;">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:40px 36px 32px;">
+              <p style="margin:0 0 20px; ${P_STYLE}">${greeting}</p>
+
+              <p style="margin:0 0 20px; ${P_STYLE}">Thank you for signing up! You&rsquo;ll hear from me occasionally with updates and offers.</p>
+
+              <p style="margin:0 0 28px; ${P_STYLE}">In the meantime, give me a follow on Instagram at <a href="${site.instagramUrl}" target="_blank" style="color:#b5674e;">@camvelucciphotography</a> to see what I&rsquo;ve been up to.</p>
+
+              <p style="margin:0; ${P_STYLE}">Speak soon,<br>Cam x</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px 36px; border-top:1px solid rgba(42,53,39,0.08); text-align:center;">
+              <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:0.06em; color:rgba(42,53,39,0.4);">Hertfordshire, England &nbsp;&middot;&nbsp; <a href="mailto:${site.email}" style="color:#b5674e; text-decoration:none;">${site.email}</a></div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
 async function sendWelcomeEmail(email: string, firstName: string): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -106,15 +163,16 @@ async function sendWelcomeEmail(email: string, firstName: string): Promise<boole
       to: email,
       replyTo: site.email,
       subject: "You're on the list",
+      html: welcomeHtml(firstName),
       text: [
         greeting,
         "",
-        "Thank you for signing up. You'll hear from me when new mini session dates go live, and occasionally when I have something worth sharing — never more than that.",
+        "Thank you for signing up! You'll hear from me occasionally with updates and offers.",
         "",
-        `If you'd like a look at recent work in the meantime, it's all at ${site.url}/portfolio`,
+        `In the meantime, give me a follow on Instagram at @camvelucciphotography (${site.instagramUrl}) to see what I've been up to.`,
         "",
         "Speak soon,",
-        "Cam",
+        "Cam x",
       ].join("\n"),
     });
 

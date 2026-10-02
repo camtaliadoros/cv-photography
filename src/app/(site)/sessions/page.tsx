@@ -17,6 +17,7 @@ import type {
 import { sessionsContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
 import { Cta, TextLink } from "@/components/Cta";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { IntrinsicPhoto } from "@/components/Photo";
 import { Eyebrow, Label, PageHero, QuoteBlock, Statement } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toPlainText } from "@/lib/text";
@@ -32,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function SessionsPageRoute() {
   const [page, types, faqs, testimonials, settings] = await Promise.all([
-    sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage"]),
+    sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage", "testimonial"]),
     sanityFetch<SessionType[]>(sessionTypesQuery, {}, ["sessionType"]),
     sanityFetch<FaqItem[]>(faqsQuery, {}, ["faqItem"]),
     sanityFetch<Testimonial[]>(testimonialsQuery, {}, ["testimonial"]),
@@ -44,11 +45,13 @@ export default async function SessionsPageRoute() {
   const locationText = settings?.locationText ?? site.region;
 
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
-  const testimonial = testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
+  const testimonial =
+    page?.testimonial ?? testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
   const priceIntro = page?.priceIntro ?? sessionsContent.priceIntro;
   const priceStandard = page?.priceStandard ?? sessionsContent.priceStandard;
   const includes = page?.priceIncludes ?? sessionsContent.priceIncludes;
   const notes = page?.priceNotes ?? sessionsContent.priceNotes;
+  const reasons = page?.reasons?.length ? page.reasons : sessionsContent.reasons;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -86,30 +89,58 @@ export default async function SessionsPageRoute() {
         headingMax="15ch"
       />
 
-      {/* ---------- Intro: set large, in Lora ---------- */}
-      <section className="px-(--gutter) py-[clamp(64px,9vw,120px)]">
-        <p className="font-display mx-auto max-w-[860px] text-[clamp(24px,3vw,40px)] leading-[1.2] text-forest">
-          {page?.introBody ?? sessionsContent.introBody}
-        </p>
-      </section>
-
-      {/* ---------- Session types: words only, no photographs ---------- */}
-      <section className="px-(--gutter) pb-[clamp(64px,9vw,112px)]">
+      {/*
+        ---------- Session types ----------
+        The same photograph each session type uses on the home page, shown here
+        uncropped at its own shape, with the words underneath.
+      */}
+      <section className="px-(--gutter) py-[clamp(64px,9vw,112px)]">
         <div className="mx-auto max-w-[1200px]">
-          <Eyebrow>{sessionsContent.typesEyebrow}</Eyebrow>
+          <Eyebrow>{page?.typesEyebrow ?? sessionsContent.typesEyebrow}</Eyebrow>
           <h2 className="mt-4 mb-[clamp(28px,4vw,48px)] text-[clamp(26px,3.2vw,42px)]">
-            {sessionsContent.typesHeading}
+            {page?.typesHeading ?? sessionsContent.typesHeading}
           </h2>
 
-          <ul className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[clamp(20px,2.6vw,36px)]">
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-[clamp(20px,2.6vw,36px)]">
             {sessionTypes.map((type) => (
               <li key={type._id} className="min-w-0">
+                {type.image?.asset && (
+                  <IntrinsicPhoto
+                    photo={type.image}
+                    sizes="(max-width: 768px) 100vw, 380px"
+                    className="mb-5 h-auto w-full"
+                  />
+                )}
                 <h3 className="mb-2 text-2xl">{type.title}</h3>
                 <Label className="mb-3">{type.tagline}</Label>
                 <p className="text-base text-charcoal/85">{type.description}</p>
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* ---------- Why families book: numbered points on forest ---------- */}
+      <section className="bg-forest px-(--gutter) py-[clamp(64px,9vw,112px)]">
+        <div className="mx-auto max-w-[1200px]">
+          <Eyebrow tone="straw">{page?.reasonsEyebrow ?? sessionsContent.reasonsEyebrow}</Eyebrow>
+          <h2 className="mt-4 mb-[clamp(40px,5vw,64px)] max-w-[20ch] text-[clamp(26px,3.2vw,42px)] leading-[1.1] text-linen">
+            {page?.reasonsHeading ?? sessionsContent.reasonsHeading}
+          </h2>
+
+          <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,190px),1fr))] gap-x-[clamp(24px,3vw,44px)] gap-y-[clamp(32px,4vw,56px)]">
+            {reasons.map((reason, i) => (
+              <li key={i} className="min-w-0 border-t border-straw/40 pt-[22px]">
+                <p className="mb-3.5 text-[13px] font-black tracking-[0.2em] text-straw">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mb-2.5 text-[clamp(22px,2.2vw,27px)] leading-[1.2] text-pretty text-linen">
+                  {reason.heading}
+                </h3>
+                <p className="text-base leading-[1.6] text-linen">{toPlainText(reason.body)}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -159,7 +190,7 @@ export default async function SessionsPageRoute() {
                 )}
               </div>
               {(page?.priceIntroLabel ?? sessionsContent.priceIntroLabel) && (
-                <p className="mt-4 inline-block rounded-full bg-linen px-4 py-[7px] text-xs font-black tracking-[0.18em] text-terracotta uppercase">
+                <p className="mt-4 inline-block rounded-full bg-honey px-4 py-[7px] text-xs font-black tracking-[0.18em] text-forest uppercase">
                   {page?.priceIntroLabel ?? sessionsContent.priceIntroLabel}
                 </p>
               )}
@@ -198,7 +229,7 @@ export default async function SessionsPageRoute() {
         </div>
       </section>
 
-      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} />
+      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} align="right" />
 
       {/* ---------- FAQ ---------- */}
       {faqs && faqs.length > 0 && (

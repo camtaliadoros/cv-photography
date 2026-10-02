@@ -6,7 +6,7 @@ import type { MiniSessionPage } from "@/sanity/lib/types";
 import { miniSessionContent } from "@/lib/content";
 import { IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, Label, PageHero } from "@/components/sections";
+import { Label, PageHero } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toPlainText } from "@/lib/text";
 
@@ -69,24 +69,39 @@ export default async function MiniSessionsPage() {
       </section>
 
       {/* ---------- Details ---------- */}
-      <section className="bg-forest px-(--gutter) py-[clamp(48px,7vw,88px)]">
+      <section className="bg-forest px-(--gutter) py-[clamp(56px,8vw,104px)]">
         <div className="mx-auto max-w-[1200px]">
-          <Eyebrow tone="straw">The details</Eyebrow>
-          <h2 className="mt-4 mb-[clamp(32px,4vw,52px)] text-linen text-[clamp(26px,3.2vw,43px)]">
+          <h2 className="mb-[clamp(32px,4.5vw,56px)] text-linen text-[clamp(30px,3.4vw,45px)]">
             {page?.detailsHeading ?? miniSessionContent.detailsHeading}
           </h2>
 
-          <dl className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-[clamp(24px,3vw,44px)]">
-            {details.map((d, i) => (
-              <div key={i} className="border-t-[1.5px] border-straw pt-[18px]">
-                <dt className="text-xs font-black tracking-[0.18em] text-straw uppercase">
-                  {d.label}
-                </dt>
-                <dd className="font-display mt-2.5 text-[21px] leading-snug text-linen">
-                  {d.value}
-                </dd>
-              </div>
-            ))}
+          {/* The first three sit side by side; anything after runs full width,
+              label in the first column and the copy across the other two. */}
+          <dl className="grid gap-x-[clamp(24px,3vw,32px)] gap-y-[clamp(32px,4.5vw,44px)] md:grid-cols-3">
+            {details.map((d, i) =>
+              i < 3 ? (
+                <div key={i} className="border-t-[1.5px] border-straw pt-[22px]">
+                  <dt className="text-xs font-black tracking-[0.18em] text-straw uppercase">
+                    {d.label}
+                  </dt>
+                  <dd className="font-display mt-3.5 text-[clamp(19px,1.9vw,21px)] leading-snug text-linen">
+                    {d.value}
+                  </dd>
+                </div>
+              ) : (
+                <div
+                  key={i}
+                  className="grid border-t-[1.5px] border-straw pt-[22px] md:col-span-full md:grid-cols-subgrid"
+                >
+                  <dt className="text-xs font-black tracking-[0.18em] text-straw uppercase">
+                    {d.label}
+                  </dt>
+                  <dd className="mt-3.5 max-w-[62ch] text-base leading-relaxed text-linen/90 md:col-span-2 md:mt-0">
+                    {d.value}
+                  </dd>
+                </div>
+              ),
+            )}
           </dl>
         </div>
       </section>

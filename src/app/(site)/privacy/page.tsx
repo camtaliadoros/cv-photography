@@ -27,7 +27,7 @@ export default async function PrivacyPage() {
       <h1 className="text-[clamp(30px,4vw,48px)]">Privacy Policy</h1>
       <p className="mt-4 text-sm text-muted">Last updated: 10 September 2026</p>
 
-      <div className="mt-12 space-y-6 text-charcoal/85 [&_a]:text-terracotta [&_a]:underline [&_h2]:pt-8 [&_h2]:text-2xl [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
+      <div className="mt-12 space-y-6 text-charcoal/85 [&_a]:text-honey-deep [&_a]:underline [&_h2]:pt-8 [&_h2]:text-2xl [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
         <p>
           This privacy policy explains how <strong>Cam Velucci Photography</strong>{" "}
           (&ldquo;I&rdquo;, &ldquo;me&rdquo;, &ldquo;my&rdquo;) collects, uses and
@@ -202,7 +202,7 @@ export default async function PrivacyPage() {
       </div>
 
       <p className="mt-14">
-        <Link href="/" className="font-display border-b-[1.5px] border-terracotta pb-1.5 text-[19px] text-forest transition-colors hover:text-terracotta">
+        <Link href="/" className="font-display border-b-[1.5px] border-honey pb-1.5 text-[19px] text-forest transition-colors hover:text-honey-deep">
           &lsaquo; Back to home
         </Link>
       </p>

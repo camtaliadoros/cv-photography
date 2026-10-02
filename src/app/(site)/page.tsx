@@ -13,6 +13,7 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
+import { Parallax } from "@/components/Parallax";
 import { Photo, IntrinsicPhoto } from "@/components/Photo";
 import { Cta, TextLink } from "@/components/Cta";
 import { Eyebrow, QuoteBlock, Statement } from "@/components/sections";
@@ -33,27 +34,30 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function HomePageRoute() {
   const [page, types, featured, testimonials] = await Promise.all([
-    sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]),
+    sanityFetch<HomePage>(homePageQuery, {}, ["homePage", "testimonial"]),
     sanityFetch<SessionType[]>(sessionTypesQuery, {}, ["sessionType"]),
     sanityFetch<PortfolioImage[]>(featuredImagesQuery, {}, ["portfolioImage"]),
     sanityFetch<Testimonial[]>(testimonialsQuery, {}, ["testimonial"]),
   ]);
 
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
-  const testimonial = testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
+  const testimonial =
+    page?.testimonial ?? testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
 
   return (
     <>
       {/* ---------- Hero ---------- */}
-      <section className="relative h-svh min-h-[600px] w-full overflow-hidden bg-forest">
+      <section className="parallax-frame relative h-svh min-h-[600px] w-full overflow-hidden bg-forest">
         {page?.heroImage?.asset ? (
-          <Photo
-            photo={page.heroImage}
-            sizes="100vw"
-            priority
-            alt=""
-            className="object-cover object-[center_35%]"
-          />
+          <Parallax hero depth={0.12}>
+            <Photo
+              photo={page.heroImage}
+              sizes="100vw"
+              priority
+              alt=""
+              className="object-cover object-[center_35%]"
+            />
+          </Parallax>
         ) : null}
         <div
           aria-hidden

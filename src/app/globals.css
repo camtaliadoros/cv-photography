@@ -3,14 +3,16 @@
 /* ---------------------------------------------------------------
    Cam Velucci Photography — brand tokens
    Warm Linen replaces white as the page background everywhere.
-   Forest anchors; Terracotta is the single bold accent, used sparingly.
+   Forest anchors; Honey Mustard is the single bold accent, used sparingly.
+   Honey Mustard is too light for text on linen (2.5:1), so accent-coloured
+   text on light grounds uses Deep Honey (5:1) instead.
    --------------------------------------------------------------- */
 :root {
   --forest: #2a3527;
   --forest-hover: #212a1f;
-  --terracotta: #b5674e;
-  --terracotta-hover: #a2593f;
-  --terracotta-tint: #e7cdc2;
+  --honey: #c48a2a;       /* fills, rules, underlines — never small text on linen */
+  --honey-hover: #a9741f; /* a darker honey for hover on honey-filled elements */
+  --honey-deep: #865b16;  /* accent-coloured text on light grounds */
   --warm-linen: #f0eae0;
   --linen-deep: #e5dccd;
   --linen-soft: #f6f2ea;
@@ -31,9 +33,9 @@
 @theme inline {
   --color-forest: var(--forest);
   --color-forest-hover: var(--forest-hover);
-  --color-terracotta: var(--terracotta);
-  --color-terracotta-hover: var(--terracotta-hover);
-  --color-terracotta-tint: var(--terracotta-tint);
+  --color-honey: var(--honey);
+  --color-honey-hover: var(--honey-hover);
+  --color-honey-deep: var(--honey-deep);
   --color-linen: var(--warm-linen);
   --color-linen-deep: var(--linen-deep);
   --color-linen-soft: var(--linen-soft);
@@ -92,7 +94,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--terracotta);
+    outline: 2px solid var(--honey-deep);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -106,6 +108,65 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Parallax photographs — see components/Parallax.tsx. Only browsers with
+ * scroll-driven animations, and only readers happy with motion, get the drift;
+ * everyone else sees the layer sitting flush in its frame, as before.
+ */
+.parallax {
+  position: absolute;
+  inset: 0;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax-frame {
+      view-timeline: --parallax-frame block;
+    }
+
+    /*
+     * Cut taller than the frame by --parallax-depth at each end, then slid
+     * through that slack as the frame crosses the viewport. Translate
+     * percentages are of the layer's own (taller) height, hence the division.
+     */
+    .parallax {
+      --d: var(--parallax-depth, 0.15);
+      inset: calc(var(--d) * -100%) 0;
+      --parallax-shift: calc(var(--d) / (1 + 2 * var(--d)) * 100%);
+      animation: parallax-drift linear both;
+      animation-timeline: --parallax-frame;
+      animation-range: cover;
+      will-change: transform;
+    }
+
+    /* Heroes start in view, so they only extend upward and drift as they leave. */
+    .parallax-hero {
+      inset: calc(var(--d) * -100%) 0 0;
+      --parallax-shift: calc(var(--d) / (1 + var(--d)) * 100%);
+      animation-name: parallax-drift-hero;
+      animation-range: exit;
+    }
+  }
+}
+
+@keyframes parallax-drift {
+  from {
+    transform: translateY(calc(var(--parallax-shift) * -1));
+  }
+  to {
+    transform: translateY(var(--parallax-shift));
+  }
+}
+
+@keyframes parallax-drift-hero {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(var(--parallax-shift));
   }
 }
 

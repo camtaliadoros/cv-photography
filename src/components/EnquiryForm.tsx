@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Cta, CtaButton } from "./Cta";
-import { Label } from "./sections";
+import { CtaButton } from "./Cta";
 import { fieldClass as field, fieldLabelClass as labelClass } from "./field";
 
 const HEARD_ABOUT = ["Instagram", "A friend", "Google", "Somewhere else"];
@@ -39,15 +38,14 @@ export function EnquiryForm() {
 
   if (sent) {
     return (
-      <div className="rounded-[14px] border border-linen-deep bg-linen-soft p-[clamp(28px,4vw,48px)]">
-        <Label>Thank you</Label>
-        <h2 className="mt-3 mb-3.5 text-[30px]">That&rsquo;s with me.</h2>
-        <p className="mb-8 text-charcoal/85">
-          I&rsquo;ll be in touch within two days — usually sooner. In the meantime,
-          have a wander through the portfolio.
-        </p>
-        <Cta href="/portfolio">See the portfolio</Cta>
-      </div>
+      <p
+        role="status"
+        className="max-w-[60ch] py-[clamp(32px,5vw,56px)] font-display text-[clamp(17px,1.6vw,20px)] leading-[1.6] text-charcoal italic"
+      >
+        Thank you, your enquiry is on its way. I&rsquo;ve sent a confirmation to your
+        inbox with my brochure, and I&rsquo;ll come back to you personally as soon as I
+        can.
+      </p>
     );
   }
 
@@ -59,7 +57,7 @@ export function EnquiryForm() {
       <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[18px]">
         <div>
           <label className={labelClass} htmlFor="firstName">
-            First name <span className="text-terracotta">✱</span>
+            First name <span className="text-honey-deep">✱</span>
           </label>
           <input
             id="firstName"
@@ -72,7 +70,7 @@ export function EnquiryForm() {
         </div>
         <div>
           <label className={labelClass} htmlFor="email">
-            Email <span className="text-terracotta">✱</span>
+            Email <span className="text-honey-deep">✱</span>
           </label>
           <input
             id="email"
@@ -117,7 +115,7 @@ export function EnquiryForm() {
 
       <div className="mt-[18px]">
         <label className={labelClass} htmlFor="message">
-          Tell me a bit about you <span className="text-terracotta">✱</span>
+          Tell me a bit about you <span className="text-honey-deep">✱</span>
         </label>
         <textarea
           id="message"
@@ -136,8 +134,8 @@ export function EnquiryForm() {
       </div>
 
       <p className="mt-4 max-w-[56ch] text-sm text-muted">
-        Your details are safe with me — I&rsquo;ll just use them to get back to you.{" "}
-        <Link href="/privacy" className="text-terracotta underline">
+        Your details are safe with me. I&rsquo;ll just use them to get back to you.{" "}
+        <Link href="/privacy" className="text-honey-deep underline">
           Privacy Policy
         </Link>
         .
@@ -169,12 +167,12 @@ export function EnquiryForm() {
           </span>
         </label>
         <p className="mt-2.5 max-w-[52ch] text-sm text-muted">
-          Keep me in the loop — occasional updates and offers. Unsubscribe anytime.
+          Occasional updates and offers from me. Unsubscribe anytime.
         </p>
       </div>
 
       {state === "error" && (
-        <p className="mt-5 text-sm text-terracotta">
+        <p className="mt-5 text-sm text-honey-deep">
           Something went wrong sending that. Please try again, or email me at
           hello@camvelucci.com.
         </p>

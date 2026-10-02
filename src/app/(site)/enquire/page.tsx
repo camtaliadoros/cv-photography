@@ -49,7 +49,7 @@ export default async function EnquirePage() {
             )}
             <Label>Or reach me directly</Label>
             <p className="mt-4">
-              <a href={`mailto:${contactEmail}`} className="hover:text-terracotta">
+              <a href={`mailto:${contactEmail}`} className="hover:text-honey-deep">
                 {contactEmail}
               </a>
             </p>
@@ -58,7 +58,7 @@ export default async function EnquirePage() {
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-terracotta"
+                className="hover:text-honey-deep"
               >
                 @{instagramHandle}
               </a>

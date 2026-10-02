@@ -8,7 +8,7 @@ import Link from "next/link";
  * "All session types", "All journal entries".
  *
  * `Cta` — the primary call to action, larger, with a trailing arrow, ruled in
- * straw gold on dark grounds and terracotta on light ones.
+ * straw gold on dark grounds and honey on light ones.
  *
  * Both are Lora Regular and underlined. Neither is ever a filled button; the
  * prototype has none.
@@ -23,7 +23,7 @@ const sizes = {
 } as const;
 
 const tones = {
-  onLight: "text-forest border-terracotta hover:text-terracotta",
+  onLight: "text-forest border-honey hover:text-honey-deep",
   onDark: "text-linen border-straw hover:text-straw",
 } as const;
 
@@ -62,7 +62,7 @@ export function TextLink({
   external,
 }: LinkProps & { tone?: Tone }) {
   const colour = tone === "onDark" ? "text-linen" : "text-forest";
-  const classes = `${base} ${colour} border-straw gap-2.5 pb-[5px] text-[19px] hover:text-terracotta ${className}`;
+  const classes = `${base} ${colour} border-straw gap-2.5 pb-[5px] text-[19px] hover:text-honey-deep ${className}`;
   return wrap(href, external, classes, children);
 }
 

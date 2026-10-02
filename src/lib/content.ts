@@ -36,12 +36,28 @@ export const homeContent = {
 export const aboutContent = {
   heroEyebrow: "Behind the camera",
   heroHeading: "Hello, I'm Cam.",
+  heroStandfirst: "Mum of two little girls, sound-bath lover, and never far from a camera.",
+  storyEyebrow: "How I got here",
+  storyHeading:
+    "I've always been a people-watcher, endlessly curious about what makes someone *them*.",
   story: [
-    "A Brazilian turned British, mum to two wonderful little girls, and someone who is happiest paddleboarding, at a sound bath, or turning the kitchen into a dance floor with the kids.",
-    "My passion for photography was rekindled back in 2019, when my husband and I decided to go on a year-long trip to explore the world. I picked up a camera to document our journey, and it never really left my hand again.",
-    "Coming home and starting our family changed everything. Motherhood propelled me into a new understanding of life. Somewhere in there, I started photographing my own kids, desperately trying to hold onto every stage before it disappeared. That is exactly why I do this now — I know these moments don't last, because I'm living them too.",
+    "I picked up a camera properly in 2019, on a year-long trip around the world with my husband, and it never really left my hand.",
+    "Then came my girls. Same family, already two completely different people, and I couldn't put the camera down. That curiosity is still what drives every session.",
   ],
-  storyPullQuote: "The moments you will want back are already happening.",
+  offCameraEyebrow: "A few things about me",
+  offCameraHeading: "Off camera.",
+  offCameraItems: [
+    { text: "Brazilian by birth, on British soil for 13 years and counting" },
+    { text: "Happiest covered in sand, under the sun, cocktail in hand" },
+    { text: "Café hopper, pastry lover" },
+    { text: "Travel daydreamer" },
+    {
+      text: "Chef, comforter, household CEO, Uber driver and resident kitchen-disco DJ",
+      aside: "(all unpaid)",
+    },
+  ],
+  closingQuote:
+    "These are the moments quietly writing your family's chapters, long before you'll know to call them your favourites.",
   seoTitle: "About Cam",
   seoDescription:
     "Hello, I'm Cam — a Brazilian turned British mum of two, photographing maternity, newborn and family sessions across Hertfordshire and London.",
@@ -52,10 +68,28 @@ export const sessionsContent = {
   heroHeading: "Whatever chapter you are in.",
   heroStandfirst:
     "One session, one price — at home, in the woods, or wherever your family feels most yourselves.",
-  introBody:
-    "I photograph maternity, newborn and family sessions across Hertfordshire and London. They are always gentle, story-led shoots that capture the real, everyday beauty of family life.",
   typesEyebrow: "Session types",
   typesHeading: "Three ways to be photographed.",
+  reasonsEyebrow: "Why families book me",
+  reasonsHeading: "What you can count on.",
+  reasons: [
+    {
+      heading: "Gently guided, never stiff.",
+      body: "You'll never wonder what to do with your hands.",
+    },
+    {
+      heading: "Planned around your little ones.",
+      body: "Feeds, naps and meltdowns are all part of it. No rushing.",
+    },
+    {
+      heading: "One price, everything included.",
+      body: "No packages to decode, no surprise extras later.",
+    },
+    {
+      heading: "I come to you.",
+      body: "At home or somewhere you love, across Hertfordshire and London.",
+    },
+  ],
   approachHeading: "All the feeling, none of the fuss.",
   approachBody: [
     "I capture things as they happen, so the session flows. I'll gently guide you as we go, nudging you into the best light and letting it unfold from there. With maternity and newborn I lead a little more, working gently around your baby.",
@@ -106,7 +140,7 @@ export const miniSessionContent = {
     "I'm setting up at The Pop Up Farm for mini sessions: just you, your little gang and a whole lot of pumpkins.",
     "I'll gently guide you where I need to, then let little ones do their thing — hunting down the biggest pumpkin they can carry, running through the giant straw maze — while I catch the real, giggly moments in between.",
   ],
-  detailsHeading: "Twenty minutes, one Saturday.",
+  detailsHeading: "The details",
   details: [
     { label: "When", value: "Saturday 10th October — slots from 9:30am" },
     { label: "Where", value: "The Pop Up Farm, Flamstead — just off the M1, J9" },

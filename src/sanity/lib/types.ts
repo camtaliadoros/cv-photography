@@ -51,6 +51,7 @@ export interface HomePage {
   approachBody?: string[];
   approachPullQuote?: string;
   approachImage?: SanityPhoto;
+  testimonial?: Testimonial;
   testimonialImage?: SanityPhoto;
   closingHeading?: string;
   closingBody?: string;
@@ -63,9 +64,16 @@ export interface AboutPage {
   heroImage?: SanityPhoto;
   heroEyebrow?: string;
   heroHeading?: string;
+  heroStandfirst?: string;
+  storyEyebrow?: string;
+  storyHeading?: string;
   story?: string[];
-  storyPullQuote?: string;
+  storyImage?: SanityPhoto;
+  offCameraEyebrow?: string;
+  offCameraHeading?: string;
+  offCameraItems?: { text?: string; aside?: string }[];
   gallery?: SanityPhoto[];
+  closingQuote?: string;
   seoTitle?: string;
   seoDescription?: string;
 }
@@ -75,10 +83,15 @@ export interface SessionsPage {
   heroEyebrow?: string;
   heroHeading?: string;
   heroStandfirst?: string;
-  introBody?: string;
+  typesEyebrow?: string;
+  typesHeading?: string;
+  reasonsEyebrow?: string;
+  reasonsHeading?: string;
+  reasons?: Prose[];
   approachHeading?: string;
   approachBody?: string[];
   approachPullQuote?: string;
+  testimonial?: Testimonial;
   testimonialImage?: SanityPhoto;
   priceHeading?: string;
   priceStandard?: string;

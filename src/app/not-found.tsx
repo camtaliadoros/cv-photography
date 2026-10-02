@@ -3,7 +3,7 @@ import { Cta } from "@/components/Cta";
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-(--gutter) text-center">
-      <p className="text-xs font-black tracking-[0.2em] text-terracotta uppercase">
+      <p className="text-xs font-black tracking-[0.2em] text-honey-deep uppercase">
         Page not found
       </p>
       <h1 className="mt-6 max-w-[18ch] text-[clamp(28px,4vw,48px)]">

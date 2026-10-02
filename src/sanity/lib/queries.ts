@@ -16,20 +16,25 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   introImage${PHOTO}, introImageSecondary${PHOTO},
   sessionsHeading, showRecentWork,
   approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
-  testimonialImage${PHOTO},
+  "testimonial": testimonial->{ _id, quote, name, clientName }, testimonialImage${PHOTO},
   closingHeading, closingBody, closingImage${PHOTO},
   seoTitle, seoDescription
 }`;
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
-  heroImage${PHOTO}, heroEyebrow, heroHeading,
-  story, storyPullQuote, gallery[]${PHOTO},
+  heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst,
+  storyEyebrow, storyHeading, story, storyImage${PHOTO},
+  offCameraEyebrow, offCameraHeading, offCameraItems,
+  gallery[]${PHOTO}, closingQuote,
   seoTitle, seoDescription
 }`;
 
 export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
-  heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, introBody,
-  approachHeading, approachBody, approachPullQuote, testimonialImage${PHOTO},
+  heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst,
+  typesEyebrow, typesHeading,
+  reasonsEyebrow, reasonsHeading, reasons,
+  approachHeading, approachBody, approachPullQuote,
+  "testimonial": testimonial->{ _id, quote, name, clientName }, testimonialImage${PHOTO},
   priceHeading, priceStandard, priceIntro, priceIntroLabel, priceIntroNote,
   priceIncludes, priceNotes,
   seoTitle, seoDescription

@@ -119,7 +119,7 @@ export function Header({
             className={`${linkClass} ${
               transparent
                 ? "text-straw hover:text-linen"
-                : "text-terracotta hover:text-forest"
+                : "text-honey-deep hover:text-forest"
             }`}
           >
             Enquire
@@ -166,7 +166,7 @@ export function Header({
             )}
             <Link
               href="/enquire"
-              className="font-display mt-2 inline-flex w-fit items-center gap-3 border-b-[1.5px] border-terracotta pb-1.5 text-[22px] text-forest"
+              className="font-display mt-2 inline-flex w-fit items-center gap-3 border-b-[1.5px] border-honey pb-1.5 text-[22px] text-forest"
             >
               Enquire
               <span aria-hidden className="font-sans text-[15px] leading-none font-black">
@@ -194,8 +194,8 @@ function NavLink({
 }) {
   const className = [
     linkClass,
-    transparent ? "text-linen hover:text-straw" : "text-forest hover:text-terracotta",
-    active && !transparent ? "text-terracotta" : "",
+    transparent ? "text-linen hover:text-straw" : "text-forest hover:text-honey-deep",
+    active && !transparent ? "text-honey-deep" : "",
   ].join(" ");
 
   if (item.external) {

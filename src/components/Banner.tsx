@@ -30,16 +30,16 @@ export function Banner({ text, href }: { text: string; href: string }) {
   };
 
   return (
-    <div data-announcement className="relative z-50 bg-terracotta">
+    <div data-announcement className="relative z-50 bg-honey">
       <div className="flex items-center justify-center px-12 py-3">
-        <Link href={href} className="text-center text-xs font-black tracking-[0.2em] text-linen uppercase hover:text-forest">
+        <Link href={href} className="text-center text-xs font-black tracking-[0.2em] text-forest uppercase hover:text-linen">
           {text}
         </Link>
         <button
           type="button"
           onClick={dismiss}
           aria-label="Dismiss announcement"
-          className="absolute top-1/2 right-4 -translate-y-1/2 p-1 text-lg leading-none text-linen transition-colors hover:text-forest"
+          className="absolute top-1/2 right-4 -translate-y-1/2 p-1 text-lg leading-none text-forest transition-colors hover:text-linen"
         >
           &times;
         </button>

@@ -1,3 +1,4 @@
+import { Parallax } from "./Parallax";
 import { Photo } from "./Photo";
 import type { SanityPhoto, Testimonial } from "@/sanity/lib/types";
 
@@ -7,17 +8,19 @@ import type { SanityPhoto, Testimonial } from "@/sanity/lib/types";
  */
 export function Eyebrow({
   children,
-  tone = "terracotta",
+  tone = "honey",
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "terracotta" | "straw";
+  tone?: "honey" | "straw";
   className?: string;
 }) {
-  const colour = tone === "straw" ? "text-straw" : "text-terracotta";
+  // On light grounds the rule is honey but the text deep honey, which reads at small sizes.
+  const colour = tone === "straw" ? "text-straw" : "text-honey-deep";
+  const rule = tone === "straw" ? "bg-current" : "bg-honey";
   return (
     <span className={`inline-flex items-center gap-2.5 ${colour} ${className}`}>
-      <span aria-hidden className="h-0.5 w-6 bg-current" />
+      <span aria-hidden className={`h-0.5 w-6 ${rule}`} />
       <span className="text-xs font-black tracking-[0.2em] uppercase">
         {children}
       </span>
@@ -28,15 +31,15 @@ export function Eyebrow({
 /** Tracked-caps label without the rule — used for card headings and meta. */
 export function Label({
   children,
-  tone = "terracotta",
+  tone = "honey",
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "terracotta" | "straw" | "muted";
+  tone?: "honey" | "straw" | "muted";
   className?: string;
 }) {
   const colours = {
-    terracotta: "text-terracotta",
+    honey: "text-honey-deep",
     straw: "text-straw",
     muted: "text-muted",
   };
@@ -73,8 +76,12 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="relative flex min-h-[clamp(440px,52vh,520px)] items-end overflow-hidden bg-forest">
-      {image?.asset ? <Photo photo={image} sizes="100vw" priority alt="" /> : null}
+    <section className="parallax-frame relative flex min-h-[clamp(440px,52vh,520px)] items-end overflow-hidden bg-forest">
+      {image?.asset ? (
+        <Parallax hero depth={0.12}>
+          <Photo photo={image} sizes="100vw" priority alt="" />
+        </Parallax>
+      ) : null}
       <div
         aria-hidden
         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,.58)_0%,rgba(42,53,39,.34)_38%,rgba(42,53,39,.88)_100%)]"
@@ -105,18 +112,21 @@ export function PageHero({
 }
 
 /**
- * Testimonial: set over a photograph, raked left so the words sit in the
- * darkest part of the frame.
+ * Testimonial: set over a photograph, with the scrim raked from whichever side
+ * the words sit on so they land in the darkest part of the frame.
  */
 export function QuoteBlock({
   testimonial,
   image,
   variant = "inner",
+  align = "left",
 }: {
   testimonial: Testimonial;
   image?: SanityPhoto;
   /** The home page runs this taller and on a slightly tighter measure. */
   variant?: "home" | "inner";
+  /** Which side of the frame the quote sits on. */
+  align?: "left" | "right";
 }) {
   if (!testimonial?.quote) return null;
 
@@ -126,30 +136,50 @@ export function QuoteBlock({
 
   return (
     <section
-      className={`relative flex items-center overflow-hidden bg-forest ${
+      className={`parallax-frame relative flex items-center overflow-hidden bg-forest ${
         variant === "home"
           ? "min-h-[clamp(420px,62vh,660px)]"
           : "min-h-[clamp(380px,54vh,560px)]"
       }`}
     >
-      {image?.asset ? <Photo photo={image} sizes="100vw" alt="" /> : null}
+      {/* The photograph pans as the quote passes, so more of it is seen than the crop allows. */}
+      {image?.asset ? (
+        <Parallax depth={0.22}>
+          <Photo photo={image} sizes="100vw" alt="" />
+        </Parallax>
+      ) : null}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(90deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
+        className={`absolute inset-0 ${
+          align === "right"
+            ? "bg-[linear-gradient(270deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
+            : "bg-[linear-gradient(90deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
+        }`}
       />
-      <div className="relative mx-auto w-full max-w-[1200px] px-(--gutter) py-(--section)">
-        <blockquote
-          className={`font-display text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
-            variant === "home" ? "max-w-[22ch]" : "max-w-[24ch]"
-          }`}
-        >
-          &ldquo;{testimonial.quote}&rdquo;
-        </blockquote>
-        {name && (
-          <cite className="mt-[26px] block text-xs font-black tracking-[0.2em] text-straw uppercase not-italic">
-            {name}
-          </cite>
-        )}
+      <div
+        className={`relative mx-auto flex w-full max-w-[1200px] flex-col px-(--gutter) py-(--section) ${
+          align === "right" ? "items-end" : "items-start"
+        }`}
+      >
+        {/*
+          Held together so the name stays with the quote. On the right the
+          lines run flush right, so the ragged edge falls on the inside rather
+          than leaving a gap against the frame.
+        */}
+        <div className={align === "right" ? "text-right" : undefined}>
+          <blockquote
+            className={`font-display text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
+              variant === "home" ? "max-w-[22ch]" : "max-w-[24ch]"
+            }`}
+          >
+            &ldquo;{testimonial.quote}&rdquo;
+          </blockquote>
+          {name && (
+            <cite className="mt-[26px] block text-xs font-black tracking-[0.2em] text-straw uppercase not-italic">
+              {name}
+            </cite>
+          )}
+        </div>
       </div>
     </section>
   );

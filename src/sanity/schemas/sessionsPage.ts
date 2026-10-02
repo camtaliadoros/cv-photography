@@ -7,8 +7,11 @@ export default defineType({
   type: "document",
   groups: [
     { name: "hero", title: "Hero" },
+    { name: "types", title: "Session types" },
+    { name: "reasons", title: "Why book" },
     { name: "approach", title: "Approach" },
     { name: "pricing", title: "Pricing" },
+    { name: "testimonial", title: "Testimonial" },
     { name: "seo", title: "SEO" },
   ],
   fields: [
@@ -16,7 +19,33 @@ export default defineType({
     defineField({ name: "heroEyebrow", title: "Eyebrow", type: "string", group: "hero" }),
     defineField({ name: "heroHeading", title: "Heading", type: "string", group: "hero" }),
     defineField({ name: "heroStandfirst", title: "Standfirst", type: "text", rows: 3, group: "hero" }),
-    defineField({ name: "introBody", title: "Intro body", type: "text", rows: 4, group: "hero" }),
+    defineField({ name: "typesEyebrow", title: "Eyebrow", type: "string", group: "types" }),
+    defineField({
+      name: "typesHeading",
+      title: "Heading",
+      type: "string",
+      group: "types",
+      description: "The session cards themselves are edited under Session types.",
+    }),
+    defineField({ name: "reasonsEyebrow", title: "Eyebrow", type: "string", group: "reasons" }),
+    defineField({ name: "reasonsHeading", title: "Heading", type: "string", group: "reasons" }),
+    defineField({
+      name: "reasons",
+      title: "Points",
+      type: "array",
+      group: "reasons",
+      description: "Numbered automatically, in this order. Four sit in a row on desktop.",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "heading", title: "Heading", type: "string" }),
+            defineField({ name: "body", title: "Body", type: "text", rows: 3 }),
+          ],
+          preview: { select: { title: "heading", subtitle: "body" } },
+        },
+      ],
+    }),
     defineField({ name: "approachHeading", title: "Heading", type: "string", group: "approach" }),
     defineField({
       name: "approachBody",
@@ -26,7 +55,16 @@ export default defineType({
       group: "approach",
     }),
     defineField({ name: "approachPullQuote", title: "Pull quote", type: "string", group: "approach" }),
-    photo("testimonialImage", "Testimonial backdrop photograph"),
+    defineField({
+      name: "testimonial",
+      title: "Testimonial",
+      type: "reference",
+      to: [{ type: "testimonial" }],
+      group: "testimonial",
+      description:
+        "Which testimonial to show. The words themselves are edited under Testimonials. Leave empty to use the first one.",
+    }),
+    defineField({ ...photo("testimonialImage", "Backdrop photograph"), group: "testimonial" }),
 
     defineField({ name: "priceHeading", title: "Heading", type: "string", group: "pricing" }),
     defineField({

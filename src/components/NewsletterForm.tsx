@@ -8,9 +8,9 @@ import { fieldClass, fieldLabelClass } from "./field";
 type State = "idle" | "sending" | "done" | "error";
 
 /**
- * Email only — the design asks for a single field, so that's all this collects.
- * `stacked` is for the narrow corner card, where the field and CTA can't sit
- * side by side.
+ * First name and email, with the CTA on its own line beneath. The name is
+ * optional — it only personalises the welcome email. `stacked` is for the
+ * narrow corner card, where the two fields can't sit side by side.
  */
 export function NewsletterForm({
   source,
@@ -23,6 +23,7 @@ export function NewsletterForm({
   onDone?: () => void;
   stacked?: boolean;
 }) {
+  const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [state, setState] = useState<State>("idle");
   // Bots fill every field they find; people never see this one.
@@ -37,7 +38,7 @@ export function NewsletterForm({
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source, company: trap }),
+        body: JSON.stringify({ firstName, email, source, company: trap }),
       });
       if (!res.ok) throw new Error("Request failed");
       setState("done");
@@ -50,7 +51,7 @@ export function NewsletterForm({
   if (state === "done") {
     return (
       <p className="font-display animate-[cvFade_240ms_ease] text-[clamp(20px,2.2vw,26px)] leading-snug text-forest">
-        Thank you — you&rsquo;re on the list.
+        Thank you! You&rsquo;re on the list.
       </p>
     );
   }
@@ -59,12 +60,28 @@ export function NewsletterForm({
     <form onSubmit={handleSubmit} className="w-full">
       <div
         className={
-          stacked
-            ? "flex flex-col gap-4"
-            : "flex flex-wrap items-end gap-4"
+          stacked ? "flex flex-col gap-4" : "grid gap-4 sm:grid-cols-2"
         }
       >
-        <div className={stacked ? "min-w-0" : "min-w-0 flex-[1_1_220px]"}>
+        <div className="min-w-0">
+          <label
+            htmlFor={`nl-firstName-${source}`}
+            className={fieldLabelClass}
+          >
+            First name
+          </label>
+          <input
+            id={`nl-firstName-${source}`}
+            name="firstName"
+            type="text"
+            autoComplete="given-name"
+            placeholder="Cam"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className={fieldClass}
+          />
+        </div>
+        <div className="min-w-0">
           <label
             htmlFor={`nl-email-${source}`}
             className={fieldLabelClass}
@@ -83,14 +100,14 @@ export function NewsletterForm({
             className={fieldClass}
           />
         </div>
-        <CtaButton
-          type="submit"
-          disabled={state === "sending"}
-          className={stacked ? "self-start" : "mb-1.5"}
-        >
-          {state === "sending" ? "Signing up" : "Sign up"}
-        </CtaButton>
       </div>
+      <CtaButton
+        type="submit"
+        disabled={state === "sending"}
+        className="mt-5"
+      >
+        {state === "sending" ? "Signing up" : "Sign up"}
+      </CtaButton>
 
       {/* Honeypot — hidden from people, irresistible to bots. */}
       <div aria-hidden className="absolute -left-[9999px]">
@@ -107,7 +124,7 @@ export function NewsletterForm({
       </div>
 
       {state === "error" && (
-        <p className="mt-3 text-sm text-terracotta">
+        <p className="mt-3 text-sm text-honey-deep">
           Something went wrong. Please try again, or email me directly.
         </p>
       )}

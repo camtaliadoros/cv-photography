@@ -54,7 +54,7 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="text-terracotta underline"
+        className="text-honey-deep underline"
         rel="noopener noreferrer"
       >
         {children}

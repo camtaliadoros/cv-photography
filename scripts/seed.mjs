@@ -157,7 +157,7 @@ const SINGLETONS = [
       "I'm setting up at The Pop Up Farm for mini sessions: just you, your little gang and a whole lot of pumpkins.",
       "I'll gently guide you where I need to, then let little ones do their thing — hunting down the biggest pumpkin they can carry, running through the giant straw maze — while I catch the real, giggly moments in between.",
     ],
-    detailsHeading: "Twenty minutes, one Saturday.",
+    detailsHeading: "The details",
     details: [
       { _key: "d1", label: "When", value: "Saturday 10th October — slots from 9:30am" },
       { _key: "d2", label: "Where", value: "The Pop Up Farm, Flamstead — just off the M1, J9" },

@@ -61,7 +61,7 @@ export function NewsletterPopup({ privacyNote }: { privacyNote: string }) {
       >
         &times;
       </button>
-      <p className="mb-2.5 text-[11px] font-black tracking-[0.2em] text-terracotta uppercase">
+      <p className="mb-2.5 text-[11px] font-black tracking-[0.2em] text-honey-deep uppercase">
         Keep in touch
       </p>
       <h2 id="newsletter-popup-title" className="text-[26px] leading-tight">
