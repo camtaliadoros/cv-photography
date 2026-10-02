@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { sanityFetch } from "@/sanity/lib/fetch";
+import { pageOpenGraph } from "@/lib/metadata";
 import { journalPostQuery, journalSlugsQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 import type { JournalPost, SanityPhoto, SiteSettings } from "@/sanity/lib/types";
 import { IntrinsicPhoto, Photo } from "@/components/Photo";
@@ -26,6 +27,7 @@ export async function generateMetadata(
     description: post.seoDescription ?? post.standfirst,
     alternates: { canonical: `/journal/${slug}` },
     openGraph: {
+      ...(await pageOpenGraph(`/journal/${slug}`, post.coverImage)),
       type: "article",
       title: post.title,
       description: post.seoDescription ?? post.standfirst,

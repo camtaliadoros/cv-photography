@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   homePageQuery,
@@ -25,9 +26,9 @@ export async function generateMetadata(): Promise<Metadata> {
     description: page?.seoDescription ?? homeContent.seoDescription,
     alternates: { canonical: "/" },
     openGraph: {
+      ...(await pageOpenGraph("/", page?.heroImage)),
       title: page?.seoTitle ?? homeContent.seoTitle,
       description: page?.seoDescription ?? homeContent.seoDescription,
-      url: "/",
     },
   };
 }
