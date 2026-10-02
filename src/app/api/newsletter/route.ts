@@ -120,7 +120,7 @@ function welcomeHtml(firstName: string): string {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px; background-color:#ffffff; border-radius:10px; overflow:hidden; border:1px solid rgba(42,53,39,0.08);">
           <tr>
             <td style="background-color:#2a3527; padding:32px 36px; text-align:center;">
-              <img src="${site.url}/brochure/images/logo-full-linen.png" alt="${site.name}" width="220" style="display:block; width:220px; height:auto; margin:0 auto;">
+              <img src="${site.url}/logo/logo-full-linen.png" alt="${site.name}" width="220" style="display:block; width:220px; height:auto; margin:0 auto;">
             </td>
           </tr>
           <tr>
