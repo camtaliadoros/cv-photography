@@ -125,8 +125,14 @@ export default async function MiniSessionsPage() {
 
             <ul className="mt-6 flex flex-col gap-3.5 border-t border-straw/35 pt-6">
               {[...rest, ...addOns].map((line, i) => (
-                <li key={i} className="text-base text-linen/90">
-                  {line}
+                <li key={i} className="flex items-start gap-3.5 text-base leading-[1.55] text-linen/90">
+                  <span
+                    aria-hidden="true"
+                    className="mt-px w-[18px] flex-none font-display text-[22px] leading-none text-honey"
+                  >
+                    ✱
+                  </span>
+                  <span>{line}</span>
                 </li>
               ))}
             </ul>
