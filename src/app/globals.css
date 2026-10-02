@@ -18,6 +18,7 @@
   --linen-soft: #f6f2ea;
   --linen-raised: #fbf8f3;  /* form fields — the raised surface in the design */
   --straw-gold: #c9b98a;
+  --marigold-tint: #eed9b4; /* testimonial band */
   --moss: #4a6046;
   --moss-hover: #3d5039;
   --charcoal: #2c2c2c;
@@ -27,7 +28,6 @@
   --gutter: clamp(20px, 4vw, 56px);      /* horizontal page gutter */
   --section: clamp(56px, 8vw, 96px);     /* standard section padding */
   --section-lg: clamp(56px, 8vw, 104px); /* the roomier sections */
-  --hero-bottom: clamp(40px, 7vh, 72px);
 }
 
 @theme inline {
@@ -41,6 +41,7 @@
   --color-linen-soft: var(--linen-soft);
   --color-linen-raised: var(--linen-raised);
   --color-straw: var(--straw-gold);
+  --color-marigold-tint: var(--marigold-tint);
   --color-moss: var(--moss);
   --color-moss-hover: var(--moss-hover);
   --color-charcoal: var(--charcoal);
@@ -108,77 +109,6 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/*
- * Parallax photographs — see components/Parallax.tsx. Only browsers with
- * scroll-driven animations, and only readers happy with motion, get the drift;
- * everyone else sees the layer sitting flush in its frame, as before.
- */
-.parallax {
-  position: absolute;
-  inset: 0;
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .parallax-frame {
-      view-timeline: --parallax-frame block;
-    }
-
-    /*
-     * Cut taller than the frame by --parallax-depth at each end, then slid
-     * through that slack as the frame crosses the viewport. Translate
-     * percentages are of the layer's own (taller) height, hence the division.
-     */
-    .parallax {
-      --d: var(--parallax-depth, 0.15);
-      inset: calc(var(--d) * -100%) 0;
-      --parallax-shift: calc(var(--d) / (1 + 2 * var(--d)) * 100%);
-      animation: parallax-drift linear both;
-      animation-timeline: --parallax-frame;
-      animation-range: cover;
-      will-change: transform;
-    }
-
-    /* Heroes start in view, so they only extend upward and drift as they leave. */
-    .parallax-hero {
-      inset: calc(var(--d) * -100%) 0 0;
-      --parallax-shift: calc(var(--d) / (1 + var(--d)) * 100%);
-      animation-name: parallax-drift-hero;
-      animation-range: exit;
-    }
-  }
-}
-
-@keyframes parallax-drift {
-  from {
-    transform: translateY(calc(var(--parallax-shift) * -1));
-  }
-  to {
-    transform: translateY(var(--parallax-shift));
-  }
-}
-
-@keyframes parallax-drift-hero {
-  from {
-    transform: none;
-  }
-  to {
-    transform: translateY(var(--parallax-shift));
-  }
-}
-
-@keyframes cvFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translateY(7px);
-    opacity: 0.45;
   }
 }
 

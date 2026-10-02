@@ -16,7 +16,7 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   introImage${PHOTO}, introImageSecondary${PHOTO},
   sessionsHeading, showRecentWork,
   approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
-  "testimonial": testimonial->{ _id, quote, name, clientName }, testimonialImage${PHOTO},
+  "testimonial": testimonial->{ _id, quote, name, clientName },
   closingHeading, closingBody, closingImage${PHOTO},
   seoTitle, seoDescription
 }`;
@@ -30,11 +30,11 @@ export const aboutPageQuery = groq`*[_type == "aboutPage"][0]{
 }`;
 
 export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
-  heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst,
+  heroImage${PHOTO}, heroGallery[]${PHOTO}, heroEyebrow, heroHeading, heroStandfirst,
   typesEyebrow, typesHeading,
   reasonsEyebrow, reasonsHeading, reasons,
-  approachHeading, approachBody, approachPullQuote,
-  "testimonial": testimonial->{ _id, quote, name, clientName }, testimonialImage${PHOTO},
+  approachHeading, approachBody, approachPullQuote, approachImage${PHOTO},
+  "testimonial": testimonial->{ _id, quote, name, clientName },
   priceHeading, priceStandard, priceIntro, priceIntroLabel, priceIntroNote,
   priceIncludes, priceNotes,
   seoTitle, seoDescription
@@ -42,7 +42,7 @@ export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
 
 export const miniSessionPageQuery = groq`*[_type == "miniSessionPage"][0]{
   enabled,
-  heroImage${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, bookingUrl,
+  heroImage${PHOTO}, heroGallery[]${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, bookingUrl,
   introHeading, introBody, gallery[]${PHOTO},
   detailsHeading, details,
   price, priceLabel, priceIncludes, priceAddOns, priceNotes,
@@ -86,6 +86,6 @@ export const portfolioPageQuery = groq`*[_type == "portfolioPage"][0]{
 }`;
 
 export const enquirePageQuery = groq`*[_type == "enquirePage"][0]{
-  heroImage${PHOTO}, asideImage${PHOTO},
+  asideImage${PHOTO},
   seoTitle, seoDescription
 }`;

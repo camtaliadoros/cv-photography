@@ -132,7 +132,7 @@ const SINGLETONS = [
     bannerHref: "/mini-sessions",
     newsletterHeading: "Mini session dates, before anyone else.",
     newsletterBody:
-      "Occasional notes from me — new dates, offers, and the odd thing I've learned photographing my own two. Unsubscribe anytime.",
+      "Occasional notes from me — new dates, offers, and the odd thing I've learned while photographing little ones. Unsubscribe anytime.",
     newsletterPrivacyNote:
       "Your details are safe with me — I'll only use them to send you these notes.",
     popupEnabled: false,

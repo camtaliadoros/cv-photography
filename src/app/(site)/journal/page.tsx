@@ -23,7 +23,7 @@ export default async function JournalPage() {
   return (
     <>
       <PageHero
-        image={posts[0]?.coverImage}
+        images={posts.slice(0, 3).map((post) => post.coverImage)}
         eyebrow={journalContent.heroEyebrow}
         heading={journalContent.heroHeading}
         standfirst={journalContent.heroStandfirst}

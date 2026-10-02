@@ -1,18 +1,20 @@
-import { Parallax } from "./Parallax";
-import { Photo } from "./Photo";
+import { IntrinsicPhoto } from "./Photo";
 import type { SanityPhoto, Testimonial } from "@/sanity/lib/types";
 
 /**
  * Tracked-caps eyebrow preceded by a short rule. The rule is a signature of the
- * design — it sits above nearly every heading on the site.
+ * design — it sits above nearly every heading on the site. When centred, the
+ * rule is mirrored on the right so the eyebrow stays balanced.
  */
 export function Eyebrow({
   children,
   tone = "honey",
+  centered = false,
   className = "",
 }: {
   children: React.ReactNode;
   tone?: "honey" | "straw";
+  centered?: boolean;
   className?: string;
 }) {
   // On light grounds the rule is honey but the text deep honey, which reads at small sizes.
@@ -21,9 +23,13 @@ export function Eyebrow({
   return (
     <span className={`inline-flex items-center gap-2.5 ${colour} ${className}`}>
       <span aria-hidden className={`h-0.5 w-6 ${rule}`} />
-      <span className="text-xs font-black tracking-[0.2em] uppercase">
+      {/* Letter-spacing trails the last letter; pull it back so both rules sit evenly. */}
+      <span
+        className={`text-xs font-black tracking-[0.2em] uppercase ${centered ? "-mr-[0.2em]" : ""}`}
+      >
         {children}
       </span>
+      {centered && <span aria-hidden className={`h-0.5 w-6 ${rule}`} />}
     </span>
   );
 }
@@ -53,11 +59,11 @@ export function Label({
 }
 
 /**
- * The hero used at the top of every inner page: a photograph under two
- * gradients — one vertical, one raked at 75° — with the heading sitting low.
+ * The hero used at the top of most inner pages: the words centred on linen,
+ * then a row of photographs beneath, each shown whole at a shared height.
  */
 export function PageHero({
-  image,
+  images = [],
   eyebrow,
   heading,
   standfirst,
@@ -65,7 +71,8 @@ export function PageHero({
   narrow = false,
   children,
 }: {
-  image?: SanityPhoto;
+  /** Up to three photographs, shown in order. */
+  images?: (SanityPhoto | undefined)[];
   eyebrow: React.ReactNode;
   heading: string;
   standfirst?: string;
@@ -76,58 +83,116 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="parallax-frame relative flex min-h-[clamp(440px,52vh,520px)] items-end overflow-hidden bg-forest">
-      {image?.asset ? (
-        <Parallax hero depth={0.12}>
-          <Photo photo={image} sizes="100vw" priority alt="" />
-        </Parallax>
-      ) : null}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,.58)_0%,rgba(42,53,39,.34)_38%,rgba(42,53,39,.88)_100%)]"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(75deg,rgba(42,53,39,.6)_0%,rgba(42,53,39,.22)_52%,rgba(42,53,39,0)_78%)]"
-      />
-      <div
-        className={`relative mx-auto w-full px-(--gutter) pt-[200px] pb-[clamp(40px,6vw,72px)] ${
-          narrow ? "max-w-[820px]" : "max-w-[1200px]"
-        }`}
-      >
-        <Eyebrow tone="straw">{eyebrow}</Eyebrow>
-        <h1
-          className="mt-4 mb-3.5 text-linen text-[clamp(30px,4.2vw,54px)] leading-[1.08]"
-          style={{ maxWidth: headingMax }}
+    <>
+      <section>
+        <div
+          className={`mx-auto w-full px-(--gutter) pt-(--section-lg) pb-[clamp(32px,4vw,48px)] text-center ${
+            narrow ? "max-w-[820px]" : "max-w-[1200px]"
+          }`}
         >
-          {heading}
-        </h1>
-        {standfirst && (
-          <p className="max-w-[50ch] text-linen">{standfirst}</p>
-        )}
-        {children}
+          <Eyebrow centered>{eyebrow}</Eyebrow>
+          <h1
+            className="mx-auto mt-4 mb-3.5 text-[clamp(30px,4.2vw,54px)] leading-[1.08]"
+            style={{ maxWidth: headingMax }}
+          >
+            {heading}
+          </h1>
+          {standfirst && (
+            <p className="mx-auto max-w-[50ch] text-forest">{standfirst}</p>
+          )}
+          {children}
+        </div>
+      </section>
+      <PhotoRow images={images} />
+    </>
+  );
+}
+
+/**
+ * Photographs side by side at one height, never cropped. Each one's share of
+ * the row follows its shape, so together they fill the width exactly.
+ */
+export function PhotoRow({ images }: { images: (SanityPhoto | undefined)[] }) {
+  const photos = images.filter((photo): photo is SanityPhoto => !!photo?.asset).slice(0, 3);
+  if (photos.length === 0) return null;
+
+  const ratios = photos.map((photo) => photo.dimensions?.aspectRatio ?? 1.5);
+  const total = ratios.reduce((sum, ratio) => sum + ratio, 0);
+
+  return (
+    <section className="px-(--gutter)">
+      <div className="mx-auto flex max-w-[1200px] gap-[clamp(10px,1.4vw,16px)]">
+        {photos.map((photo, i) => {
+          const share = ratios[i] / total;
+          return (
+            <div
+              key={photo.asset?._ref ?? i}
+              className="min-w-0"
+              style={{ flex: `${ratios[i]} 1 0%` }}
+            >
+              <IntrinsicPhoto
+                photo={photo}
+                priority={i === 0}
+                sizes={`(max-width: 1200px) ${Math.ceil(share * 100)}vw, ${Math.ceil(share * 1200)}px`}
+                className="block h-auto w-full"
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
 }
 
 /**
- * Testimonial: set over a photograph, with the scrim raked from whichever side
- * the words sit on so they land in the darkest part of the frame.
+ * The about page's hero: words on forest to one side, the portrait whole on
+ * the other.
  */
-export function QuoteBlock({
-  testimonial,
+export function SplitHero({
   image,
-  variant = "inner",
-  align = "left",
+  eyebrow,
+  heading,
+  standfirst,
+  headingMax = "14ch",
 }: {
-  testimonial: Testimonial;
   image?: SanityPhoto;
-  /** The home page runs this taller and on a slightly tighter measure. */
-  variant?: "home" | "inner";
-  /** Which side of the frame the quote sits on. */
-  align?: "left" | "right";
+  eyebrow: React.ReactNode;
+  heading: string;
+  standfirst?: string;
+  headingMax?: string;
 }) {
+  return (
+    <section className="bg-forest">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-stretch">
+        <div className="flex min-w-0 flex-col justify-end px-(--gutter) py-[clamp(48px,7vw,96px)]">
+          <Eyebrow tone="straw">{eyebrow}</Eyebrow>
+          <h1
+            className="mt-4 mb-3.5 text-linen text-[clamp(30px,4.2vw,54px)] leading-[1.08]"
+            style={{ maxWidth: headingMax }}
+          >
+            {heading}
+          </h1>
+          {standfirst && (
+            <p className="max-w-[40ch] text-[clamp(17px,1.6vw,19px)] text-linen">{standfirst}</p>
+          )}
+        </div>
+        {image?.asset && (
+          <div className="flex min-w-0 items-center">
+            <IntrinsicPhoto
+              photo={image}
+              priority
+              sizes="(max-width: 768px) 100vw, 600px"
+              className="block h-auto w-full"
+            />
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/** Testimonial: an italic quote centred on a marigold tint, under a fine straw-gold rule. */
+export function QuoteBlock({ testimonial }: { testimonial: Testimonial }) {
   if (!testimonial?.quote) return null;
 
   // Earlier versions of the schema stored the name as `clientName`; read both
@@ -135,51 +200,17 @@ export function QuoteBlock({
   const name = testimonial.name ?? testimonial.clientName;
 
   return (
-    <section
-      className={`parallax-frame relative flex items-center overflow-hidden bg-forest ${
-        variant === "home"
-          ? "min-h-[clamp(420px,62vh,660px)]"
-          : "min-h-[clamp(380px,54vh,560px)]"
-      }`}
-    >
-      {/* The photograph pans as the quote passes, so more of it is seen than the crop allows. */}
-      {image?.asset ? (
-        <Parallax depth={0.22}>
-          <Photo photo={image} sizes="100vw" alt="" />
-        </Parallax>
-      ) : null}
-      <div
-        aria-hidden
-        className={`absolute inset-0 ${
-          align === "right"
-            ? "bg-[linear-gradient(270deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
-            : "bg-[linear-gradient(90deg,rgba(42,53,39,.9)_0%,rgba(42,53,39,.62)_52%,rgba(42,53,39,.24)_100%)]"
-        }`}
-      />
-      <div
-        className={`relative mx-auto flex w-full max-w-[1200px] flex-col px-(--gutter) py-(--section) ${
-          align === "right" ? "items-end" : "items-start"
-        }`}
-      >
-        {/*
-          Held together so the name stays with the quote. On the right the
-          lines run flush right, so the ragged edge falls on the inside rather
-          than leaving a gap against the frame.
-        */}
-        <div className={align === "right" ? "text-right" : undefined}>
-          <blockquote
-            className={`font-display text-[clamp(26px,3.2vw,44px)] leading-[1.28] text-linen italic ${
-              variant === "home" ? "max-w-[22ch]" : "max-w-[24ch]"
-            }`}
-          >
-            &ldquo;{testimonial.quote}&rdquo;
-          </blockquote>
-          {name && (
-            <cite className="mt-[26px] block text-xs font-black tracking-[0.2em] text-straw uppercase not-italic">
-              {name}
-            </cite>
-          )}
-        </div>
+    <section className="bg-marigold-tint px-(--gutter) py-[clamp(72px,11vw,136px)] text-center">
+      <div className="mx-auto max-w-[880px]">
+        <div aria-hidden className="mx-auto mb-[clamp(28px,3.4vw,40px)] h-12 w-px bg-straw" />
+        <blockquote className="font-display mx-auto max-w-[24ch] text-[clamp(26px,3.4vw,42px)] leading-[1.3] text-balance text-forest italic">
+          &ldquo;{testimonial.quote}&rdquo;
+        </blockquote>
+        {name && (
+          <cite className="mt-[clamp(24px,3vw,32px)] block text-xs font-black tracking-[0.2em] text-honey-deep uppercase not-italic">
+            {name}
+          </cite>
+        )}
       </div>
     </section>
   );
@@ -219,5 +250,53 @@ export function Statement({
     >
       {children}
     </p>
+  );
+}
+
+/**
+ * "My approach": the words on the left, the photograph on the right shown
+ * whole and centred against them. Stacks below lg, words first.
+ */
+export function ApproachSection({
+  heading,
+  body,
+  pullQuote,
+  image,
+  link,
+  imageFirst = false,
+  className = "",
+}: {
+  heading: string;
+  body: string[];
+  pullQuote?: string;
+  image?: SanityPhoto;
+  link?: React.ReactNode;
+  /** Put the photograph in the left column on desktop (text still leads when stacked). */
+  imageFirst?: boolean;
+  className?: string;
+}) {
+  return (
+    <section className={`px-(--gutter) py-(--section-lg) ${className}`}>
+      <div className="mx-auto grid max-w-[1200px] items-center gap-[clamp(32px,5vw,72px)] lg:grid-cols-2">
+        <div className="min-w-0">
+          <Eyebrow>My approach</Eyebrow>
+          <h2 className="mt-5 mb-6 text-[clamp(28px,3.4vw,45px)]">{heading}</h2>
+          <div className="space-y-5 text-charcoal/85">
+            {body.map((para, i) => (
+              <p key={i} className="max-w-[52ch]">
+                {para}
+              </p>
+            ))}
+          </div>
+          {pullQuote && <Statement className="mt-8">{pullQuote}</Statement>}
+          {link && <div className="mt-10">{link}</div>}
+        </div>
+        {image?.asset && (
+          <div className={`min-w-0 ${imageFirst ? "lg:order-first" : ""}`}>
+            <IntrinsicPhoto photo={image} sizes="(max-width: 1024px) 100vw, 580px" />
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

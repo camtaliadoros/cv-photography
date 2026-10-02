@@ -31,11 +31,20 @@ export function toPlainText(value: MaybeRichText): string {
     .join("\n\n");
 }
 
-/** Same, for fields that hold a list of paragraphs. */
+/**
+ * Same, for fields that hold a list of paragraphs.
+ *
+ * Each list item is a Studio text box, and it's natural to type several
+ * paragraphs into one box with blank lines between them — so every item is
+ * split on blank lines too, rather than trusting one item to mean one <p>.
+ */
 export function toParagraphs(value: MaybeRichText | MaybeRichText[]): string[] {
-  if (Array.isArray(value) && value.every((v) => typeof v === "string")) {
-    return value as string[];
-  }
-  const flat = toPlainText(value as MaybeRichText);
-  return flat ? flat.split("\n\n") : [];
+  const items =
+    Array.isArray(value) && value.every((v) => typeof v === "string")
+      ? (value as string[])
+      : [toPlainText(value as MaybeRichText)];
+  return items
+    .flatMap((item) => item.split(/\n\s*\n/))
+    .map((para) => para.trim())
+    .filter(Boolean);
 }

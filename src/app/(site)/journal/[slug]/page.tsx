@@ -93,7 +93,6 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
 
       <article>
         <PageHero
-          image={post.coverImage}
           eyebrow={
             <>
               {post.category}
@@ -114,6 +113,16 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
           headingMax="22ch"
           narrow
         />
+        {post.coverImage?.asset && (
+          <section className="px-(--gutter)">
+            <IntrinsicPhoto
+              photo={post.coverImage}
+              priority
+              sizes="(max-width: 1200px) 100vw, 1140px"
+              className="mx-auto block h-auto max-h-[min(80vh,760px)] w-auto max-w-full"
+            />
+          </section>
+        )}
 
 
         <div className="mx-auto max-w-[680px] px-(--gutter) pt-(--section) pb-[clamp(40px,5vw,64px)]">

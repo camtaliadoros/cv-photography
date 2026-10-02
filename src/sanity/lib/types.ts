@@ -52,7 +52,6 @@ export interface HomePage {
   approachPullQuote?: string;
   approachImage?: SanityPhoto;
   testimonial?: Testimonial;
-  testimonialImage?: SanityPhoto;
   closingHeading?: string;
   closingBody?: string;
   closingImage?: SanityPhoto;
@@ -80,6 +79,8 @@ export interface AboutPage {
 
 export interface SessionsPage {
   heroImage?: SanityPhoto;
+  /** Shown in a row after the hero photograph. */
+  heroGallery?: SanityPhoto[];
   heroEyebrow?: string;
   heroHeading?: string;
   heroStandfirst?: string;
@@ -91,8 +92,8 @@ export interface SessionsPage {
   approachHeading?: string;
   approachBody?: string[];
   approachPullQuote?: string;
+  approachImage?: SanityPhoto;
   testimonial?: Testimonial;
-  testimonialImage?: SanityPhoto;
   priceHeading?: string;
   priceStandard?: string;
   priceIntro?: string;
@@ -107,6 +108,8 @@ export interface SessionsPage {
 export interface MiniSessionPage {
   enabled?: boolean;
   heroImage?: SanityPhoto;
+  /** Shown in a row after the hero photograph. */
+  heroGallery?: SanityPhoto[];
   heroEyebrow?: string;
   heroHeading?: string;
   heroStandfirst?: string;
@@ -133,7 +136,6 @@ export interface PortfolioPage {
 }
 
 export interface EnquirePage {
-  heroImage?: SanityPhoto;
   asideImage?: SanityPhoto;
   seoTitle?: string;
   seoDescription?: string;

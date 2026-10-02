@@ -26,7 +26,7 @@ export default async function PortfolioPage() {
   // photographs in the grid are the point.
   return (
     <div className="bg-forest">
-      <section className="px-(--gutter) pt-[200px] pb-[clamp(24px,3vw,40px)]">
+      <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(24px,3vw,40px)]">
         <div className="mx-auto max-w-[1200px]">
           <Eyebrow tone="straw">{page?.heroEyebrow ?? portfolioContent.heroEyebrow}</Eyebrow>
           <h1 className="mt-[18px] max-w-[18ch] text-linen text-[clamp(30px,4.2vw,54px)] leading-[1.08]">

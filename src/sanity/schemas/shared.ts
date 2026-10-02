@@ -24,6 +24,30 @@ export const photo = (name = "image", title = "Photograph") =>
     validation: (rule) => rule.required(),
   });
 
+/** Extra photographs shown in a row beside a page's hero photograph. */
+export const heroGallery = (group?: string) =>
+  defineField({
+    name: "heroGallery",
+    title: "More hero photographs",
+    type: "array",
+    of: [photo("image", "Photograph")],
+    description:
+      "Up to two more photographs, shown in a row after the hero photograph. They're never cropped.",
+    validation: (rule) => rule.max(2),
+    ...(group ? { group } : {}),
+  });
+
+/**
+ * Testimonials no longer sit over a photograph. The field stays, hidden, so the
+ * image already chosen isn't lost if the backdrop ever comes back.
+ */
+export const retiredTestimonialImage = defineField({
+  ...photo("testimonialImage", "Backdrop photograph"),
+  group: "testimonial",
+  hidden: true,
+  validation: undefined,
+});
+
 export const orderField = defineField({
   name: "order",
   title: "Order",

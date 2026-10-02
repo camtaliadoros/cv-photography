@@ -1,13 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { readStorage, useIsClient, writeStorage } from "@/lib/use-is-client";
 
 const STORAGE_KEY = "cv-banner-dismissed";
-
-/** Fired when the banner appears or goes, so the header can re-measure. */
-export const BANNER_CHANGE_EVENT = "cv:banner-change";
 
 /** Announcement bar. Dismissal is remembered per browser, keyed to the text. */
 export function Banner({ text, href }: { text: string; href: string }) {
@@ -18,10 +15,6 @@ export function Banner({ text, href }: { text: string; href: string }) {
   const previouslyDismissed = isClient && readStorage(STORAGE_KEY) === text;
   const visible = isClient && !dismissed && !previouslyDismissed;
 
-  useEffect(() => {
-    window.dispatchEvent(new Event(BANNER_CHANGE_EVENT));
-  }, [visible]);
-
   if (!visible) return null;
 
   const dismiss = () => {
@@ -30,7 +23,7 @@ export function Banner({ text, href }: { text: string; href: string }) {
   };
 
   return (
-    <div data-announcement className="relative z-50 bg-honey">
+    <div className="relative z-50 bg-honey">
       <div className="flex items-center justify-center px-12 py-3">
         <Link href={href} className="text-center text-xs font-black tracking-[0.2em] text-forest uppercase hover:text-linen">
           {text}

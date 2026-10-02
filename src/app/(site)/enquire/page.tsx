@@ -31,7 +31,6 @@ export default async function EnquirePage() {
   return (
     <>
       <PageHero
-        image={page?.heroImage}
         eyebrow={enquireContent.heroEyebrow}
         heading={enquireContent.heroHeading}
         standfirst={enquireContent.heroStandfirst}

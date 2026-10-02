@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { photo } from "./shared";
+import { retiredTestimonialImage, photo } from "./shared";
 
 export default defineType({
   name: "homePage",
@@ -64,7 +64,7 @@ export default defineType({
       description:
         "Which testimonial to show. The words themselves are edited under Testimonials. Leave empty to use the first one.",
     }),
-    defineField({ ...photo("testimonialImage", "Backdrop photograph"), group: "testimonial" }),
+    retiredTestimonialImage,
     defineField({ name: "closingHeading", title: "Heading", type: "string", group: "closing" }),
     defineField({ name: "closingBody", title: "Body", type: "text", rows: 3, group: "closing" }),
     photo("closingImage", "Closing photograph"),

@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { photo } from "./shared";
+import { heroGallery, photo } from "./shared";
 
 export default defineType({
   name: "miniSessionPage",
@@ -21,6 +21,7 @@ export default defineType({
         "Turn off once the event has passed. The page returns a 404 and drops out of the nav and sitemap.",
     }),
     photo("heroImage", "Hero photograph"),
+    heroGallery(),
     defineField({ name: "heroEyebrow", title: "Eyebrow", type: "string", group: "hero" }),
     defineField({ name: "heroHeading", title: "Heading", type: "string", group: "hero" }),
     defineField({

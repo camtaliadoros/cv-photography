@@ -8,7 +8,7 @@ import { IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
 import { Label, PageHero } from "@/components/sections";
 import { site } from "@/lib/site";
-import { toPlainText } from "@/lib/text";
+import { toParagraphs, toPlainText } from "@/lib/text";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<MiniSessionPage>(miniSessionPageQuery, {}, [
@@ -41,12 +41,12 @@ export default async function MiniSessionsPage() {
   return (
     <>
       <PageHero
-        image={page?.heroImage}
+        images={[page?.heroImage, ...(page?.heroGallery ?? [])]}
         eyebrow={page?.heroEyebrow ?? miniSessionContent.heroEyebrow}
         heading={page?.heroHeading ?? miniSessionContent.heroHeading}
         headingMax="16ch"
       >
-        <p className="max-w-[50ch] text-[clamp(16px,1.6vw,19px)] text-linen">
+        <p className="mx-auto max-w-[50ch] text-[clamp(16px,1.6vw,19px)] text-forest">
           {page?.heroStandfirst ?? miniSessionContent.heroStandfirst}
         </p>
       </PageHero>
@@ -57,7 +57,7 @@ export default async function MiniSessionsPage() {
           <h2 className="mb-[22px] text-[clamp(28px,3.4vw,45px)]">
             {page?.introHeading ?? miniSessionContent.introHeading}
           </h2>
-          {(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
+          {toParagraphs(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
             <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
               {para}
             </p>

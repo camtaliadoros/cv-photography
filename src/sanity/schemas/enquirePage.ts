@@ -10,7 +10,6 @@ export default defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    defineField({ ...photo("heroImage", "Hero photograph"), group: "photos" }),
     defineField({ ...photo("asideImage", "Photograph beside the form"), group: "photos" }),
     defineField({ name: "seoTitle", title: "SEO title", type: "string", group: "seo" }),
     defineField({ name: "seoDescription", title: "Meta description", type: "text", rows: 3, group: "seo" }),

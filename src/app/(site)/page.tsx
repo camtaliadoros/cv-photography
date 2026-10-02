@@ -13,10 +13,10 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
-import { Parallax } from "@/components/Parallax";
 import { Photo, IntrinsicPhoto } from "@/components/Photo";
 import { Cta, TextLink } from "@/components/Cta";
-import { Eyebrow, QuoteBlock, Statement } from "@/components/sections";
+import { ApproachSection, Eyebrow, QuoteBlock } from "@/components/sections";
+import { toParagraphs } from "@/lib/text";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]);
@@ -46,53 +46,30 @@ export default async function HomePageRoute() {
 
   return (
     <>
-      {/* ---------- Hero ---------- */}
-      <section className="parallax-frame relative h-svh min-h-[600px] w-full overflow-hidden bg-forest">
-        {page?.heroImage?.asset ? (
-          <Parallax hero depth={0.12}>
-            <Photo
-              photo={page.heroImage}
-              sizes="100vw"
-              priority
-              alt=""
-              className="object-cover object-[center_35%]"
-            />
-          </Parallax>
-        ) : null}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,.6)_0%,rgba(42,53,39,.1)_22%,rgba(42,53,39,0)_42%,rgba(42,53,39,.55)_100%)]"
-        />
-
-        <div className="absolute bottom-(--hero-bottom) left-(--gutter) max-w-[min(34ch,calc(100%-120px))]">
-          <span className="inline-flex items-center gap-2.5 text-straw">
-            <span aria-hidden className="h-[1.5px] w-6 bg-current" />
-            <span className="text-[10px] font-black tracking-[0.24em] uppercase">
-              Hertfordshire &amp; London
-            </span>
-          </span>
-          {/*
-            The design sets this line as a paragraph, which would leave the home
-            page with no h1. Rendered as an h1 at the design's exact size —
-            visually identical, and the page keeps a heading.
-          */}
-          <h1 className="mt-3.5 font-display text-[clamp(19px,1.9vw,26px)] leading-[1.3] text-linen">
-            {page?.heroHeading ?? homeContent.heroHeading}
-          </h1>
-          <p className="mt-2.5 text-sm tracking-[0.01em] text-linen/80">
-            {page?.heroSubline ?? homeContent.heroSubline}
-          </p>
-        </div>
-
-        <div className="absolute right-(--gutter) bottom-7 flex animate-[cvFloat_2.8s_ease-in-out_infinite] flex-col items-center gap-2.5 text-linen">
-          <span className="text-[10px] font-black tracking-[0.24em] uppercase">
-            Scroll
-          </span>
-          <span
-            aria-hidden
-            className="h-11 w-px bg-[linear-gradient(var(--warm-linen),transparent)]"
+      {/* ---------- Hero: the photograph whole, framed on the sides only (the nav sits on top) ---------- */}
+      {page?.heroImage?.asset && (
+        <section className="px-[clamp(12px,1.6vw,20px)]">
+          <IntrinsicPhoto
+            photo={page.heroImage}
+            sizes="100vw"
+            priority
+            className="block h-auto w-full"
           />
-        </div>
+        </section>
+      )}
+
+      <section className="px-(--gutter) pt-[clamp(48px,7vw,88px)] text-center">
+        <span className="inline-flex items-center gap-2.5 text-honey-deep">
+          <span aria-hidden className="h-0.5 w-6 bg-honey" />
+          <span className="text-xs font-black tracking-[0.2em] uppercase">
+            Hertfordshire &amp; London
+          </span>
+          <span aria-hidden className="h-0.5 w-6 bg-honey" />
+        </span>
+        <h1 className="mx-auto mt-[18px] mb-3.5 max-w-[22ch] text-[clamp(28px,3.6vw,48px)] leading-[1.12]">
+          {page?.heroHeading ?? homeContent.heroHeading}
+        </h1>
+        <p>{page?.heroSubline ?? homeContent.heroSubline}</p>
       </section>
 
       {/* ---------- Intro ---------- */}
@@ -103,7 +80,7 @@ export default async function HomePageRoute() {
               {page?.introHeading ?? homeContent.introHeading}
             </h2>
             <div className="mb-8 space-y-5 text-charcoal/85">
-              {(page?.introBody ?? homeContent.introBody).map((para, i) => (
+              {toParagraphs(page?.introBody ?? homeContent.introBody).map((para, i) => (
                 <p key={i} className="max-w-[52ch]">
                   {para}
                 </p>
@@ -148,7 +125,7 @@ export default async function HomePageRoute() {
           <ul className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] items-start gap-[clamp(16px,2vw,28px)]">
             {sessionTypes.map((type) => (
               <li key={type._id}>
-                <a href="/sessions" className="group relative block overflow-hidden">
+                <a href="/sessions" className="group block">
                   {type.image?.asset ? (
                     <IntrinsicPhoto
                       photo={type.image}
@@ -159,16 +136,10 @@ export default async function HomePageRoute() {
                   ) : (
                     <div className="aspect-[4/5] w-full bg-linen-deep" />
                   )}
-                  {/* Title and tagline sit inside the frame, over a gradient. */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 bg-[linear-gradient(180deg,rgba(42,53,39,0)_42%,rgba(42,53,39,.78)_100%)]"
-                  />
-                  <div className="absolute right-5 bottom-[18px] left-5">
-                    <h3 className="text-[22px] leading-[1.25] text-linen">
-                      {type.title}
-                    </h3>
-                    <p className="mt-1 text-xs font-black tracking-[0.18em] text-straw uppercase">
+                  {/* Title and tagline sit under the photograph, which shows whole. */}
+                  <div className="pt-4">
+                    <h3 className="text-[22px] leading-[1.25]">{type.title}</h3>
+                    <p className="mt-1 text-xs font-black tracking-[0.18em] text-honey-deep uppercase">
                       {type.tagline}
                     </p>
                   </div>
@@ -179,37 +150,15 @@ export default async function HomePageRoute() {
         </div>
       </section>
 
-      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} variant="home" />
+      <QuoteBlock testimonial={testimonial} />
 
-      {/* ---------- Approach ---------- */}
-      <section className="px-(--gutter) py-[clamp(72px,11vw,132px)]">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-center gap-[clamp(32px,5vw,80px)]">
-          {page?.approachImage?.asset && (
-            <div className="min-w-0 lg:order-1">
-              <IntrinsicPhoto
-                photo={page.approachImage}
-                sizes="(max-width: 1024px) 100vw, 560px"
-              />
-            </div>
-          )}
-          <div className="min-w-0 lg:order-2">
-            <Eyebrow>My approach</Eyebrow>
-            <h2 className="mt-5 mb-6 text-[clamp(28px,3.4vw,45px)]">
-              {page?.approachHeading ?? homeContent.approachHeading}
-            </h2>
-            <div className="space-y-5 text-charcoal/85">
-              {(page?.approachBody ?? homeContent.approachBody).map((para, i) => (
-                <p key={i} className="max-w-[52ch]">
-                  {para}
-                </p>
-              ))}
-            </div>
-            <Statement className="mt-8">
-              {page?.approachPullQuote ?? homeContent.approachPullQuote}
-            </Statement>
-          </div>
-        </div>
-      </section>
+      <ApproachSection
+        heading={page?.approachHeading ?? homeContent.approachHeading}
+        body={toParagraphs(page?.approachBody ?? homeContent.approachBody)}
+        pullQuote={page?.approachPullQuote ?? homeContent.approachPullQuote}
+        image={page?.approachImage}
+        imageFirst
+      />
 
       {/* ---------- Recent work — hidden until switched on in Sanity ---------- */}
       {page?.showRecentWork === true && featured && featured.length > 0 && (

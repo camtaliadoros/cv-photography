@@ -18,9 +18,9 @@ import { sessionsContent, defaultSessionTypes, defaultTestimonials } from "@/lib
 import { Cta, TextLink } from "@/components/Cta";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { IntrinsicPhoto } from "@/components/Photo";
-import { Eyebrow, Label, PageHero, QuoteBlock, Statement } from "@/components/sections";
+import { ApproachSection, Eyebrow, Label, PageHero, QuoteBlock } from "@/components/sections";
 import { site } from "@/lib/site";
-import { toPlainText } from "@/lib/text";
+import { toParagraphs, toPlainText } from "@/lib/text";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage"]);
@@ -47,7 +47,16 @@ export default async function SessionsPageRoute() {
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
   const testimonial =
     page?.testimonial ?? testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
-  const priceIntro = page?.priceIntro ?? sessionsContent.priceIntro;
+  // The intro offer is optional: once the Sanity document exists, an empty
+  // field means "no offer", so don't fall back to the built-in launch copy.
+  const intro = page
+    ? { price: page.priceIntro, label: page.priceIntroLabel, note: page.priceIntroNote }
+    : {
+        price: sessionsContent.priceIntro,
+        label: sessionsContent.priceIntroLabel,
+        note: sessionsContent.priceIntroNote,
+      };
+  const priceIntro = intro.price;
   const priceStandard = page?.priceStandard ?? sessionsContent.priceStandard;
   const includes = page?.priceIncludes ?? sessionsContent.priceIncludes;
   const notes = page?.priceNotes ?? sessionsContent.priceNotes;
@@ -68,7 +77,7 @@ export default async function SessionsPageRoute() {
     areaServed: site.areasServed.map((name) => ({ "@type": "Place", name })),
     offers: {
       "@type": "Offer",
-      price: (priceIntro ?? priceStandard ?? "").replace(/[^0-9.]/g, ""),
+      price: (priceIntro || priceStandard || "").replace(/[^0-9.]/g, ""),
       priceCurrency: "GBP",
       availability: "https://schema.org/InStock",
     },
@@ -82,12 +91,36 @@ export default async function SessionsPageRoute() {
       />
 
       <PageHero
-        image={page?.heroImage}
+        images={[page?.heroImage, ...(page?.heroGallery ?? [])]}
         eyebrow={page?.heroEyebrow ?? sessionsContent.heroEyebrow}
         heading={page?.heroHeading ?? sessionsContent.heroHeading}
         standfirst={page?.heroStandfirst ?? sessionsContent.heroStandfirst}
         headingMax="15ch"
       />
+
+      {/* ---------- Why families book: numbered points on forest ---------- */}
+      <section className="mt-(--section) bg-forest px-(--gutter) py-[clamp(64px,9vw,112px)]">
+        <div className="mx-auto max-w-[1200px]">
+          <Eyebrow tone="straw">{page?.reasonsEyebrow ?? sessionsContent.reasonsEyebrow}</Eyebrow>
+          <h2 className="mt-4 mb-[clamp(40px,5vw,64px)] max-w-[20ch] text-[clamp(26px,3.2vw,42px)] leading-[1.1] text-linen">
+            {page?.reasonsHeading ?? sessionsContent.reasonsHeading}
+          </h2>
+
+          <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,190px),1fr))] gap-x-[clamp(24px,3vw,44px)] gap-y-[clamp(32px,4vw,56px)]">
+            {reasons.map((reason, i) => (
+              <li key={i} className="min-w-0 border-t border-straw/40 pt-[22px]">
+                <p className="mb-3.5 text-[13px] font-black tracking-[0.2em] text-straw">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mb-2.5 text-[clamp(22px,2.2vw,27px)] leading-[1.2] text-pretty text-linen">
+                  {reason.heading}
+                </h3>
+                <p className="text-base leading-[1.6] text-linen">{toPlainText(reason.body)}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       {/*
         ---------- Session types ----------
@@ -120,52 +153,14 @@ export default async function SessionsPageRoute() {
         </div>
       </section>
 
-      {/* ---------- Why families book: numbered points on forest ---------- */}
-      <section className="bg-forest px-(--gutter) py-[clamp(64px,9vw,112px)]">
-        <div className="mx-auto max-w-[1200px]">
-          <Eyebrow tone="straw">{page?.reasonsEyebrow ?? sessionsContent.reasonsEyebrow}</Eyebrow>
-          <h2 className="mt-4 mb-[clamp(40px,5vw,64px)] max-w-[20ch] text-[clamp(26px,3.2vw,42px)] leading-[1.1] text-linen">
-            {page?.reasonsHeading ?? sessionsContent.reasonsHeading}
-          </h2>
-
-          <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,190px),1fr))] gap-x-[clamp(24px,3vw,44px)] gap-y-[clamp(32px,4vw,56px)]">
-            {reasons.map((reason, i) => (
-              <li key={i} className="min-w-0 border-t border-straw/40 pt-[22px]">
-                <p className="mb-3.5 text-[13px] font-black tracking-[0.2em] text-straw">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mb-2.5 text-[clamp(22px,2.2vw,27px)] leading-[1.2] text-pretty text-linen">
-                  {reason.heading}
-                </h3>
-                <p className="text-base leading-[1.6] text-linen">{toPlainText(reason.body)}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* ---------- Approach ---------- */}
-      <section className="bg-linen-soft px-(--gutter) py-(--section-lg)">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[clamp(32px,5vw,72px)]">
-          <div className="min-w-0">
-            <Eyebrow>My approach</Eyebrow>
-            <h2 className="mt-4 text-[clamp(28px,3.4vw,45px)]">
-              {page?.approachHeading ?? sessionsContent.approachHeading}
-            </h2>
-          </div>
-          <div className="min-w-0">
-            {(page?.approachBody ?? sessionsContent.approachBody).map((para, i) => (
-              <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
-                {para}
-              </p>
-            ))}
-            <Statement className="mt-8 mb-8">
-              {page?.approachPullQuote ?? sessionsContent.approachPullQuote}
-            </Statement>
-            <TextLink href="/about">More about me</TextLink>
-          </div>
-        </div>
-      </section>
+      <ApproachSection
+        className="bg-linen-soft"
+        heading={page?.approachHeading ?? sessionsContent.approachHeading}
+        body={toParagraphs(page?.approachBody ?? sessionsContent.approachBody)}
+        pullQuote={page?.approachPullQuote ?? sessionsContent.approachPullQuote}
+        image={page?.approachImage}
+        link={<TextLink href="/about">More about me</TextLink>}
+      />
 
       {/* ---------- Investment ---------- */}
       <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(56px,7vw,88px)]">
@@ -181,7 +176,7 @@ export default async function SessionsPageRoute() {
               <Label tone="straw">Every session</Label>
               <div className="mt-4 flex items-baseline gap-4">
                 <span className="text-[clamp(48px,6vw,72px)] leading-none font-black text-linen">
-                  {priceIntro}
+                  {priceIntro || priceStandard}
                 </span>
                 {priceIntro && priceStandard && (
                   <span className="text-[22px] text-straw">
@@ -189,19 +184,25 @@ export default async function SessionsPageRoute() {
                   </span>
                 )}
               </div>
-              {(page?.priceIntroLabel ?? sessionsContent.priceIntroLabel) && (
+              {priceIntro && intro.label && (
                 <p className="mt-4 inline-block rounded-full bg-honey px-4 py-[7px] text-xs font-black tracking-[0.18em] text-forest uppercase">
-                  {page?.priceIntroLabel ?? sessionsContent.priceIntroLabel}
+                  {intro.label}
                 </p>
               )}
-              <p className="mt-5 max-w-[44ch] text-base text-linen/85">
-                {page?.priceIntroNote ?? sessionsContent.priceIntroNote}
-              </p>
+              {priceIntro && intro.note && (
+                <p className="mt-5 max-w-[44ch] text-base text-linen/85">{intro.note}</p>
+              )}
 
               <ul className="mt-6 flex flex-col gap-3.5 border-t border-straw/35 pt-6">
                 {includes.map((line, i) => (
-                  <li key={i} className="text-base text-linen/90">
-                    {line}
+                  <li key={i} className="flex items-start gap-3.5 text-base leading-[1.55] text-linen">
+                    <span
+                      aria-hidden="true"
+                      className="mt-px w-[18px] flex-none font-display text-[22px] leading-none text-honey"
+                    >
+                      ✱
+                    </span>
+                    <span>{line}</span>
                   </li>
                 ))}
               </ul>
@@ -229,7 +230,7 @@ export default async function SessionsPageRoute() {
         </div>
       </section>
 
-      <QuoteBlock testimonial={testimonial} image={page?.testimonialImage} align="right" />
+      <QuoteBlock testimonial={testimonial} />
 
       {/* ---------- FAQ ---------- */}
       {faqs && faqs.length > 0 && (

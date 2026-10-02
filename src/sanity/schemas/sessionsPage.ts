@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { photo } from "./shared";
+import { heroGallery, photo, retiredTestimonialImage } from "./shared";
 
 export default defineType({
   name: "sessionsPage",
@@ -16,6 +16,7 @@ export default defineType({
   ],
   fields: [
     photo("heroImage", "Hero photograph"),
+    heroGallery(),
     defineField({ name: "heroEyebrow", title: "Eyebrow", type: "string", group: "hero" }),
     defineField({ name: "heroHeading", title: "Heading", type: "string", group: "hero" }),
     defineField({ name: "heroStandfirst", title: "Standfirst", type: "text", rows: 3, group: "hero" }),
@@ -55,6 +56,7 @@ export default defineType({
       group: "approach",
     }),
     defineField({ name: "approachPullQuote", title: "Pull quote", type: "string", group: "approach" }),
+    photo("approachImage", "Approach photograph"),
     defineField({
       name: "testimonial",
       title: "Testimonial",
@@ -64,7 +66,7 @@ export default defineType({
       description:
         "Which testimonial to show. The words themselves are edited under Testimonials. Leave empty to use the first one.",
     }),
-    defineField({ ...photo("testimonialImage", "Backdrop photograph"), group: "testimonial" }),
+    retiredTestimonialImage,
 
     defineField({ name: "priceHeading", title: "Heading", type: "string", group: "pricing" }),
     defineField({

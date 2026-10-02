@@ -3,9 +3,10 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { aboutPageQuery } from "@/sanity/lib/queries";
 import type { AboutPage } from "@/sanity/lib/types";
 import { aboutContent } from "@/lib/content";
+import { toParagraphs } from "@/lib/text";
 import { IntrinsicPhoto } from "@/components/Photo";
 import { Cta } from "@/components/Cta";
-import { Eyebrow, PageHero } from "@/components/sections";
+import { Eyebrow, SplitHero } from "@/components/sections";
 
 /** Renders `*word*` in an editor-written string as italics. */
 function withEmphasis(text: string) {
@@ -32,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function AboutPageRoute() {
   const page = await sanityFetch<AboutPage>(aboutPageQuery, {}, ["aboutPage"]);
 
-  const story = page?.story?.length ? page.story : aboutContent.story;
+  const story = toParagraphs(page?.story?.length ? page.story : aboutContent.story);
   const offCamera = page?.offCameraItems?.length
     ? page.offCameraItems
     : aboutContent.offCameraItems;
@@ -40,7 +41,7 @@ export default async function AboutPageRoute() {
 
   return (
     <>
-      <PageHero
+      <SplitHero
         image={page?.heroImage}
         eyebrow={page?.heroEyebrow ?? aboutContent.heroEyebrow}
         heading={page?.heroHeading ?? aboutContent.heroHeading}
