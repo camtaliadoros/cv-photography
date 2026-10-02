@@ -51,15 +51,12 @@ export default async function SessionsPageRoute() {
   const sessionTypes = types?.length ? types : (defaultSessionTypes as SessionType[]);
   const testimonial =
     page?.testimonial ?? testimonials?.[0] ?? (defaultTestimonials[0] as Testimonial);
-  // The intro offer is optional: once the Sanity document exists, an empty
-  // field means "no offer", so don't fall back to the built-in launch copy.
-  const intro = page
-    ? { price: page.priceIntro, label: page.priceIntroLabel, note: page.priceIntroNote }
-    : {
-        price: sessionsContent.priceIntro,
-        label: sessionsContent.priceIntroLabel,
-        note: sessionsContent.priceIntroNote,
-      };
+  // The intro offer is optional and only ever comes from Sanity.
+  const intro = {
+    price: page?.priceIntro,
+    label: page?.priceIntroLabel,
+    note: page?.priceIntroNote,
+  };
   const priceIntro = intro.price;
   const priceStandard = page?.priceStandard ?? sessionsContent.priceStandard;
   const includes = page?.priceIncludes ?? sessionsContent.priceIncludes;

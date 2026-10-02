@@ -99,11 +99,7 @@ export const sessionsContent = {
     "I won't direct your every move, but I'll never leave you wondering what to do with your hands.",
   priceEyebrow: "Investment",
   priceHeading: "One session, one price.",
-  priceStandard: "£250",
-  priceIntro: "£150",
-  priceIntroLabel: "First 6 families",
-  priceIntroNote:
-    "An introductory price to celebrate the launch. Once the first six sessions are booked, it moves to my standard £250.",
+  priceStandard: "£200",
   priceIncludes: [
     "Up to two hours together, in your home or a location you love. Newborn sessions extend to three hours.",
     "A private online gallery to choose from, within two weeks.",
@@ -112,7 +108,7 @@ export const sessionsContent = {
   priceNotes: [
     {
       heading: "More than five?",
-      body: "After your gallery arrives, add five more images for £100, or upgrade to the full gallery (20+ images) for £200. No pressure, no minimum. You'll also have the chance to order prints, frames and albums.",
+      body: "After your gallery arrives, add five more images for £100, or upgrade to the full gallery (30+ images) for £200. No pressure, no minimum. You'll also have the chance to order prints, frames and albums.",
     },
     {
       heading: "Payment schedule",
@@ -127,7 +123,7 @@ export const sessionsContent = {
   faqHeading: "Wondering about…",
   seoTitle: "Sessions & Pricing",
   seoDescription:
-    "Maternity, newborn and family photography sessions in Hertfordshire and London. One session, one price — from £150 including a private gallery and hand-edited images.",
+    "Maternity, newborn and family photography sessions in Hertfordshire and London. One session, one price: £200 including a private gallery and hand-edited images.",
 };
 
 export const miniSessionContent = {
