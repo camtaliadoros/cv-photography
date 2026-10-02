@@ -1,0 +1,46 @@
+/* Cam Velucci Photography — Colour tokens
+   Warm Linen replaces white as the primary background everywhere.
+   Forest is the anchor; Terracotta is the bold accent, used sparingly. */
+:root {
+  /* Brand palette — base values */
+  --forest: #2A3527;        /* Anchor — logo, headings, nav, footers */
+  --terracotta: #B5674E;    /* Bold accent — CTAs, highlights, hover */
+  --warm-linen: #F0EAE0;    /* Primary background, everywhere */
+  --straw-gold: #C9B98A;    /* Dividers, on-dark details */
+  --moss: #4A6046;          /* Secondary accent, grounded */
+  --charcoal: #2C2C2C;      /* Body text, line art */
+
+  /* Tints & shades (derived, harmonious) */
+  --forest-hover: #212a1f;
+  --forest-90: #3a4738;
+  --terracotta-hover: #a2593f;   /* darker terracotta for hover/press */
+  --terracotta-tint: #e7cdc2;    /* soft terracotta wash */
+  --linen-deep: #e5dccd;         /* slightly deeper linen for cards/borders */
+  --linen-soft: #f6f2ea;         /* raised linen surface */
+  --moss-hover: #3d5039;
+  --straw-tint: #e7ddc4;
+
+  /* ---- Semantic aliases ---- */
+  --surface-page: var(--warm-linen);
+  --surface-card: var(--linen-soft);
+  --surface-raised: #fbf8f3;
+  --surface-inverse: var(--forest);
+  --surface-inverse-2: var(--charcoal);
+
+  --text-heading: var(--forest);
+  --text-body: var(--charcoal);
+  --text-muted: #6b6b64;
+  --text-on-dark: var(--warm-linen);
+  --text-on-dark-muted: var(--straw-gold);
+  --text-accent: var(--terracotta);
+
+  --border-subtle: var(--linen-deep);
+  --border-divider: var(--straw-gold);
+  --border-strong: var(--forest);
+
+  --accent-cta: var(--terracotta);
+  --accent-cta-hover: var(--terracotta-hover);
+  --accent-secondary: var(--moss);
+
+  --focus-ring: color-mix(in srgb, var(--terracotta) 55%, transparent);
+}

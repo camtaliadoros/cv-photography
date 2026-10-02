@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base href="/brochure/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  var NATURAL_W = 830;
+  function scale() {
+    var vw = window.innerWidth;
+    if (vw < NATURAL_W) {
+      document.documentElement.style.zoom = (vw / NATURAL_W).toFixed(4);
+    } else {
+      document.documentElement.style.zoom = '';
+    }
+  }
+  scale();
+  window.addEventListener('resize', scale);
+})();
+</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&amp;family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; }
+  #cam-headshot { width: 42mm; height: 42mm; display: block; }
+</style>
+</helmet>
+<div style="--accent: {{ accent }};">
+<x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" margin="0mm" hint-size="100%,100%">
+
+  <!-- ============ PAGE 1 · COVER ============ -->
+  <div data-screen-label="01 Cover" style="height:297mm; overflow:hidden; position:relative; break-inside:avoid; background:#2A3527;">
+    <img src="./opt-amy-vince_2026-06-13-03002-2-mr94ywy2.jpg" alt="A father and daughter laughing, foreheads together" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%;">
+    <div style="position:absolute; inset:0; background:{{ coverGradient }};"></div>
+    <div style="position:absolute; top:14mm; left:0; right:0; display:flex; justify-content:center;">
+      <img src="images/logo-full-linen.png" alt="Cam Velucci Photography" style="width:463px; height:103px;">
+    </div>
+    <div style="position:absolute; left:16mm; right:16mm; bottom:18mm; display:flex; flex-direction:column; gap:5mm;">
+      <div style="width:16mm; height:2px; background:var(--accent, #B5674E);"></div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:31pt; line-height:1.12; color:#F0EAE0; letter-spacing:-0.01em; text-wrap:balance;">Expressive photography for families who <span style="color:#C9B98A;">feel it all.</span></div>
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A;">Story-led family and motherhood sessions</div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 2 · CONTENTS ============ -->
+  <div data-screen-label="02 Contents" style="height:297mm; overflow:hidden; break-inside:avoid; background:#2A3527; display:flex; flex-direction:column; padding:22mm 18mm 18mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:#C9B98A;">WHAT'S INSIDE</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:27pt; line-height:1.12; color:#F0EAE0; margin-top:7mm;">Contents</div>
+    <div style="width:16mm; height:2px; background:var(--accent, #B5674E); margin-top:7mm;"></div>
+    <div style="display:flex; flex-direction:column; margin-top:11mm; flex:1;">
+      <a href="#page-welcome" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">01</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">A warm hello</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.03</span>
+      </a>
+      <a href="#page-about" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">02</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Behind the camera</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.04</span>
+      </a>
+      <a href="#page-approach" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">03</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">My approach</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.06</span>
+      </a>
+      <a href="#page-sessions" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">04</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Session types</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.07</span>
+      </a>
+      <a href="#page-working" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">05</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Working with me</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.08</span>
+      </a>
+      <a href="#page-pricing" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">06</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Your session &amp; pricing</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.09</span>
+      </a>
+      <a href="#page-faq" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">07</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Frequently asked</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.10</span>
+      </a>
+      <a href="#page-contact" style="display:grid; grid-template-columns:auto 1fr auto; gap:6mm; align-items:baseline; padding:5mm 0; border-top:1px solid rgba(201,185,138,0.4); border-bottom:1px solid rgba(201,185,138,0.4); text-decoration:none;">
+        <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:15pt; color:#C9B98A; width:8mm;">08</span>
+        <span style="font-family:'Source Serif 4',serif; font-weight:300; font-size:14pt; color:#F0EAE0;">Let's do this</span>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.14em; color:var(--accent, #B5674E);">P.11</span>
+      </a>
+    </div>
+    
+  </div>
+
+  <!-- ============ PAGE 3 · WELCOME ============ -->
+  <div id="page-welcome" data-screen-label="03 Welcome" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">A WARM HELLO</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527; margin-top:6mm; text-wrap:balance;">Let's make something real.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10mm; margin-top:8mm; align-items:start;">
+      <p style="margin:0; font-family:'Source Serif 4',serif; font-weight:300; font-size:12.5pt; line-height:1.65; color:#2C2C2C;">I am here to honour this season in your family's unique story - the whole range of feelings: the soft and the pretty, the chaos and the giggles, the tantrums as much as the triumphs.</p>
+      <p style="margin:0; font-family:'Source Serif 4',serif; font-weight:300; font-size:12.5pt; line-height:1.65; color:#2C2C2C;">These are the moments you will want to look back on. The ones quietly shaping who you are, long before you will know to call them your favourites.</p>
+    </div>
+    <div style="flex:1; min-height:0; margin-top:10mm; display:flex;">
+      <img src="images/toddlers-DSC00802-2.jpg" alt="A toddler resting, close and quiet" style="width:100%; height:100%; object-fit:cover; object-position:50% 35%;">
+    </div>
+  </div>
+
+  <!-- ============ PAGE 3 · ABOUT ============ -->
+  <div id="page-about" data-screen-label="04 About Cam" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">BEHIND THE CAMERA</div>
+    <div style="margin-top:6mm;">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527;">Hello, I'm Cam.</div>
+      <p style="margin:6mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:12pt; line-height:1.6; color:#2C2C2C; max-width:520px;">A Brazilian turned British, mum to two wonderful little girls, and someone who is happiest paddleboarding, at a sound bath, or turning the kitchen into a dance floor with the kids.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:10mm; margin-top:8mm; flex:1; min-height:0; width:668px; height:703px;">
+      <img src="./opt-cam-headshot.jpg" alt="Cam reviewing a shot on her camera" style="width:352px; height:574px; min-height:0; object-fit:cover; object-position:50% 30%;">
+      <div style="display:flex; flex-direction:column; gap:5mm;">
+        <p style="margin:0; font-family:'Source Serif 4',serif; font-weight:300; font-size:12pt; line-height:1.65; color:#2C2C2C; display:flex; flex-direction:row; width:273px; height:212px;">My passion for photography was rekindled back in 2019, when my husband and I decided to go on a year-long trip to explore the world. I picked up a camera to document our journey, and it never really left my hand again.</p>
+        <p style="margin:0; font-family:'Source Serif 4',serif; font-weight:300; font-size:12pt; line-height:1.65; color:#2C2C2C; display:flex; flex-direction:row;">Coming home and starting our family changed everything. Motherhood propelled me into a new understanding of life. Somewhere in there, I started photographing my own kids, desperately trying to hold onto every stage before it disappears. That is exactly why I do this now. I know these moments don't last, because I am living them too.</p>
+      </div>
+      <div style="margin-top:auto; border-top:1px solid #C9B98A; padding-top:5mm; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14.5pt; line-height:1.4; color:#4A6046;">The moments you will want back are already happening.</div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 4 · TRIPTYCH ============ -->
+  <div data-screen-label="05 Triptych" style="height:297mm; overflow:hidden; break-inside:avoid; position:relative; background:#2A3527;">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2mm; height:100%;">
+      <img src="./opt-dsc00860-2-mr952o7n.jpg" alt="A child in a rainbow jumper, arms wide" style="width:100%; height:100%; object-fit:cover;">
+      <img src="./opt-20260617-rupert-moulton_dsc03672-mr95bgps.jpg" alt="A mother and child, black and white" style="width:100%; height:100%; object-fit:cover; align-self:flex-end; position:relative;">
+      <img src="./opt-20260617-shay-gordon_dsc03430-mr950wef.jpg" alt="A newborn in soft window light" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div style="position:absolute; left:0; right:0; bottom:26mm; display:flex; justify-content:center;">
+      <div style="background:rgba(42,53,39,0.88); padding:7mm 12mm; display:flex; flex-direction:column; align-items:center; gap:3mm;">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17pt; color:#F0EAE0; letter-spacing:0.01em;">The whole range of feelings.</div>
+        <div style="width:12mm; height:2px; background:#C9B98A;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 5 · MY APPROACH ============ -->
+  <div id="page-approach" data-screen-label="06 My approach" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">MY APPROACH</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527; margin-top:6mm; text-wrap:balance;">All the feeling, none of the posing.</div>
+    <div style="display:grid; grid-template-columns:1.7fr 1fr; gap:9mm; margin-top:9mm; flex:1; min-height:0;">
+      <div style="column-count:2; column-gap:8mm;">
+        <div style="break-inside:avoid; margin-bottom:2mm;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13pt; color:#2A3527;">What is important to me</div>
+          <p style="margin:1.6mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">One of the most joyful things about raising my own family is watching my daughters' personalities take shape, every day becoming more completely themselves.</p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">That is exactly what I want to capture in your session: <b>your personalities, the expressions, the closeness, the deep, unbreakable bond.</b></p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">I want you to look at these photographs one day and feel exactly what it felt like to be here.</p>
+        </div>
+        <div style="break-inside:avoid; margin-bottom:2mm;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13pt; color:#2A3527;">During our time together</div>
+          <p style="margin:1.6mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">I want your session to feel like <b>real life</b>, not a performance. Little ones have a way of making magic out of the most mundane things: the mischief, the giggles, the love you can see in a single look. <b>My job is to notice it and hold onto it.</b></p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">I capture things as they happen, so the session flows. I will gently guide you as we go, nudging you into the best light and letting it unfold from there.</p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">With maternity and newborn shoots I will lead a little more: helping you settle, finding the holds that feel beautiful but natural, and working gently around your baby.</p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">The short version: <b>I won't direct your every move, but I will never leave you wondering what to do with your hands.</b></p>
+        </div>
+        <div style="break-inside:avoid;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13pt; color:#2A3527;">What to bring</div>
+          <p style="margin:1.6mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">Nothing fancy, this isn't a session you need to prep for.</p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">But if there is something that matters to you, bring it. A toy your little one won't put down. A blanket someone in the family knitted. The book you read every night before bed.</p>
+          <p style="margin:1.8mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10pt; line-height:1.4; color:#2C2C2C;">These are the things that make the photos feel like you, and they are lovely to have in frame.</p>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6mm; min-height:0;">
+        <img src="./opt-dsc01057-bw-mr956get.jpg" alt="A quiet, connected family moment" style="width:100%; flex:1; min-height:0; object-fit:cover; height:620px;">
+        <div style="display:flex; gap:5mm; align-items:flex-start;">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:30pt; line-height:0.6; color:#C9B98A; margin-top:2.5mm;">“</div>
+          <div style="display:flex; flex-direction:column; gap:2mm;">
+            <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13pt; line-height:1.45; color:#2A3527;">Cam made my son feel completely at ease which ensured the pictures were natural.</div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.18em; color:var(--accent, #B5674E);">TOVE MOULTON</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 6 · SESSIONS ============ -->
+  <div id="page-sessions" data-screen-label="07 Sessions" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">SESSIONS</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527; margin-top:6mm;">Whatever chapter you are in.</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8mm; flex:1; min-height:0; margin-top:9mm;">
+      <div style="display:flex; flex-direction:column; min-height:0;">
+        <img src="images/maternity-DSC01153.jpg" alt="An expectant mother with peonies" style="width:100%; flex:1; min-height:0; object-fit:cover; object-position:50% 25%;">
+        <div style="margin-top:3.5mm; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Maternity</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#4A6046;">The quiet before the beginning.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; min-height:0;">
+        <img src="./opt-20260617-shay-gordon_dsc03227-mr958g6r.jpg" alt="A smiling baby under a play gym" style="width:100%; flex:1; min-height:0; object-fit:cover;">
+        <div style="margin-top:3.5mm; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Newborn &amp; baby</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#4A6046;">Small hands, big feelings.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; min-height:0;">
+        <img src="./opt-dsc00852-2-mr96fcez.jpg" alt="A toddler with a sunflower" style="width:100%; flex:1; min-height:0; object-fit:cover;">
+        <div style="margin-top:3.5mm; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Toddlers &amp; kids</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#4A6046;">Full speed, full heart.</div>
+      </div>
+      <div style="display:flex; flex-direction:column; min-height:0;">
+        <img src="./opt-amy-vince_2026-06-13-02586-mr95c74e.jpg" alt="Two sisters hugging" style="width:100%; flex:1; min-height:0; object-fit:cover;">
+        <div style="margin-top:3.5mm; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Family</div>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12pt; color:#4A6046;">Everyone in the frame, together.</div>
+      </div>
+    </div>
+    <p style="margin:9mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11.5pt; line-height:1.55; color:#2C2C2C; border-top:1px solid #C9B98A; padding-top:5mm;">Sessions happen at home, in the woods, or wherever your family feels most yourselves - across Hertfordshire, London, and further afield.</p>
+  </div>
+
+  <!-- ============ PAGE 7 · WORKING WITH ME ============ -->
+  <div id="page-working" data-screen-label="08 Working with me" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">IF YOU FEEL LIKE WE'RE A MATCH</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527; margin-top:6mm; text-wrap:balance;">Easy from hello to hanging on your wall.</div>
+    <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:10mm; margin-top:9mm; flex:1; min-height:0;">
+      <div style="display:flex; flex-direction:column; justify-content:space-between; gap:6mm;">
+        <div style="display:flex; gap:5mm;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19pt; color:#C9B98A; line-height:1; width:9mm; flex-shrink:0;">01</div>
+          <div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Say hello</div>
+            <p style="margin:1.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">Share a little about your family: who's who, what you love doing together, and what feels right for you.</p>
+            <p style="margin:1.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">We compare calendars and find a date that works for both of us.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:5mm;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19pt; color:#C9B98A; line-height:1; width:9mm; flex-shrink:0;">02</div>
+          <div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Save your date</div>
+            <p style="margin:1.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">A £50 booking fee makes it official (it comes off your balance). I will take care of all the practical bits from here, and I will check in before the session about location, timing, what to wear, and anything on your mind.</p>
+            <p style="margin:3mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">I'm always on hand. You will never be left wondering what happens next.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:5mm;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19pt; color:#C9B98A; line-height:1; width:9mm; flex-shrink:0;">03</div>
+          <div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">The session</div>
+            <p style="margin:1.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">At home, in the woods, wherever your family feels most yourselves. Games, cuddles and snack breaks are all part of the plan.</p>
+          </div>
+        </div>
+        <div style="display:flex; gap:5mm;">
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19pt; color:#C9B98A; line-height:1; width:9mm; flex-shrink:0;">04</div>
+          <div>
+            <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:12pt; color:#2A3527;">Your story, told</div>
+            <p style="margin:1.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:11pt; line-height:1.55; color:#2C2C2C;">Within two weeks, a private gallery of hand-finished photographs will be with you. The big laughs and the in-between moments, ready to choose and download your favourites.</p>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; min-height:0;">
+        <img src="images/kids-Cornwall-06-2026-02300.jpg" alt="A child exploring the woods" style="width:100%; flex:1; min-height:0; object-fit:cover;">
+      </div>
+    </div>
+    <div style="margin-top:8mm; border-top:1px solid #C9B98A; padding-top:5mm; display:flex; gap:6mm; align-items:flex-start;">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:34pt; line-height:0.6; color:#C9B98A; margin-top:3mm;">“</div>
+      <div style="display:flex; flex-direction:column; gap:2.5mm;">
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:13.5pt; line-height:1.45; color:#2A3527;">Cam made me feel beautiful and feminine at a time when I didn&rsquo;t really feel very comfortable in my own skin.</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9pt; letter-spacing:0.18em; color:var(--accent, #B5674E);">ALEX TALIADOROS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 8 · PRICING ============ -->
+  <div id="page-pricing" data-screen-label="09 Pricing" style="height:297mm; overflow:hidden; break-inside:avoid; background:#2A3527; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:#C9B98A;">YOUR SESSION</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#F0EAE0; margin-top:6mm; text-wrap:balance;">One session, one price.</div>
+    
+    <div style="margin-top:7mm; border:1px solid #C9B98A; padding:8mm 10mm; display:grid; grid-template-columns:1fr auto; gap:10mm; align-items:start;">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:15pt; color:#F0EAE0;">Every session</div>
+        <div style="margin-top:4mm; display:flex; flex-direction:column; gap:2.5mm;">
+          <div style="display:flex; gap:3mm; align-items:baseline;">
+            <div style="width:1.5mm; height:1.5mm; border-radius:50%; background:var(--accent, #B5674E); flex-shrink:0; align-self:center;"></div>
+            <div style="font-family:'Source Serif 4',serif; font-weight:300; font-size:11.5pt; line-height:1.5; color:#F0EAE0;">Up to two hours together, in your home or a location you love. Newborn sessions are extended to 3h to allow for feeding, settling and extra cuddles.</div>
+          </div>
+          <div style="display:flex; gap:3mm; align-items:baseline;">
+            <div style="width:1.5mm; height:1.5mm; border-radius:50%; background:var(--accent, #B5674E); flex-shrink:0; align-self:center;"></div>
+            <div style="font-family:'Source Serif 4',serif; font-weight:300; font-size:11.5pt; line-height:1.5; color:#F0EAE0;">A private online gallery to choose from, within two weeks</div>
+          </div>
+          <div style="display:flex; gap:3mm; align-items:baseline;">
+            <div style="width:1.5mm; height:1.5mm; border-radius:50%; background:var(--accent, #B5674E); flex-shrink:0; align-self:center;"></div>
+            <div style="font-family:'Source Serif 4',serif; font-weight:300; font-size:11.5pt; line-height:1.5; color:#F0EAE0;">Your favourite 5 images, hand-edited and download-ready</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:1mm;">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:13pt; color:rgba(240,234,224,0.55); text-decoration:line-through;">£250</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:32pt; line-height:1; color:var(--accent, #B5674E);">£150</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:8pt; letter-spacing:0.16em; color:#C9B98A; margin-top:1mm;">FIRST 6 FAMILIES</div>
+      </div>
+    </div>
+    <p style="margin:4mm 0 0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:12.5pt; line-height:1.5; color:#C9B98A;">An introductory price to celebrate the launch. Once the first six sessions are booked, it moves to my standard £250.</p>
+    <div style="margin-top:6mm; border-top:1px solid rgba(201,185,138,0.4); padding-top:5mm; display:grid; grid-template-columns:1fr 1fr; gap:10mm;">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:8.5pt; letter-spacing:0.2em; color:#C9B98A;">MORE THAN FIVE?</div>
+        <p style="margin:2.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#F0EAE0;">After your gallery arrives, add 5 more images for £100, or upgrade to the full gallery (20+ images) for £200. No pressure, no minimum. You will also have the opportunity to order printed photographs, frames and albums.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:8.5pt; letter-spacing:0.2em; color:#C9B98A;">PAYMENT SCHEDULE</div>
+        <p style="margin:2.5mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#F0EAE0;">A non-refundable £50 booking fee secures your session date. The balance is due a week before your session.</p>
+      </div>
+    </div>
+    <div style="flex:1; min-height:0; margin-top:7mm; display:flex; align-items:flex-end;">
+      <img src="./opt-dsc00895-2-mr958wti.jpg" alt="A joyful toddler moment" style="width:100%; height:auto; max-height:100%; aspect-ratio:3/2; object-fit:cover; object-position:50% 45%;">
+    </div>
+  </div>
+
+  <!-- ============ PAGE 9 · FAQ ============ -->
+  <div id="page-faq" data-screen-label="10 FAQ" style="height:297mm; overflow:hidden; break-inside:avoid; background:#F0EAE0; display:flex; flex-direction:column; padding:18mm 16mm 14mm; box-sizing:border-box;">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:var(--accent, #B5674E);">FREQUENTLY ASKED QUESTIONS</div>
+    <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:23pt; line-height:1.18; color:#2A3527; margin-top:6mm;">Wondering about…</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6mm 10mm; margin-top:8mm; flex:1; align-content:space-between;">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">What if we feel a bit self-conscious in front of the camera?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">Completely normal, and it always settles. I am not looking for perfect poses, I am looking for you, being you. Give it twenty minutes of being ignored by me in the nicest possible way, and the camera stops mattering.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">What if the kids won't cooperate?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">That's exactly what I expect, and I plan for it. The in-between moments are usually the best ones anyway.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">What if it rains, or someone's poorly?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">No stress at all! We simply find a new date. Life with a family is unpredictable, and I plan around that, not against it.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">What should we wear?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">Whatever feels like you. I'll happily give you a steer beforehand, but there's no dress code here, just comfortable and true to your family.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Do I need to tidy the house before an in-home session?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">A lived-in home is exactly what makes these photos feel like you. Just clear a little space to move around in, and tuck away anything that adds mess rather than character (laundry piles, yes; toys on the floor, not a problem).</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Can I see a full gallery from&nbsp; your portfolio, not just the highlights?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">Of course! Just ask, and I'll share a full set from a real session so you can see exactly what to expect.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Do we get the raw, unedited images?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">No. Every image you receive has been through my own hand-editing process, so you get a consistent, polished set.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Do you photograph outside of Hertfordshire?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">I also photograph in London, and I'm always happy to travel further (a travel fee applies).</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Newborn: how soon after birth should we book?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">These are relaxed, lifestyle sessions rather than posed studio ones, so there's a lot more flexibility, but up to 4 weeks old is ideal.</p>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">When you book before little one arrives, you give me your due date and I save you a space. Once baby arrives, reach out to deliver the brilliant news and we settle on a date then.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Newborn: do you come to us?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">Yes! Newborn sessions usually work best in-home, in your little bubble of love.</p>
+      </div>
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11.5pt; color:#2A3527;">Newborn: what if the baby won't settle, or we need to pause for feeds and naps?</div>
+        <p style="margin:2mm 0 0; font-family:'Source Serif 4',serif; font-weight:300; font-size:10.5pt; line-height:1.55; color:#2C2C2C;">Completely normal, and I plan the whole session around your baby's rhythm, not the other way round.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 10 · LET'S DO THIS ============ -->
+  <div id="page-contact" data-screen-label="11 Let's do this" style="height:297mm; overflow:hidden; break-inside:avoid; position:relative; background:#2A3527;">
+    <img src="images/kids-Cornwall-06-2026-02327.jpg" alt="A child mid-adventure, full of joy" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #0F0C0800, rgba(42,53,39,0.85) 100%); left: -90px; top: 665px; width: 897px; height: 477px"></div>
+    <div style="position:absolute; left:16mm; right:16mm; bottom:20mm; display:flex; flex-direction:column; gap:6mm;">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:9.5pt; letter-spacing:0.22em; color:#C9B98A;">LET'S DO THIS</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19pt; line-height:1.4; color:#F0EAE0; text-wrap:balance;">The love, the giggles, the cuddles, the chaos, their little personalities just bubbling up. This season won't last forever, but it can be held onto, exactly as it is.</div>
+      <div style="width:16mm; height:2px; background:var(--accent, #B5674E);"></div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:20pt; color:#F0EAE0;">I'd love to be the one to hold onto it for you.</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:500; font-size:11.5pt; color:#F0EAE0;">Book your session: <a href="https://calendly.com/camvelucci-photography" target="_blank" rel="noopener noreferrer" style="color:#C9B98A; text-decoration:none;">calendly.com/camvelucci-photography</a> &nbsp;·&nbsp; Questions first? <a href="mailto:hello@camvelucci.com" style="color:#C9B98A; text-decoration:none;">hello@camvelucci.com</a></div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 11 · BACK COVER ============ -->
+  <div data-screen-label="12 Back cover" style="height:297mm; overflow:hidden; break-inside:avoid; background:#2A3527; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:20mm; box-sizing:border-box; gap:9mm;">
+    <img src="images/logo-stamp-linen.png" alt="Cam Velucci Photography stamp" style="width:44mm; height:auto;">
+    <div style="width:16mm; height:2px; background:var(--accent, #B5674E);"></div>
+    <div style="display:flex; flex-direction:column; gap:3mm; font-family:'Plus Jakarta Sans',sans-serif; font-weight:500; font-size:11pt; letter-spacing:0.08em; color:#F0EAE0;">
+      <div><a href="mailto:hello@camvelucci.com" style="color:inherit; text-decoration:none;">hello@camvelucci.com</a> &nbsp;·&nbsp; <a href="tel:+447539486651" style="color:inherit; text-decoration:none;">07539486651</a></div>
+      <div><a href="https://instagram.com/camvelucciphotography" style="color:inherit; text-decoration:none;">@camvelucciphotography</a></div>
+      <div style="color:#C9B98A;">Hertfordshire &amp; London</div>
+    </div>
+    
+  </div>
+
+</x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#B5674E&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#B5674E&quot;, &quot;#4A6046&quot;, &quot;#C9B98A&quot;], &quot;section&quot;: &quot;Brand&quot;},
+  &quot;coverShade&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.82, &quot;min&quot;: 0.3, &quot;max&quot;: 1, &quot;step&quot;: 0.02, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Cover&quot;}
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const shade = this.props.coverShade ?? 0.82;
+    return {
+      accent: this.props.accent ?? '#B5674E',
+      coverGradient: 'linear-gradient(180deg, rgba(42,53,39,0) 38%, rgba(42,53,39,' + shade + ') 100%)'
+    };
+  }
+}
+</script>
+</body>
+</html>

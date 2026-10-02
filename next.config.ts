@@ -12,6 +12,19 @@ const nextConfig: NextConfig = {
   // Trim the response a little; photography pages ship a lot of markup.
   compress: true,
   poweredByHeader: false,
+  // Standalone pages carried over from the old site — the enquiry autoresponder
+  // and client welcome emails link to these, so they must keep resolving.
+  async rewrites() {
+    return [
+      { source: "/brochure", destination: "/brochure/index.html" },
+      { source: "/newborn-welcome", destination: "/newborn-welcome/index.html" },
+      { source: "/family-welcome", destination: "/family-welcome/index.html" },
+      {
+        source: "/pumpkin-welcome",
+        destination: "/pumpkin-welcome/pumpkin-patch-welcome-guide.pdf",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
