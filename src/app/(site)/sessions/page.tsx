@@ -22,6 +22,10 @@ import { ApproachSection, Eyebrow, Label, PageHero, QuoteBlock } from "@/compone
 import { site } from "@/lib/site";
 import { toParagraphs, toPlainText } from "@/lib/text";
 
+// The FAQ section is hidden while its copy is reworked. Flip back to true to
+// show it again; the content still lives in Sanity under "FAQs".
+const SHOW_FAQS = false;
+
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage"]);
   return {
@@ -35,7 +39,7 @@ export default async function SessionsPageRoute() {
   const [page, types, faqs, testimonials, settings] = await Promise.all([
     sanityFetch<SessionsPage>(sessionsPageQuery, {}, ["sessionsPage", "testimonial"]),
     sanityFetch<SessionType[]>(sessionTypesQuery, {}, ["sessionType"]),
-    sanityFetch<FaqItem[]>(faqsQuery, {}, ["faqItem"]),
+    SHOW_FAQS ? sanityFetch<FaqItem[]>(faqsQuery, {}, ["faqItem"]) : null,
     sanityFetch<Testimonial[]>(testimonialsQuery, {}, ["testimonial"]),
     sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
   ]);
@@ -233,7 +237,7 @@ export default async function SessionsPageRoute() {
       <QuoteBlock testimonial={testimonial} />
 
       {/* ---------- FAQ ---------- */}
-      {faqs && faqs.length > 0 && (
+      {SHOW_FAQS && faqs && faqs.length > 0 && (
         <section className="px-(--gutter) pt-(--section-lg) pb-[clamp(72px,10vw,120px)]">
           <div className="mx-auto max-w-[820px]">
             <Eyebrow>{sessionsContent.faqEyebrow}</Eyebrow>
