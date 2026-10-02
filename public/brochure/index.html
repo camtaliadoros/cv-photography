@@ -20,57 +20,6 @@
 })();
 </script>
 <script src="./support.js"></script>
-  <script>
-  (function () {
-    var GA_ID = 'G-HCBPLDNT06';
-    var KEY = 'cookie-consent';
-
-    function loadGA() {
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', GA_ID);
-    }
-
-    function store(v) {
-      try { localStorage.setItem(KEY, v); } catch (e) {}
-    }
-
-    function showBanner() {
-      var bar = document.createElement('div');
-      bar.setAttribute('role', 'dialog');
-      bar.style.cssText = 'position:fixed;bottom:16px;left:16px;right:16px;z-index:9999;max-width:640px;margin:0 auto;background:#2a3527;border:0.5px solid rgba(240,234,224,0.14);border-radius:8px;padding:14px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 30px rgba(42,53,39,0.25);font-family:Georgia,serif;';
-      bar.innerHTML =
-        '<p style="flex:1;margin:0;font-size:13px;line-height:1.6;color:rgba(240,234,224,0.78);">This site uses analytics cookies. You can accept or decline — see the <a href="/privacy" style="color:#c9b98a;text-decoration:underline;">Privacy Policy</a>.</p>' +
-        '<div style="display:flex;gap:8px;flex-shrink:0;">' +
-        '<button id="ck-no" style="font-family:sans-serif;font-weight:600;font-size:11px;padding:9px 15px;border-radius:4px;cursor:pointer;background:transparent;color:rgba(240,234,224,0.7);border:0.5px solid rgba(240,234,224,0.25);">Decline</button>' +
-        '<button id="ck-yes" style="font-family:sans-serif;font-weight:600;font-size:11px;padding:9px 15px;border-radius:4px;cursor:pointer;background:#9c5841;color:#f0eae0;border:0.5px solid #9c5841;">Accept</button>' +
-        '</div>';
-      document.body.appendChild(bar);
-      document.getElementById('ck-yes').onclick = function () {
-        store('accepted'); bar.remove(); loadGA();
-      };
-      document.getElementById('ck-no').onclick = function () {
-        store('declined'); bar.remove();
-      };
-    }
-
-    var choice = null;
-    try { choice = localStorage.getItem(KEY); } catch (e) {}
-
-    if (choice === 'accepted') {
-      loadGA();
-    } else if (choice !== 'declined') {
-      if (document.body) showBanner();
-      else document.addEventListener('DOMContentLoaded', showBanner);
-    }
-  })();
-  </script>
 </head>
 <body>
 <x-dc>
