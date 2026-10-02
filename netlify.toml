@@ -34,4 +34,4 @@
 
 # The old landing page lives on at these paths — the autoresponder links to
 # /brochure, so they must keep working after the redesign takes the root.
-# (Assets still need copying across from the camvelucci repo before launch.)
+# Served from public/ via rewrites in next.config.ts.

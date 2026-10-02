@@ -1,0 +1,39 @@
+/* Cam Velucci Photography — Typography tokens
+   Deliberate reversal: a BOLD SANS carries structure & confidence,
+   a SOFT SERIF carries warmth & feeling. Bold and sentimental, together. */
+:root {
+  /* Families */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;   /* headings, nav, labels, CTAs */
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;         /* body copy */
+  --font-quote: 'Cormorant Garamond', Georgia, serif;                        /* pull quotes (italic) */
+  /* The logo wordmark (Amsterdam Four, Canva) has no webfont — use the PNG logos in /assets. */
+
+  /* Weights */
+  --fw-body: 300; /* @kind font */
+  --fw-medium: 500; /* @kind font */
+  --fw-bold: 700; /* @kind font */
+  --fw-heavy: 800; /* @kind font */
+
+  /* Type scale (fluid-ready px) */
+  --fs-display: 4rem;     /* 64 — hero */
+  --fs-h1: 2.75rem;       /* 44 */
+  --fs-h2: 2rem;          /* 32 */
+  --fs-h3: 1.5rem;        /* 24 */
+  --fs-h4: 1.25rem;       /* 20 */
+  --fs-body-lg: 1.1875rem;/* 19 */
+  --fs-body: 1.0625rem;   /* 17 */
+  --fs-body-sm: 0.9375rem;/* 15 */
+  --fs-label: 0.8125rem;  /* 13 — tracked caps */
+  --fs-caption: 0.75rem;  /* 12 */
+
+  /* Line heights */
+  --lh-tight: 1.1; /* @kind font */
+  --lh-heading: 1.2; /* @kind font */
+  --lh-body: 1.7; /* @kind font */
+  --lh-quote: 1.35; /* @kind font */
+
+  /* Tracking */
+  --ls-caps: 0.18em; /* @kind font */
+  --ls-caps-tight: 0.12em; /* @kind font */
+  --ls-heading: -0.01em; /* @kind font */
+}
