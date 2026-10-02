@@ -16,6 +16,7 @@ const SINGLETONS = [
   { id: "homePage", title: "Home page" },
   { id: "aboutPage", title: "About page" },
   { id: "sessionsPage", title: "Sessions page" },
+  { id: "portfolioPage", title: "Portfolio page" },
   { id: "miniSessionPage", title: "Mini sessions page" },
   { id: "enquirePage", title: "Enquire page" },
 ] as const;

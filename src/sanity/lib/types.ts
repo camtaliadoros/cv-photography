@@ -125,9 +125,18 @@ export interface MiniSessionPage {
   seoDescription?: string;
 }
 
+export interface PortfolioPage {
+  heroEyebrow?: string;
+  heroHeading?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+}
+
 export interface EnquirePage {
   heroImage?: SanityPhoto;
   asideImage?: SanityPhoto;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export type SessionCategory = "maternity" | "newborn" | "families";

@@ -190,8 +190,6 @@ export const enquireContent = {
 export const portfolioContent = {
   heroEyebrow: "Portfolio",
   heroHeading: "The whole range of feelings.",
-  heroStandfirst:
-    "Real, fleeting moments from sessions across Hertfordshire and London. Tap any image to see it larger.",
   seoTitle: "Portfolio",
   seoDescription:
     "A portfolio of maternity, newborn and family photography from sessions across Hertfordshire and London.",

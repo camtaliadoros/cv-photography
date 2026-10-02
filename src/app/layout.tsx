@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(site.url),
     title: {
       default: `${brandName} — Family & Motherhood Photographer in ${locationText}`,
-      template: `%s — ${brandName}`,
+      template: `%s | ${brandName}`,
     },
     description:
       "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included. Story-led sessions across St Albans, Harpenden and London.",

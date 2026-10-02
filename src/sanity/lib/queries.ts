@@ -80,6 +80,12 @@ export const journalPostQuery = groq`*[_type == "journalPost" && slug.current ==
 
 export const journalSlugsQuery = groq`*[_type == "journalPost" && defined(slug.current)].slug.current`;
 
+export const portfolioPageQuery = groq`*[_type == "portfolioPage"][0]{
+  heroEyebrow, heroHeading,
+  seoTitle, seoDescription
+}`;
+
 export const enquirePageQuery = groq`*[_type == "enquirePage"][0]{
-  heroImage${PHOTO}, asideImage${PHOTO}
+  heroImage${PHOTO}, asideImage${PHOTO},
+  seoTitle, seoDescription
 }`;

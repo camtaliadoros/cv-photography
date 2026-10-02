@@ -8,11 +8,14 @@ import { IntrinsicPhoto } from "@/components/Photo";
 import { Label, PageHero } from "@/components/sections";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: enquireContent.seoTitle,
-  description: enquireContent.seoDescription,
-  alternates: { canonical: "/enquire" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await sanityFetch<EnquirePage>(enquirePageQuery, {}, ["enquirePage"]);
+  return {
+    title: page?.seoTitle ?? enquireContent.seoTitle,
+    description: page?.seoDescription ?? enquireContent.seoDescription,
+    alternates: { canonical: "/enquire" },
+  };
+}
 
 export default async function EnquirePage() {
   const [page, settings] = await Promise.all([
@@ -64,8 +67,7 @@ export default async function EnquirePage() {
               </a>
             </p>
             <p className="mt-6 max-w-[34ch] text-[15px] text-muted">
-              Based in {locationText}, photographing across London and further
-              afield.
+              Photographing across {locationText}, London and further afield.
             </p>
           </aside>
         </div>
