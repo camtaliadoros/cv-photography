@@ -57,7 +57,7 @@ node scripts/migrate-portfolio.mjs --dry-run              # preview without writ
 | `AIRTABLE_TABLE_ID` | Enquiries table |
 | `AIRTABLE_SUBSCRIBERS_TABLE_ID` | Newsletter Subscribers table |
 | `RESEND_API_KEY` · `ENQUIRY_NOTIFY_EMAIL` | Enquiry + newsletter email |
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Analytics; unset disables the script |
+| `NEXT_PUBLIC_CF_ANALYTICS_TOKEN` | Cloudflare Web Analytics; unset disables the beacon |
 
 ## Forms
 

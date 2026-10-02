@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Lato, Lora } from "next/font/google";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { siteSettingsQuery } from "@/sanity/lib/queries";
-import type { SiteSettings } from "@/sanity/lib/types";
+import { homePageQuery, siteSettingsQuery } from "@/sanity/lib/queries";
+import type { HomePage, SiteSettings } from "@/sanity/lib/types";
+import { ogImage } from "@/sanity/lib/image";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -26,7 +27,10 @@ const lato = Lato({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
+  const [settings, home] = await Promise.all([
+    sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
+    sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]),
+  ]);
   const brandName = settings?.brandName ?? site.name;
   const locationText = settings?.locationText ?? site.region;
 
@@ -44,6 +48,8 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "en_GB",
       siteName: brandName,
       url: site.url,
+      // The home hero stands in for every page that doesn't set its own.
+      images: ogImage(home?.heroImage),
     },
     twitter: { card: "summary_large_image" },
     robots: { index: true, follow: true },
@@ -53,7 +59,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
+  const [settings, home] = await Promise.all([
+    sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),
+    sanityFetch<HomePage>(homePageQuery, {}, ["homePage"]),
+  ]);
   const brandName = settings?.brandName ?? site.name;
   const contactEmail = settings?.contactEmail ?? site.email;
   const locationText = settings?.locationText ?? site.region;
@@ -64,7 +73,7 @@ export default async function RootLayout({
     "@type": "LocalBusiness",
     "@id": `${site.url}/#business`,
     name: brandName,
-    image: `${site.url}/opengraph-image`,
+    image: ogImage(home?.heroImage)?.url,
     url: site.url,
     email: contactEmail,
     priceRange: "££",
@@ -97,15 +106,16 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {/*
-          Plausible: no cookies, no personal data, ~1KB. Deferred so it never
-          competes with the hero image for bandwidth.
+          Cloudflare Web Analytics: no cookies, no personal data. Deferred so it
+          never competes with the hero image for bandwidth.
         */}
-        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
+        {process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN && (
           <Script
-            defer
             strategy="afterInteractive"
-            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-            src="https://plausible.io/js/script.js"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({
+              token: process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN,
+            })}
           />
         )}
       </body>

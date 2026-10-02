@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { miniSessionPageQuery } from "@/sanity/lib/queries";
@@ -20,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: page?.seoTitle ?? miniSessionContent.seoTitle,
     description: page?.seoDescription ?? miniSessionContent.seoDescription,
     alternates: { canonical: "/mini-sessions" },
+    openGraph: await pageOpenGraph("/mini-sessions", page?.heroImage),
   };
 }
 
