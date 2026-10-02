@@ -170,7 +170,7 @@ export default async function PrivacyPage() {
           data, and does not track you across websites — it only counts
           anonymised page views. The only things this site stores in your browser
           are small preferences, such as remembering that you have dismissed a
-          banner or made a cookie choice. You can clear these through your
+          banner. You can clear these through your
           browser settings at any time.
         </p>
 

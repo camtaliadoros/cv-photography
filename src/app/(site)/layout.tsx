@@ -1,7 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Banner } from "@/components/Banner";
-import { CookieConsent } from "@/components/CookieConsent";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { siteSettingsQuery, miniSessionPageQuery, journalPostsQuery } from "@/sanity/lib/queries";
@@ -57,7 +56,6 @@ export default async function SiteLayout({
         blurb={settings?.footerBlurb ?? settingsContent.footerBlurb}
         seoLine={settings?.footerSeoLine ?? settingsContent.footerSeoLine}
       />
-      <CookieConsent />
       {settings?.popupEnabled && <NewsletterPopup privacyNote={newsletterPrivacyNote} />}
     </>
   );
