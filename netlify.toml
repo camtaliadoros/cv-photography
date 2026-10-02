@@ -35,3 +35,10 @@
 # The old landing page lives on at these paths — the autoresponder links to
 # /brochure, so they must keep working after the redesign takes the root.
 # Served from public/ via rewrites in next.config.ts.
+
+# The folder pages above resolve via their index.html, but the pumpkin guide
+# is a bare PDF, so Netlify needs telling where /pumpkin-welcome points.
+[[redirects]]
+  from = "/pumpkin-welcome"
+  to = "/pumpkin-welcome/pumpkin-patch-welcome-guide.pdf"
+  status = 200
