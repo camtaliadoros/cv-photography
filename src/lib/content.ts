@@ -10,27 +10,27 @@
 export const homeContent = {
   heroHeading: "Expressive photography for families who feel it all.",
   heroSubline: "Story-led family and motherhood sessions",
-  introHeading: "Let's make something real.",
+  introHeading: "Let's make something real",
   introBody: [
-    "I'm here to honour this season in your family's story — the whole range of feelings: the tantrums as much as the triumphs.",
-    "These are the moments you'll want to look back on. The ones quietly shaping who you are, long before you'll know to call them your favourites.",
+    "I love getting close. Close enough to catch the eye-roll, the gap-toothed grin, the frown of total concentration, the way your littlest leans into you without thinking.",
+    "Every family has its own language: the in-jokes, the looks, the quirks nobody else would notice. Since becoming a mum, I've realised that's where the love really shows. Not in the big moments, but in the faces you pull at each other every day.",
+    "That's what I want your photos to hold. Not just what you looked like, but who you were.",
   ],
   approachHeading: "All the feeling, none of the fuss.",
   approachBody: [
-    "I want your session to feel like real life, not a performance. Little ones make magic out of the most mundane things: the mischief, the giggles, the love you can see in a single look. My job is to notice it and hold onto it.",
-    "I capture things as they happen, so the session flows. I'll gently guide you as we go, nudging you into the best light and letting it unfold from there.",
+    "Since becoming a mum, I've noticed the biggest declarations of love rarely look like much. A hand resting on a back. A look passed between you across the kitchen. The everyday things that slip by unnoticed when you're running on empty.",
+    "That's what I'm watching for when I photograph your family: how you are with each other, and the quirks that make you, you.",
   ],
-  approachPullQuote:
-    "I won't direct your every move, but I'll never leave you wondering what to do with your hands.",
-  closingHeading: "This season won't last forever, but it can be held onto.",
+  approachPullQuote: "It all goes by in a blur. These moments deserve to be kept.",
+  closingHeading: "Bring the whole cast.",
   closingBody:
-    "The love, the giggles, the chaos, their little personalities just bubbling up. I'd love to be the one to hold onto it for you.",
+    "The giggles, the chaos, their little personalities bubbling up. I'd love to catch it all for you.",
   sessionsHeading: "Whatever chapter you are in.",
   recentWorkEyebrow: "Recent work",
   recentWorkHeading: "Real, fleeting moments.",
-  seoTitle: "Family & Motherhood Photographer in Hertfordshire",
+  seoTitle: "Family & Motherhood Photographer Hertfordshire",
   seoDescription:
-    "Expressive maternity, newborn and family photography in Hertfordshire and London. Story-led sessions that capture the whole range of family life — the chaos and the giggles included.",
+    "Lifestyle family, maternity & newborn photography in Harpenden, St Albans & across Hertfordshire. Relaxed, gently guided sessions at home or outdoors.",
 };
 
 export const aboutContent = {
@@ -38,8 +38,7 @@ export const aboutContent = {
   heroHeading: "Hello, I'm Cam.",
   heroStandfirst: "Mum of two little girls, sound-bath lover, and never far from a camera.",
   storyEyebrow: "How I got here",
-  storyHeading:
-    "I've always been a people-watcher, endlessly curious about what makes someone *them*.",
+  storyHeading: "I've always been endlessly curious about what makes someone *them*.",
   story: [
     "I picked up a camera properly in 2019, on a year-long trip around the world with my husband, and it never really left my hand.",
     "Then came my girls. Same family, already two completely different people, and I couldn't put the camera down. That curiosity is still what drives every session.",
@@ -58,45 +57,45 @@ export const aboutContent = {
   ],
   closingQuote:
     "These are the moments quietly writing your family's chapters, long before you'll know to call them your favourites.",
-  seoTitle: "About Cam",
+  seoTitle: "About Cam | Family Photographer in Harpenden, Hertfordshire",
   seoDescription:
-    "Hello, I'm Cam — a Brazilian turned British mum of two, photographing maternity, newborn and family sessions across Hertfordshire and London.",
+    "Hi, I'm Cam, a Brazilian-born mum of two in Harpenden, photographing family, maternity and newborn sessions across Hertfordshire. Relaxed and gently guided.",
 };
 
 export const sessionsContent = {
   heroEyebrow: "Sessions",
   heroHeading: "Whatever chapter you are in.",
   heroStandfirst:
-    "One session, one price — at home, in the woods, or wherever your family feels most yourselves.",
+    "Gentle, story-led shoots that capture the real, everyday beauty of family life.",
   typesEyebrow: "Session types",
-  typesHeading: "Three ways to be photographed.",
+  typesHeading: "Three different stages, same love and connection.",
   reasonsEyebrow: "Why families book me",
   reasonsHeading: "What you can count on.",
   reasons: [
     {
-      heading: "Gently guided, never stiff.",
-      body: "You'll never wonder what to do with your hands.",
+      heading: "Up close, full of character.",
+      body: "I get in close for the real expressions, the cheeky grins and the side-eyes.",
     },
     {
-      heading: "Planned around your little ones.",
-      body: "Feeds, naps and meltdowns are all part of it. No rushing.",
+      heading: "Shaped around your family.",
+      body: "I'll get to know your lot before we meet, then build the session around them.",
     },
     {
-      heading: "One price, everything included.",
-      body: "No packages to decode, no surprise extras later.",
+      heading: "I am not seeking polished perfection",
+      body: "I'll take the jam-on-the-cheek grin over the perfect smile every time.",
     },
     {
-      heading: "I come to you.",
-      body: "At home or somewhere you love, across Hertfordshire and London.",
+      heading: "Clear pricing, no surprises.",
+      body: "Everything upfront and out in the open.",
     },
   ],
-  approachHeading: "All the feeling, none of the fuss.",
+  approachHeading: "What matters to me",
   approachBody: [
-    "I capture things as they happen, so the session flows. I'll gently guide you as we go, nudging you into the best light and letting it unfold from there. With maternity and newborn I lead a little more, working gently around your baby.",
-    "What I'm looking for is your personalities — the expressions, the closeness, the deep, unbreakable bond. I want you to look at these photographs one day and feel exactly what it felt like to be here.",
+    "To me, it is all about personalities and connection. The expressions, the closeness, the deep, unbreakable bond. I want you to look at these photographs one day and feel exactly what it felt like to be here.",
+    "The sessions are relaxed, and I capture things as they happen. I'll gently guide you as we go, nudging you into the best light and letting it unfold from there. It all flows.",
   ],
   approachPullQuote:
-    "I won't direct your every move, but I'll never leave you wondering what to do with your hands.",
+    "Your session should feel like an ordinary afternoon with your people. Mischief, meltdowns, giggles and all.",
   priceEyebrow: "Investment",
   priceHeading: "One session, one price.",
   priceStandard: "£200",
@@ -108,22 +107,18 @@ export const sessionsContent = {
   priceNotes: [
     {
       heading: "More than five?",
-      body: "After your gallery arrives, add five more images for £100, or upgrade to the full gallery (30+ images) for £200. No pressure, no minimum. You'll also have the chance to order prints, frames and albums.",
-    },
-    {
-      heading: "Payment schedule",
-      body: "A non-refundable £50 booking fee secures your date and comes off your balance. The balance is due a week before your session.",
+      body: "After your gallery arrives, add five more images for £100, or upgrade to the full gallery (30+ images) for £200. No pressure, no minimum. You can also order prints, frames, and albums.",
     },
     {
       heading: "Travel",
-      body: "Hertfordshire and London are home ground. I'm always happy to travel further — a travel fee applies.",
+      body: "Hertfordshire and London are home ground. I'm always happy to travel further (a travel fee applies).",
     },
   ],
   faqEyebrow: "Frequently asked",
   faqHeading: "Wondering about…",
-  seoTitle: "Sessions & Pricing",
+  seoTitle: "Family, Maternity & Newborn Sessions & Prices | Herts",
   seoDescription:
-    "Maternity, newborn and family photography sessions in Hertfordshire and London. One session, one price: £200 including a private gallery and hand-edited images.",
+    "Family, maternity & newborn sessions in Hertfordshire & London. One simple price: a two-hour session, a private gallery and five hand-edited images.",
 };
 
 export const miniSessionContent = {
@@ -134,12 +129,12 @@ export const miniSessionContent = {
     "Come have some fun at the Pumpkin & Squash Festival with me.",
   introBody: [
     "I'm setting up at The Pop Up Farm for mini sessions: just you, your little gang and a whole lot of pumpkins.",
-    "I'll gently guide you where I need to, then let little ones do their thing — hunting down the biggest pumpkin they can carry, running through the giant straw maze — while I catch the real, giggly moments in between.",
+    "I'll gently guide you where I need to, then let little ones do their thing, hunting down the biggest pumpkin they can carry, running through the giant straw maze while I catch the real, giggly moments in between.",
   ],
   detailsHeading: "The details",
   details: [
-    { label: "When", value: "Saturday 10th October — slots from 9:30am" },
-    { label: "Where", value: "The Pop Up Farm, Flamstead — just off the M1, J9" },
+    { label: "When", value: "Saturday 10th October, slots from 9:30am" },
+    { label: "Where", value: "The Pop Up Farm, Flamstead - just off the M1, J9" },
     { label: "How long", value: "20 minutes" },
     {
       label: "Who can join",
@@ -150,24 +145,28 @@ export const miniSessionContent = {
   price: "£60",
   priceLabel: "Your slot",
   priceIncludes: [
-    "Includes your 20-minute session, plus one image of your choice.",
+    "Includes your 20-minute session, plus two images of your choice.",
     "Within a week, a private online gallery of 15 photos to choose from.",
   ],
-  priceAddOns: ["Add 2 more images: £50", "The full gallery of 15: £120"],
+  priceAddOns: [
+    "1 Extra Image: £30",
+    "3 Extra Images (5 total): £60",
+    "Full Gallery (10 images): £90",
+  ],
   priceNotes: [
     {
       heading: "Farm entry",
-      body: "The £60 covers your session and one image. Farm entry is separate, booked through The Pop Up Farm.",
+      body: "Farm entry is separate and booked through The Pop Up Farm.",
     },
     { heading: "Payment", body: "Taken when you book, to hold your slot." },
     {
       heading: "Weather",
-      body: "We'll be outside, so I'll keep half an eye on the forecast. If it's really wet, we move to the back-up date: Saturday 17th October.",
+      body: "We'll be outside, so I'll keep an eye on the forecast. If it's really wet, we move to the back-up date: Saturday 17th October.",
     },
   ],
-  seoTitle: "Pumpkin Patch Mini Sessions — Flamstead, Hertfordshire",
+  seoTitle: "Pumpkin Patch Mini Sessions, St Albans",
   seoDescription:
-    "Twenty-minute pumpkin patch mini sessions at The Pop Up Farm, Flamstead, on Saturday 10th October. £60 including a private gallery of 15 photos.",
+    "20-minute family mini sessions at The Pop Up Farm, Sat 10 October. £60 including your favourite image, chosen from a private gallery.",
 };
 
 export const enquireContent = {
@@ -178,17 +177,17 @@ export const enquireContent = {
   sentHeading: "That's with me.",
   sentBody:
     "I'll be in touch within two days — usually sooner. In the meantime, have a wander through the portfolio.",
-  seoTitle: "Enquire",
+  seoTitle: "Enquire About a Family Session, Hertfordshire",
   seoDescription:
-    "Enquire about a maternity, newborn or family photography session in Hertfordshire or London. Every enquiry gets a reply within two days.",
+    "Tell me about your family and what you'd love to capture. Family, maternity and newborn sessions in Hertfordshire and London.",
 };
 
 export const portfolioContent = {
   heroEyebrow: "Portfolio",
   heroHeading: "The whole range of feelings.",
-  seoTitle: "Portfolio",
+  seoTitle: "Family Photography Portfolio, Hertfordshire",
   seoDescription:
-    "A portfolio of maternity, newborn and family photography from sessions across Hertfordshire and London.",
+    "Real, fleeting moments from family, maternity and newborn sessions in Harpenden, St Albans and across Hertfordshire. At home, in the woods and beyond.",
 };
 
 export const journalContent = {
@@ -202,15 +201,15 @@ export const journalContent = {
 };
 
 export const settingsContent = {
-  newsletterHeading: "Mini session dates, before anyone else.",
+  newsletterHeading: "Occasional notes from me",
   newsletterBody:
-    "Occasional notes from me — new dates, offers, and the odd thing I've learned while photographing little ones. Unsubscribe anytime.",
+    "New dates, offers, and the odd thing I've learned while photographing little ones. Unsubscribe anytime.",
   newsletterPrivacyNote:
-    "Your details are safe with me — I'll only use them to send you these notes.",
+    "Your details are safe with me. I will only use them to send you these notes.",
   footerBlurb:
-    "Maternity, newborn and family photographer in Hertfordshire, for families who feel it all — the chaos and the giggles included.",
+    "Expressive maternity, newborn and family photographer in Hertfordshire, for families who feel it all",
   footerSeoLine:
-    "Story-led family and motherhood photography in St Albans, Harpenden, Hitchin, Welwyn Garden City, Hertford, London and further afield.",
+    "Story-led family, maternity and newborn photography in St Albans, Harpenden, Wheathampstead, Redbourn, Hertfordshire, London and further afield.",
 };
 
 /** Used when Sanity has no session types yet. */
@@ -221,7 +220,7 @@ export const defaultSessionTypes = [
     category: "maternity" as const,
     tagline: "The quiet before the beginning",
     description:
-      "Gently led, so you can settle into it. We'll find holds that feel beautiful but natural, and let the rest unfold.",
+      "Gently led, so you can settle into it. We will find holds that feel beautiful but natural, and let the rest unfold.",
   },
   {
     _id: "fallback-newborn",
@@ -229,7 +228,7 @@ export const defaultSessionTypes = [
     category: "newborn" as const,
     tagline: "Small hands, big feelings",
     description:
-      "Relaxed and in-home, in your little bubble. Three hours, planned around your baby's rhythm — feeds, naps and all.",
+      "Relaxed and in-home, in your little bubble. All planned around your baby's rhythm, feeds, naps and all.",
   },
   {
     _id: "fallback-families",
@@ -247,5 +246,10 @@ export const defaultTestimonials = [
     quote:
       "Cam made my son feel completely at ease which ensured the pictures were natural.",
     name: "Tove Moulton",
+  },
+  {
+    _id: "fallback-alex",
+    quote: "She turned the whole experience into a playful, beautiful session.",
+    name: "Alex Taliadoros",
   },
 ];
