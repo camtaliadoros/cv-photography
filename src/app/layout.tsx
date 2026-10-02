@@ -97,15 +97,16 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {/*
-          Plausible: no cookies, no personal data, ~1KB. Deferred so it never
-          competes with the hero image for bandwidth.
+          Cloudflare Web Analytics: no cookies, no personal data. Deferred so it
+          never competes with the hero image for bandwidth.
         */}
-        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
+        {process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN && (
           <Script
-            defer
             strategy="afterInteractive"
-            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
-            src="https://plausible.io/js/script.js"
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({
+              token: process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN,
+            })}
           />
         )}
       </body>

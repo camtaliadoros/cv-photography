@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 /**
  * Ported from the live camvelucci.com policy, with the third-party list
- * corrected for this build: Netlify hosting rather than Vercel, Plausible
- * rather than Google Analytics, and the separate newsletter list.
+ * corrected for this build: Netlify hosting rather than Vercel, Cloudflare
+ * Web Analytics rather than Google Analytics, and the separate newsletter list.
  */
 export default async function PrivacyPage() {
   const settings = await sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]);
@@ -141,7 +141,7 @@ export default async function PrivacyPage() {
             this site (no visitor data)
           </li>
           <li>
-            <strong>Plausible Analytics</strong> — provides anonymised website
+            <strong>Cloudflare Web Analytics</strong> — provides anonymised website
             usage statistics without cookies or personal data
           </li>
         </ul>
@@ -165,10 +165,9 @@ export default async function PrivacyPage() {
 
         <h2 id="analytics">Analytics &amp; cookies</h2>
         <p>
-          This website uses Plausible Analytics to understand how visitors use
-          the site. Plausible does not use cookies, does not collect personal
-          data, and does not track you across websites — it only counts
-          anonymised page views. The only things this site stores in your browser
+          This website uses Cloudflare Web Analytics to understand how visitors
+          use the site. Cloudflare Web Analytics does not use cookies and does
+          not collect personal data — it only counts anonymised page views. The only things this site stores in your browser
           are small preferences, such as remembering that you have dismissed a
           banner. You can clear these through your
           browser settings at any time.
