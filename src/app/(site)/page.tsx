@@ -234,7 +234,7 @@ export default async function HomePageRoute() {
             <p className="mb-[34px] max-w-[46ch] text-linen/[.88]">
               {page?.closingBody ?? homeContent.closingBody}
             </p>
-            <Cta href="/enquire" tone="onDark">
+            <Cta href="/contact" tone="onDark">
               Enquire about a session
             </Cta>
           </div>

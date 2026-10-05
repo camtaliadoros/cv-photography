@@ -39,6 +39,9 @@ export default async function SiteLayout({
     { href: instagramUrl, label: "Instagram", external: true },
   ];
 
+  const newsletterHeading = settings?.newsletterHeading ?? settingsContent.newsletterHeading;
+  const newsletterBody = settings?.newsletterBody ?? settingsContent.newsletterBody;
+
   return (
     <>
       {settings?.bannerEnabled && settings.bannerText && (
@@ -50,13 +53,19 @@ export default async function SiteLayout({
         brandName={brandName}
         email={contactEmail}
         instagramUrl={instagramUrl}
-        newsletterHeading={settings?.newsletterHeading ?? settingsContent.newsletterHeading}
-        newsletterBody={settings?.newsletterBody ?? settingsContent.newsletterBody}
+        newsletterHeading={newsletterHeading}
+        newsletterBody={newsletterBody}
         newsletterPrivacyNote={newsletterPrivacyNote}
         blurb={settings?.footerBlurb ?? settingsContent.footerBlurb}
         seoLine={settings?.footerSeoLine ?? settingsContent.footerSeoLine}
       />
-      {settings?.popupEnabled && <NewsletterPopup privacyNote={newsletterPrivacyNote} />}
+      {settings?.popupEnabled && (
+        <NewsletterPopup
+          heading={newsletterHeading}
+          body={newsletterBody}
+          privacyNote={newsletterPrivacyNote}
+        />
+      )}
     </>
   );
 }

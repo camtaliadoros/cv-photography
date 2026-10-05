@@ -209,7 +209,7 @@ export default async function SessionsPageRoute() {
               </ul>
 
               <div className="mt-8">
-                <Cta href="/enquire" tone="onDark">
+                <Cta href="/contact" tone="onDark">
                   Enquire about a session
                 </Cta>
               </div>
@@ -261,7 +261,7 @@ export default async function SessionsPageRoute() {
 
             <div className="mt-10 flex flex-wrap items-center gap-5">
               <p className="text-muted">Something I haven&rsquo;t covered?</p>
-              <Cta href="/enquire">Ask me</Cta>
+              <Cta href="/contact">Ask me</Cta>
             </div>
           </div>
         </section>

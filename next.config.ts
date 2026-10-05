@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
   // Trim the response a little; photography pages ship a lot of markup.
   compress: true,
   poweredByHeader: false,
+  async redirects() {
+    // The contact page used to live at /enquire; keep old links working.
+    return [{ source: "/enquire", destination: "/contact", permanent: true }];
+  },
   // Standalone pages carried over from the old site — the enquiry autoresponder
   // and client welcome emails link to these, so they must keep resolving.
   async rewrites() {

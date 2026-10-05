@@ -13,11 +13,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: page?.seoTitle ?? enquireContent.seoTitle,
     description: page?.seoDescription ?? enquireContent.seoDescription,
-    alternates: { canonical: "/enquire" },
+    alternates: { canonical: "/contact" },
   };
 }
 
-export default async function EnquirePage() {
+export default async function ContactPage() {
   const [page, settings] = await Promise.all([
     sanityFetch<EnquirePage>(enquirePageQuery, {}, ["enquirePage"]),
     sanityFetch<SiteSettings>(siteSettingsQuery, {}, ["siteSettings"]),

@@ -150,7 +150,7 @@ export default async function JournalPostPage(props: PageProps<"/journal/[slug]"
       <section className="px-(--gutter) pb-[clamp(72px,10vw,120px)]">
         <div className="mx-auto flex max-w-[680px] flex-wrap items-center gap-5 border-t border-linen-deep pt-[clamp(28px,4vw,44px)]">
           <TextLink href="/journal">All journal entries</TextLink>
-          <Cta href="/enquire">Enquire about a session</Cta>
+          <Cta href="/contact">Enquire about a session</Cta>
         </div>
       </section>
     </>

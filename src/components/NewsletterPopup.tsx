@@ -9,7 +9,15 @@ const STORAGE_KEY = "cv-newsletter-popup";
  * A quiet card in the bottom corner, as in the design — deliberately not a
  * full-screen modal. Shows once per visitor, after they've scrolled.
  */
-export function NewsletterPopup({ privacyNote }: { privacyNote: string }) {
+export function NewsletterPopup({
+  heading,
+  body,
+  privacyNote,
+}: {
+  heading: string;
+  body: string;
+  privacyNote: string;
+}) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -65,10 +73,10 @@ export function NewsletterPopup({ privacyNote }: { privacyNote: string }) {
         Keep in touch
       </p>
       <h2 id="newsletter-popup-title" className="text-[26px] leading-tight">
-        Hear about new dates first.
+        {heading}
       </h2>
       <p className="mt-2.5 text-sm text-muted">
-        Occasional notes — mini session dates and offers. Unsubscribe anytime.
+        {body}
       </p>
       <div className="mt-5">
         <NewsletterForm source="Popup" privacyNote={privacyNote} stacked onDone={() => setTimeout(close, 2200)} />

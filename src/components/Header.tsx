@@ -61,12 +61,12 @@ export function Header({
           {items.map((item) => (
             <NavLink key={item.href} item={item} active={pathname === item.href} />
           ))}
-          {/* Enquire is the same text treatment as the rest, picked out in honey. */}
+          {/* Contact is the same text treatment as the rest, picked out in honey. */}
           <Link
-            href="/enquire"
+            href="/contact"
             className={`${linkClass} text-honey-deep hover:text-forest`}
           >
-            Enquire
+            Contact
           </Link>
         </nav>
 
@@ -109,10 +109,10 @@ export function Header({
               ),
             )}
             <Link
-              href="/enquire"
+              href="/contact"
               className="font-display mt-2 inline-flex w-fit items-center gap-3 border-b-[1.5px] border-honey pb-1.5 text-[22px] text-forest"
             >
-              Enquire
+              Contact
               <span aria-hidden className="font-sans text-[15px] leading-none font-black">
                 &rarr;
               </span>

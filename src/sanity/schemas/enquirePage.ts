@@ -3,7 +3,7 @@ import { photo } from "./shared";
 
 export default defineType({
   name: "enquirePage",
-  title: "Enquire page",
+  title: "Contact page",
   type: "document",
   groups: [
     { name: "photos", title: "Photographs" },
@@ -14,5 +14,5 @@ export default defineType({
     defineField({ name: "seoTitle", title: "SEO title", type: "string", group: "seo" }),
     defineField({ name: "seoDescription", title: "Meta description", type: "text", rows: 3, group: "seo" }),
   ],
-  preview: { prepare: () => ({ title: "Enquire page" }) },
+  preview: { prepare: () => ({ title: "Contact page" }) },
 });

@@ -115,14 +115,14 @@ export function EnquiryForm() {
 
       <div className="mt-[18px]">
         <label className={labelClass} htmlFor="message">
-          Tell me a bit about you <span className="text-honey-deep">✱</span>
+          Message <span className="text-honey-deep">✱</span>
         </label>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
-          placeholder="Who's who, what you love doing together, and what feels right for you."
+          placeholder="Tell me a bit about what you have in mind"
           className={field}
         />
       </div>

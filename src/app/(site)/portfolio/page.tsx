@@ -48,7 +48,7 @@ export default async function PortfolioPage() {
         </div>
 
         <div className="mx-auto mt-[clamp(24px,4vw,48px)] flex max-w-[1200px] justify-center">
-          <Cta href="/enquire" tone="onDark">
+          <Cta href="/contact" tone="onDark">
             Enquire about a session
           </Cta>
         </div>
