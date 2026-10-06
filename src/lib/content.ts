@@ -171,13 +171,13 @@ export const miniSessionContent = {
 
 export const enquireContent = {
   heroEyebrow: "Say hello",
-  heroHeading: "Tell me about your family.",
+  heroHeading: "Let's chat about your session.",
   heroStandfirst:
     "You can get in touch through the form below or contact me directly. I will get back to you as soon as I can!",
   sentHeading: "That's with me.",
   sentBody:
     "I'll be in touch within two days — usually sooner. In the meantime, have a wander through the portfolio.",
-  seoTitle: "Contact | Family Photographer, Hertfordshire",
+  seoTitle: "Get in touch | Family Photographer, Hertfordshire",
   seoDescription:
     "Tell me about your family and what you'd love to capture. Family, maternity and newborn sessions in Hertfordshire and London.",
 };
@@ -205,7 +205,7 @@ export const settingsContent = {
   newsletterBody:
     "New dates, offers, and the odd thing I've learned while photographing little ones.",
   newsletterPrivacyNote:
-    "By submitting you agree to be added to my mailing list. You can unsubscribe anytime.",
+    "By submitting, you agree to be added to my mailing list. You can unsubscribe anytime.",
   footerBlurb:
     "Expressive maternity, newborn and family photographer in Hertfordshire, for families who feel it all",
   footerSeoLine:

@@ -167,7 +167,12 @@ export function EnquiryForm() {
           </span>
         </label>
         <p className="mt-2.5 max-w-[52ch] text-sm text-muted">
-          Occasional updates and offers from me. Unsubscribe anytime.
+          Occasional notes and offers from me. By submitting, you agree to be
+          added to my mailing list. You can unsubscribe anytime.{" "}
+          <Link href="/privacy" className="underline">
+            Privacy Policy
+          </Link>
+          .
         </p>
       </div>
 
