@@ -8,6 +8,9 @@
   # Netlify's secrets scanner sees them in the build output and fails the
   # deploy. These two are public identifiers, not secrets.
   SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_CF_ANALYTICS_TOKEN"
+  # Turbopack's persistent build cache records server env values. It stays on
+  # the build machine and is never deployed, so don't scan it.
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
