@@ -14,7 +14,7 @@ import type {
   Testimonial,
 } from "@/sanity/lib/types";
 import { homeContent, defaultSessionTypes, defaultTestimonials } from "@/lib/content";
-import { Photo, IntrinsicPhoto } from "@/components/Photo";
+import { Photo, IntrinsicPhoto, ArtDirectedPhoto } from "@/components/Photo";
 import { Cta, TextLink } from "@/components/Cta";
 import { ApproachSection, Eyebrow, QuoteBlock } from "@/components/sections";
 import { toParagraphs } from "@/lib/text";
@@ -50,8 +50,9 @@ export default async function HomePageRoute() {
       {/* ---------- Hero: the photograph whole, framed on the sides only (the nav sits on top) ---------- */}
       {page?.heroImage?.asset && (
         <section className="px-[clamp(12px,1.6vw,20px)]">
-          <IntrinsicPhoto
+          <ArtDirectedPhoto
             photo={page.heroImage}
+            portrait={page.heroImageMobile}
             sizes="100vw"
             priority
             className="block h-auto w-full"

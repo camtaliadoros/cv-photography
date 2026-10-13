@@ -39,6 +39,7 @@ export interface SiteSettings {
 
 export interface HomePage {
   heroImage?: SanityPhoto;
+  heroImageMobile?: SanityPhoto;
   heroHeading?: string;
   heroSubline?: string;
   introHeading?: string;

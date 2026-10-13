@@ -11,7 +11,7 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
 }`;
 
 export const homePageQuery = groq`*[_type == "homePage"][0]{
-  heroImage${PHOTO}, heroHeading, heroSubline,
+  heroImage${PHOTO}, heroImageMobile${PHOTO}, heroHeading, heroSubline,
   introHeading, introBody,
   introImage${PHOTO}, introImageSecondary${PHOTO},
   sessionsHeading, showRecentWork,

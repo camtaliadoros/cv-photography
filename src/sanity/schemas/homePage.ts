@@ -17,6 +17,11 @@ export default defineType({
   ],
   fields: [
     photo("heroImage", "Hero photograph"),
+    defineField({
+      ...photo("heroImageMobile", "Hero photograph (portrait, for phones)"),
+      description: "Shown on phones and other portrait screens. Leave empty to use the main hero photograph.",
+      validation: undefined,
+    }),
     defineField({ name: "heroHeading", title: "Hero heading", type: "string", group: "hero" }),
     defineField({ name: "heroSubline", title: "Hero subline", type: "string", group: "hero" }),
     defineField({ name: "introHeading", title: "Heading", type: "string", group: "intro" }),
