@@ -59,11 +59,24 @@ export default async function MiniSessionsPage() {
           <h2 className="mb-[22px] text-[clamp(28px,3.4vw,45px)]">
             {page?.introHeading ?? miniSessionContent.introHeading}
           </h2>
-          {toParagraphs(page?.introBody ?? miniSessionContent.introBody).map((para, i) => (
-            <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
-              {para}
-            </p>
-          ))}
+          {/* A paragraph typed with a line break in it ("In my studio: £75" then
+              the description) leads with its first line in bold. */}
+          {toParagraphs(page?.introBody ?? miniSessionContent.introBody).map((para, i) => {
+            const [lead, ...more] = para.split(/\s*\n\s*/);
+            return (
+              <p key={i} className="mb-5 max-w-[52ch] text-charcoal/85">
+                {more.length > 0 ? (
+                  <>
+                    <strong className="font-bold text-charcoal">{lead}</strong>
+                    <br />
+                    {more.join(" ")}
+                  </>
+                ) : (
+                  para
+                )}
+              </p>
+            );
+          })}
           <Cta href={bookingUrl} external className="mt-3">
             Book now
           </Cta>
