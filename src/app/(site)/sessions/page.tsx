@@ -226,6 +226,13 @@ export default async function SessionsPageRoute() {
                   <p className="text-base text-charcoal/85">{toPlainText(note.body)}</p>
                 </li>
               ))}
+              <li className="rounded-[14px] border border-linen-deep bg-linen-soft p-[clamp(24px,3vw,40px)]">
+                <Label className="mb-3">{sessionsContent.voucherHeading}</Label>
+                <p className="text-base text-charcoal/85">{sessionsContent.voucherBody}</p>
+                <div className="mt-5">
+                  <TextLink href="/contact">{sessionsContent.voucherLink}</TextLink>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

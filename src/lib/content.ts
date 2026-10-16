@@ -114,6 +114,10 @@ export const sessionsContent = {
       body: "Hertfordshire and London are home ground. I'm always happy to travel further (a travel fee applies).",
     },
   ],
+  voucherHeading: "Gift vouchers",
+  voucherBody:
+    "A session makes a lovely gift for a new mum, a growing family, or the grandparents who already have everything. Vouchers cover a full session or any amount towards one, and are valid for twelve months.",
+  voucherLink: "Buy a voucher",
   faqEyebrow: "Frequently asked",
   faqHeading: "Wondering about…",
   seoTitle: "Family, Maternity & Newborn Sessions & Prices | Herts",
