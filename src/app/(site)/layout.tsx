@@ -21,7 +21,7 @@ export default async function SiteLayout({
 
   // Both sections stay out of the nav until there's something behind them —
   // Cam asked for them built but hidden, so publishing content reveals them.
-  const showMini = mini?.enabled === true;
+  const showMini = mini?.enabled === true && mini.listed === true;
   const showJournal = (posts?.length ?? 0) > 0;
 
   const brandName = settings?.brandName ?? site.name;

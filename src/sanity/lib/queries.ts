@@ -41,7 +41,7 @@ export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
 }`;
 
 export const miniSessionPageQuery = groq`*[_type == "miniSessionPage"][0]{
-  enabled,
+  enabled, listed,
   heroImage${PHOTO}, heroGallery[]${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, bookingUrl,
   introHeading, introBody, gallery[]${PHOTO},
   detailsHeading, details,

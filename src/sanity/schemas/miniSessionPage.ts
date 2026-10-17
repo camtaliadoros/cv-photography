@@ -20,6 +20,14 @@ export default defineType({
       description:
         "Turn off once the event has passed. The page returns a 404 and drops out of the nav and sitemap.",
     }),
+    defineField({
+      name: "listed",
+      title: "Show in the menu",
+      type: "boolean",
+      initialValue: false,
+      description:
+        "Leave off to keep the page private: it still works for anyone you send the link to, but it stays out of the menu and sitemap and asks search engines not to index it.",
+    }),
     photo("heroImage", "Hero photograph"),
     heroGallery(),
     defineField({ name: "heroEyebrow", title: "Eyebrow", type: "string", group: "hero" }),

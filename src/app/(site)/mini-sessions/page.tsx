@@ -22,6 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
     description: page?.seoDescription ?? miniSessionContent.seoDescription,
     alternates: { canonical: "/mini-sessions" },
     openGraph: await pageOpenGraph("/mini-sessions", page?.heroImage),
+    // Unlisted pages are shared by link only, so keep them out of search results.
+    ...(page?.listed ? {} : { robots: { index: false, follow: false } }),
   };
 }
 

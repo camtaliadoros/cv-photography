@@ -108,6 +108,8 @@ export interface SessionsPage {
 
 export interface MiniSessionPage {
   enabled?: boolean;
+  /** Off keeps the page reachable by link only — no nav, sitemap or indexing. */
+  listed?: boolean;
   heroImage?: SanityPhoto;
   /** Shown in a row after the hero photograph. */
   heroGallery?: SanityPhoto[];

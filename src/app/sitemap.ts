@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Hidden sections stay out of the sitemap until they actually exist.
-  if (mini?.enabled) {
+  if (mini?.enabled && mini.listed) {
     staticRoutes.push({
       url: `${site.url}/mini-sessions`,
       changeFrequency: "weekly",
