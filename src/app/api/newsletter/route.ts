@@ -13,7 +13,7 @@ interface Payload {
   company?: unknown;
 }
 
-const SOURCES = ["Footer", "Popup", "Enquiry form", "Mini sessions page"];
+const SOURCES = ["Footer", "Popup", "Enquiry form", "Mini sessions page", "Pop-up event"];
 
 export async function POST(req: NextRequest) {
   let body: Payload;

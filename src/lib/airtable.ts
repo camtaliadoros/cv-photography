@@ -5,7 +5,12 @@ export interface AirtableResult {
   id?: string;
 }
 
-function config(tableEnv: "AIRTABLE_TABLE_ID" | "AIRTABLE_SUBSCRIBERS_TABLE_ID") {
+type TableEnv =
+  | "AIRTABLE_TABLE_ID"
+  | "AIRTABLE_SUBSCRIBERS_TABLE_ID"
+  | "AIRTABLE_POPUP_TABLE_ID";
+
+function config(tableEnv: TableEnv) {
   const token = process.env.AIRTABLE_TOKEN;
   const baseId = process.env.AIRTABLE_BASE_ID;
   const tableId = process.env[tableEnv];
@@ -15,7 +20,7 @@ function config(tableEnv: "AIRTABLE_TABLE_ID" | "AIRTABLE_SUBSCRIBERS_TABLE_ID")
 
 /** Finds an existing record by an exact field match, or returns null. */
 export async function findRecord(
-  tableEnv: "AIRTABLE_TABLE_ID" | "AIRTABLE_SUBSCRIBERS_TABLE_ID",
+  tableEnv: TableEnv,
   field: string,
   value: string,
 ): Promise<string | null> {
@@ -42,7 +47,7 @@ export async function findRecord(
 }
 
 export async function createRecord(
-  tableEnv: "AIRTABLE_TABLE_ID" | "AIRTABLE_SUBSCRIBERS_TABLE_ID",
+  tableEnv: TableEnv,
   fields: Record<string, unknown>,
 ): Promise<AirtableResult> {
   const cfg = config(tableEnv);
@@ -75,7 +80,7 @@ export async function createRecord(
 }
 
 export async function updateRecord(
-  tableEnv: "AIRTABLE_TABLE_ID" | "AIRTABLE_SUBSCRIBERS_TABLE_ID",
+  tableEnv: TableEnv,
   recordId: string,
   fields: Record<string, unknown>,
 ): Promise<AirtableResult> {
