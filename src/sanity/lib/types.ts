@@ -106,10 +106,20 @@ export interface SessionsPage {
   seoDescription?: string;
 }
 
+/** One way to book a mini session, shown as a card beside the others. */
+export interface MiniSessionOption {
+  name?: string;
+  price?: string;
+  summary?: string;
+  details?: LabelledValue[];
+}
+
 export interface MiniSessionPage {
   enabled?: boolean;
   /** Off keeps the page reachable by link only — no nav, sitemap or indexing. */
   listed?: boolean;
+  /** "options" shows booking options side by side; anything else is the single-price page. */
+  layout?: "single" | "options";
   heroImage?: SanityPhoto;
   /** Shown in a row after the hero photograph. */
   heroGallery?: SanityPhoto[];
@@ -127,6 +137,8 @@ export interface MiniSessionPage {
   priceIncludes?: string[];
   priceAddOns?: string[];
   priceNotes?: Prose[];
+  options?: MiniSessionOption[];
+  bookingNote?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

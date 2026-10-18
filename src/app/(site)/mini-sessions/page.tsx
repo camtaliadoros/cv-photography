@@ -10,6 +10,7 @@ import { Cta } from "@/components/Cta";
 import { Label, PageHero } from "@/components/sections";
 import { site } from "@/lib/site";
 import { toParagraphs, toPlainText } from "@/lib/text";
+import { OptionsLayout } from "./OptionsLayout";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await sanityFetch<MiniSessionPage>(miniSessionPageQuery, {}, [
@@ -36,6 +37,13 @@ export default async function MiniSessionsPage() {
   if (page && page.enabled === false) notFound();
 
   const bookingUrl = page?.bookingUrl ?? site.miniBookingUrl;
+
+  // More than one way to book (the Christmas minis, at mine or at yours) gets
+  // its own layout; everything else keeps the single-price page below.
+  if (page?.layout === "options") {
+    return <OptionsLayout page={page} bookingUrl={bookingUrl} />;
+  }
+
   const details = page?.details ?? miniSessionContent.details;
   const notes = page?.priceNotes ?? miniSessionContent.priceNotes;
   const includes = page?.priceIncludes ?? miniSessionContent.priceIncludes;

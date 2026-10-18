@@ -41,11 +41,12 @@ export const sessionsPageQuery = groq`*[_type == "sessionsPage"][0]{
 }`;
 
 export const miniSessionPageQuery = groq`*[_type == "miniSessionPage"][0]{
-  enabled, listed,
+  enabled, listed, layout,
   heroImage${PHOTO}, heroGallery[]${PHOTO}, heroEyebrow, heroHeading, heroStandfirst, bookingUrl,
   introHeading, introBody, gallery[]${PHOTO},
   detailsHeading, details,
-  price, priceLabel, priceIncludes, priceAddOns, priceNotes,
+  options[]{name, price, summary, details},
+  price, priceLabel, priceIncludes, priceAddOns, priceNotes, bookingNote,
   seoTitle, seoDescription
 }`;
 
