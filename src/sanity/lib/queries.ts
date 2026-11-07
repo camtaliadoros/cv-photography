@@ -90,3 +90,5 @@ export const enquirePageQuery = groq`*[_type == "enquirePage"][0]{
   asideImage${PHOTO},
   seoTitle, seoDescription
 }`;
+
+export const privacyPageQuery = groq`*[_type == "privacyPage"][0]{ lastUpdated, body }`;

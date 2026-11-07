@@ -203,3 +203,8 @@ export interface JournalPost {
   gallery?: SanityPhoto[];
   seoDescription?: string;
 }
+
+export interface PrivacyPage {
+  lastUpdated?: string;
+  body?: PortableTextBlock[];
+}
