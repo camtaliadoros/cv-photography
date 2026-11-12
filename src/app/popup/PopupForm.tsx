@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { fieldClass, fieldLabelClass } from "@/components/field";
+import { Checkbox, Honeypot, SectionLabel, TextField } from "@/components/form-controls";
 import { site } from "@/lib/site";
 
 type State = "idle" | "sending" | "done" | "error";
@@ -187,19 +187,7 @@ export function PopupForm({ event }: { event?: string }) {
         </a>
       </div>
 
-      {/* Honeypot — hidden from people, irresistible to bots. */}
-      <div aria-hidden className="absolute -left-[9999px]">
-        <label htmlFor="popup-company">Company</label>
-        <input
-          id="popup-company"
-          name="company"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          value={trap}
-          onChange={(e) => setTrap(e.target.value)}
-        />
-      </div>
+      <Honeypot id="popup-company" value={trap} onChange={setTrap} />
 
       <div className="flex flex-col gap-3">
         <button
@@ -216,118 +204,6 @@ export function PopupForm({ event }: { event?: string }) {
         )}
       </div>
     </form>
-  );
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <legend className="mb-[18px] flex items-center gap-3 text-[13px] font-bold tracking-[0.18em] text-moss uppercase">
-      <span aria-hidden className="h-[1.5px] w-6 bg-current" />
-      {children}
-    </legend>
-  );
-}
-
-function TextField({
-  id,
-  label,
-  hint,
-  error,
-  value,
-  onChange,
-  ...props
-}: {
-  id: string;
-  label: string;
-  hint?: string;
-  error?: string;
-  value: string;
-  onChange: (value: string) => void;
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange">) {
-  const describedBy = [hint && `${id}-hint`, error && `${id}-error`]
-    .filter(Boolean)
-    .join(" ");
-  return (
-    <div>
-      <label htmlFor={id} className={fieldLabelClass}>
-        {label}
-      </label>
-      <input
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy || undefined}
-        // 17px keeps iOS Safari from zooming into the field on focus.
-        className={`${fieldClass} text-[17px] ${error ? "border-honey-deep" : ""}`}
-        {...props}
-      />
-      {hint && (
-        <p id={`${id}-hint`} className="mt-1.5 text-[15px] text-muted">
-          {hint}
-        </p>
-      )}
-      {error && (
-        <p id={`${id}-error`} className="mt-1.5 text-[15px] text-honey-deep">
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
-
-/** Same drawn box as the enquiry form's mailing-list tick. */
-function Checkbox({
-  id,
-  label,
-  checked,
-  onChange,
-  error,
-}: {
-  id: string;
-  label: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-  error?: string;
-}) {
-  return (
-    <div>
-      <label htmlFor={id} className="flex cursor-pointer items-start gap-3.5">
-        <input
-          id={id}
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? `${id}-error` : undefined}
-          className="peer sr-only"
-        />
-        <span
-          aria-hidden
-          className={`mt-[3px] flex h-5 w-5 flex-none items-center justify-center rounded-[3px] border-[1.5px] bg-linen-raised text-linen transition-colors peer-checked:bg-forest peer-checked:[&>svg]:opacity-100 peer-focus-visible:ring-2 peer-focus-visible:ring-moss/40 ${
-            error ? "border-honey-deep" : "border-forest"
-          }`}
-        >
-          <svg
-            viewBox="0 0 12 10"
-            className="h-2.5 w-3 opacity-0 transition-opacity"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M1 5.2 4.4 8.6 11 1.8" />
-          </svg>
-        </span>
-        <span>{label}</span>
-      </label>
-      {error && (
-        <p id={`${id}-error`} className="mt-1.5 pl-[34px] text-[15px] text-honey-deep">
-          {error}
-        </p>
-      )}
-    </div>
   );
 }
 

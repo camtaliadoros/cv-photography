@@ -56,6 +56,7 @@ node scripts/migrate-portfolio.mjs --dry-run              # preview without writ
 | `AIRTABLE_TOKEN` · `AIRTABLE_BASE_ID` | Photography CRM base |
 | `AIRTABLE_TABLE_ID` | Enquiries table |
 | `AIRTABLE_SUBSCRIBERS_TABLE_ID` | Newsletter Subscribers table |
+| `AIRTABLE_CONSENT_TABLE_ID` | Image Consent table (`/share-your-photos`) |
 | `RESEND_API_KEY` · `ENQUIRY_NOTIFY_EMAIL` | Enquiry + newsletter email |
 | `NEXT_PUBLIC_CF_ANALYTICS_TOKEN` | Cloudflare Web Analytics; unset disables the beacon |
 

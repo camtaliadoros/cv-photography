@@ -8,7 +8,8 @@ export interface AirtableResult {
 type TableEnv =
   | "AIRTABLE_TABLE_ID"
   | "AIRTABLE_SUBSCRIBERS_TABLE_ID"
-  | "AIRTABLE_POPUP_TABLE_ID";
+  | "AIRTABLE_POPUP_TABLE_ID"
+  | "AIRTABLE_CONSENT_TABLE_ID";
 
 function config(tableEnv: TableEnv) {
   const token = process.env.AIRTABLE_TOKEN;
