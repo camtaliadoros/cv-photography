@@ -167,6 +167,52 @@ export function ConsentForm({ initialName }: { initialName: string }) {
             Want to pick specific ones? Tap the heart on them in your gallery and
             add them to your ‘Happy to share’ list.
           </p>
+          {/* Opens in place rather than on another page, so nothing typed
+              above is lost, and works by tap (no hover on a phone). */}
+          <details className="group -mt-1.5 text-[15px]">
+            <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 text-forest underline underline-offset-[3px] hover:text-honey-deep [&::-webkit-details-marker]:hidden">
+              How to do it
+              <svg
+                aria-hidden
+                viewBox="0 0 12 8"
+                className="h-2 w-3 transition-transform group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M1 1.5 6 6.5 11 1.5" />
+              </svg>
+            </summary>
+            <div className="mt-3 flex flex-col gap-3 rounded-[6px] border-[1.5px] border-linen-deep bg-linen-raised px-4 py-4">
+              <p className="font-display text-[19px] leading-[1.3] text-forest">
+                How to pick your ‘Happy to share’ photos
+              </p>
+              <p>It only takes a couple of minutes, and you can do it on your phone.</p>
+              <ol className="flex list-decimal flex-col gap-2 pl-5 marker:text-moss">
+                <li>Open your gallery using the link in your gallery email.</li>
+                <li>Tap the heart on any photo you’re happy for me to share.</li>
+                <li>
+                  Pop in your email the first time you tap a heart. That just
+                  saves your choices.
+                </li>
+                <li>
+                  Choose the ‘Happy to share’ list when it asks which list to
+                  add the photo to.
+                </li>
+                <li>
+                  Keep going until you’ve hearted all the ones you’re happy
+                  with. Changed your mind? Tap the heart again to remove it.
+                </li>
+              </ol>
+              <p>
+                That’s it. There’s no pressure to pick lots, even one or two is
+                lovely.
+              </p>
+              <p className="font-display text-[19px] text-forest italic">Cam x</p>
+            </div>
+          </details>
         </fieldset>
       </div>
 
