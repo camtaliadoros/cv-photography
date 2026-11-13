@@ -112,8 +112,15 @@ export function ConsentForm({ initialName }: { initialName: string }) {
         </h1>
         <p>
           I’d love to share a few of your photos, but only if you’re comfortable.
-          It takes about a minute, and it’s completely fine to say no or pick
-          just a few. You can change your mind any time.
+        </p>
+        <p>
+          I’m in the early stages of building my business, and families like
+          yours are how new families find me. Every photo I share helps someone
+          else picture what their own session could feel like.
+        </p>
+        <p>
+          It takes about a minute. It’s completely fine to say no or pick just a
+          few, and you can change your mind any time.
         </p>
       </header>
 
