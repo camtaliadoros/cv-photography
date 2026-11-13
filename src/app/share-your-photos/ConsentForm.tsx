@@ -233,22 +233,22 @@ export function ConsentForm({ initialName }: { initialName: string }) {
           </p>
           <Checkbox
             id="consent-website"
-            label="My website"
-            description="A favourite or two may appear on camvelucci.com"
+            label="Website and online portfolio"
+            description="Your photos may appear on camvelucci.com, my blog and my Google profile."
             checked={values.website}
             onChange={(v) => set("website", v)}
           />
           <Checkbox
             id="consent-social"
-            label="Instagram & Facebook"
-            description="A favourite or two may appear on my social media"
+            label="Social media"
+            description="Instagram, Facebook and similar, including the occasional promoted post."
             checked={values.social}
             onChange={(v) => set("social", v)}
           />
           <Checkbox
             id="consent-print"
-            label="Printed marketing"
-            description="Flyers, brochures and similar. Printed items already handed out can’t be recalled if you change your mind later."
+            label="Printed materials"
+            description="Flyers, brochures, price guides and similar. Printed items already handed out can’t be recalled if you change your mind later."
             checked={values.print}
             onChange={(v) => set("print", v)}
           />
